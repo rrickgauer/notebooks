@@ -30,6 +30,22 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
   <div class="container">
     <h1 class="text-center mt-5"><?php echo $notebook['name']; ?></h1>
 
+
+
+    <button type="button" class="btn btn-primary"></button>
+
+
+
+
+
+
+
+
+
+
+
+
+
   </div>
 
   <?php include('php/footer.php'); ?>
