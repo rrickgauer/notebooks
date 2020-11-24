@@ -23,6 +23,10 @@ require_once('DB.php');
   <div class="container">
     <h1 class="text-center mt-5">Home</h1>
 
+    <h4 class="mb-3">Your notebooks</h4>
+
+    <!-- notebooks -->
+    <div class="notebook-cards"></div>
     
  
 
