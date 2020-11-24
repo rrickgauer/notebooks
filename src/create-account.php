@@ -1,4 +1,10 @@
-<?php require_once('DB.php'); ?>
+<?php 
+session_start();
+session_destroy();
+unset($_SESSION['userID']);
+require_once('DB.php'); 
+
+?>
 
 
 <!DOCTYPE html>
