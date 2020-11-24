@@ -25,4 +25,9 @@
   display: block;
 }
 
+.card-checklist .item {
+  display: flex;
+  justify-content: space-between;
+}
+
 /*# sourceMappingURL=style.css.map */

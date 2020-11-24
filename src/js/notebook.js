@@ -55,14 +55,22 @@ function insertPage() {
   const name = $('#page-new-name').val();
   const type = $('input[name="page-new-type"]:checked').val();
 
+
+  // determine which type of page to insert
+  let apiFunction = constants.API_FUNCTIONS.insertNote;
+
+  if (type != 'note')
+    apiFunction = constants.API_FUNCTIONS.insertChecklist;
+
   const data = {
-    function: constants.API_FUNCTIONS.insertNote,
+    function: apiFunction,
     name: name,
     notebookID: globalVariables.notebookID,
   }
 
   $.post(constants.API, data, function(response) {
-    console.log('success');
+    // reload the page if successful
+    window.location.href = window.location.href;
   });
 }
 
@@ -93,8 +101,12 @@ function loadPages() {
 // Insert a new page into the list of pages //
 //////////////////////////////////////////////
 function addPage(page) {
-  const newPage = new Page(page);
-  pagesList.push(newPage);
+  // const newPage = new Note(page);
+
+  if (page.page_type == 'checklist')
+    pagesList.push(new Checklist(page));
+  else
+    pagesList.push(new Note(page));
 }
 
 /////////////////////////////////////////////////////////

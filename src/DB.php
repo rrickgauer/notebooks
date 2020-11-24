@@ -216,16 +216,38 @@ class DB {
     n.date_created as date_created,
     n.date_modified as date_modified,
     DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display,
-    DATE_FORMAT(n.date_modified, "%c/%d/%Y") as date_modified_display
+    DATE_FORMAT(n.date_modified, "%c/%d/%Y") as date_modified_display,
+    "note" as page_type
     FROM Notes n
-    WHERE n.notebook_id = :notebookID
+    WHERE n.notebook_id = :notebookIDNotes
+
+    UNION ALL
+        
+    SELECT 
+    c.id,
+    c.notebook_id,
+    c.name,
+    null,
+    c.hidden,
+    c.date_created,
+    null,
+    DATE_FORMAT(c.date_created, "%c/%d/%Y"),
+    null,
+    "checklist"
+    from Checklists c 
+    WHERE c.notebook_id = :notebookIDChecklist
+
     ORDER BY date_created desc';
 
     $sql = DB::dbConnect()->prepare($stmt);
 
-    // notebook id
+    // notebook id notes
     $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
-    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+    $sql->bindParam(':notebookIDNotes', $notebookID, PDO::PARAM_INT);
+
+    // notebook id checklists
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookIDChecklist', $notebookID, PDO::PARAM_INT);
 
     $sql->execute();
 
@@ -255,6 +277,30 @@ class DB {
 
     return $sql;
   }
+
+
+  //////////////////////////////////////////////
+  // Insert a new checklist into the database //
+  //////////////////////////////////////////////
+  public static function insertChecklist($notebookID, $name) {
+    $stmt = 'INSERT INTO Checklists (notebook_id, name, date_created)
+    VALUES (:notebookID, :name, NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook id
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
 
 }
 
