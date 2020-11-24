@@ -132,9 +132,20 @@ function updateNoteContent(selector) {
     content: newContent,
   }
 
-  $.post(constants.API, data, function(response) {
-    console.log(response);
+  $.post(constants.API, data).fail(function(response) {
+    console.log('Error: updateNoteContent()');
+    return;
   });
+
+  // update the display
+  let utils = new Utilities();
+
+  const newContentMd = utils.renderMarkdown(newContent);
+  $(note).find('.content .rendered').html(newContentMd);
+
+
+  // show the new shit
+  togglePageDisplayMode(selector);
 }
 
 
