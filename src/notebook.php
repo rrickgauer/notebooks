@@ -78,12 +78,6 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
                 <label class="form-check-label" for="page-new-type-checklist">Checklist</label>
               </div>
 
-
-              <!-- description -->
-              <div class="form-group mt-3">
-                <label for="page-new-description">Description</label>
-                <textarea class="form-control" id="page-new-description" rows="3"></textarea>
-              </div>
             </form>
 
           </div>

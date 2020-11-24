@@ -179,6 +179,30 @@ class DB {
   }
 
 
+
+
+  ///////////////////////////////////////
+  // Insert a new note into a notebook //
+  ///////////////////////////////////////
+  public static function insertNote(int $notebookID, string $name) {
+    $stmt = 'INSERT INTO Notes (notebook_id, name, date_created, date_modified)
+    VALUES (:notebookID, :name, NOW(), NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook id
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
 }
 
 

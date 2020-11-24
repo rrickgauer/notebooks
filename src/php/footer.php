@@ -14,3 +14,4 @@
 <!-- <script src="js/external/auto-tables.js"></script> -->
 
 <script src="js/classes/Constants.js"></script>
+<script src="js/classes/Global-Variables.js"></script>
