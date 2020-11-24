@@ -62,9 +62,10 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
   exit;
 }
 
-///////////////////////////////////////
-// Retrieve all notebooks for a user //
-///////////////////////////////////////
+
+/** 
+ * Retrieve all notebooks for a user 
+ */
 else if (isset($_GET['function']) && $_GET['function'] == 'get-notebooks') {
   $userID = $_SESSION['userID'];
   $notebooks = DB::getNotebooks($userID)->fetchAll(PDO::FETCH_ASSOC);
@@ -86,6 +87,22 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-note') {
   else
     http_response_code(400);
 
+  exit;
+}
+
+
+/**
+ * get-pages
+ * 
+ * Return all the pages that belong to a specif notebook
+ *
+ * get -> notebookID
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-pages') {
+  $notebookID = $_GET['notebookID'];
+  $pages = DB::getPages($notebookID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($pages);
+  http_response_code(200);
   exit;
 }
 

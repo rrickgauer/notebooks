@@ -1,14 +1,20 @@
-const API = 'api.notebooks.php';
+function Constants() {
+  this.API = 'api.notebooks.php';
+}
 
-const API_FUNCTIONS = {
+
+Constants.prototype.API_FUNCTIONS = {
   insertNotebook: 'insert-notebook',
   getNotebooks: 'get-notebooks',
   insertPage: 'insert-page',
   insertNote: 'insert-note',
   insertChecklist: 'insert-checklist',
+  getPages: 'get-pages',
 }
 
-
-const PAGES = {
+Constants.prototype.PAGES = {
   notebook: 'notebook.php',
 }
+
+
+

@@ -1,3 +1,9 @@
-
+.card-page .card-header {
+  display: flex;
+  justify-content: space-between;
+}
+.card-page .card-header .left {
+  display: flex;
+}
 
 /*# sourceMappingURL=style.css.map */
