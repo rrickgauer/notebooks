@@ -55,14 +55,21 @@ function insertPage() {
   const name = $('#page-new-name').val();
   const type = $('input[name="page-new-type"]:checked').val();
 
+
+  // determine which type of page to insert
+  let apiFunction = constants.API_FUNCTIONS.insertNote;
+
+  if (type != 'note')
+    apiFunction = constants.API_FUNCTIONS.insertChecklist;
+
   const data = {
-    function: constants.API_FUNCTIONS.insertNote,
+    function: apiFunction,
     name: name,
     notebookID: globalVariables.notebookID,
   }
 
   $.post(constants.API, data, function(response) {
-    console.log('success');
+    window.location.href = window.location.href;
   });
 }
 

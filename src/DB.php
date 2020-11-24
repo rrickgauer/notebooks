@@ -256,6 +256,30 @@ class DB {
     return $sql;
   }
 
+
+  //////////////////////////////////////////////
+  // Insert a new checklist into the database //
+  //////////////////////////////////////////////
+  public static function insertChecklist($notebookID, $name) {
+    $stmt = 'INSERT INTO Checklists (notebook_id, name, date_created)
+    VALUES (:notebookID, :name, NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook id
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+
 }
 
 

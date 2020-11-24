@@ -22,7 +22,7 @@ function Page(parms) {
 
 Page.prototype.getHtml = function() {
   let html = '';
-  html += `<div class="card card-page" data-page-id="${this.id}">`;
+  html += `<div class="card card-page card-note" data-page-id="${this.id}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
   html += '</div>';   // end card

@@ -129,6 +129,30 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-note') {
   exit;
 }
 
+/**
+ * insert-checklist
+ *
+ * Insert a new checklist into the database
+ *
+ * post - notebookID
+ * post - name
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist') {
+  $notebookID  = $_POST['notebookID'];
+  $name        = $_POST['name'];
+
+  $result = DB::insertChecklist($notebookID, $name);
+
+  if ($result->rowCount() == 1)
+    http_response_code(201);
+  else
+    http_response_code(400);
+
+  exit;
+
+
+}
+
 
 
 
