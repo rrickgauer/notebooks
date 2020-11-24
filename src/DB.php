@@ -30,7 +30,7 @@ class DB {
     $sql = DB::dbConnect()->prepare($stmt);
 
     // sanitize and bind email
-    $email = filter_var($email, FILTER_SANITIZE_STRING);
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $sql->bindParam(':email', $email, PDO::PARAM_STR);
 
     // sanitize, hash, and bind password
@@ -94,10 +94,71 @@ class DB {
     $hash = $sql->fetch(PDO::FETCH_ASSOC);
     $hash = $hash['password'];
     return password_verify($password, $hash);
-  
   }
 
+
+  ///////////////////////////
+  // Create a new notebook //
+  ///////////////////////////
+  public static function insertNotebook($userID, $name) {
+    $stmt = 'INSERT INTO Notebooks (user_id, name, date_created) VALUES (:userID, :name, NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // sanitize and bind id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    // sanitize and bind notebook name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+
+  //////////////////////////////////////////////////////
+  // Get the most recently created notebook           //
+  //////////////////////////////////////////////////////
+  public static function getMostRecentNotebook($userID) {
+    $stmt = '
+    SELECT id, name, date_created FROM Notebooks 
+    WHERE user_id = :userID 
+    ORDER BY date_created desc LIMIT 1';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // sanitize and bind id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+  ////////////////////////////
+  // Get notebook meta data //
+  ////////////////////////////
+  public static function getNotebook($notebookID) {
+    $stmt = 'SELECT * FROM Notebooks where id = :notebookID LIMIT 1';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // sanitize and bind id
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+  }
 }
+
+
+
 
 
 

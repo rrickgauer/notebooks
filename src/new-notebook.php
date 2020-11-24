@@ -31,7 +31,7 @@ require_once('DB.php');
           <div class="invalid-feedback"></div>
         </div>
 
-        <button type="button" class="btn btn-primary">Create new notebook</button>
+        <button type="button" class="btn btn-primary btn-create-new-notebook">Create new notebook</button>
       </form>
     </form>
 
