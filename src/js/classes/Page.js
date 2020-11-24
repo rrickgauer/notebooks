@@ -58,6 +58,11 @@ Page.prototype.getHtmlHeader = function() {
 Page.prototype.getHtmlBody = function() {
   const dataTarget = `.card-page[data-page-id='${this.id}'] .tab-pane`;
 
+  // don't display null
+  let contentDisplayTextArea = this.content;
+  if (contentDisplayTextArea == null)
+    contentDisplayTextArea = '';
+
   let html = `
   <div class="card-body">
     <div class="content display-mode-normal">
@@ -75,7 +80,14 @@ Page.prototype.getHtmlBody = function() {
         </nav>
         <div class="tab-content">
           <div class="tab-pane write show active" role="tabpanel">
-            write
+            <div class="tab-pane write show active" role="tabpanel">
+              <textarea class="form-control" rows="5" placeholder="Add text...">${contentDisplayTextArea}</textarea>
+
+              <div class="page-edit-buttons d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-sm btn-outline-danger btn-page-update-cancel mr-2">Cancel</button>
+                <button type="button" class="btn btn-sm btn-success btn-page-update-save">Update note</button>
+              </div>
+            </div>
           </div>
           <div class="tab-pane preview" role="tabpanel">preview</div>
         </div>

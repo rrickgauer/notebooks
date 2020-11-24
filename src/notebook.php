@@ -32,28 +32,25 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
   <div class="container">
     <h1 class="text-center mt-5"><?php echo $notebook['name']; ?></h1>
-
-
+    
+    <!-- toggle new page modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-page-new">New page</button>
-
-
-    <h4 class="my-4">Your pages</h4>
-
+    
     <!-- pages -->
+    <h4 class="my-4">Your pages</h4>
     <div class="pages">
-      
 
-      <div class="card card-page" data-page-id="${this.id}">
+      <div class="card card-page">
         <div class="card-header">
           <div class="left">
-            <h5 class="card-page-name">${this.name}</h5>
-            <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
+            <h5 class="card-page-name">third</h5>
+            <p>&nbsp;•&nbsp;<span class="card-page-date-created">11/24/2020</span></p>
           </div>
 
           <div class="right">
             <div class="dropdown">
               <button class="btn btn-sm" type="button" data-toggle="dropdown">
-                <i class='bx bx-dots-horizontal'></i>
+                <i class="bx bx-dots-horizontal"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <button class="dropdown-item btn-page-edit" type="button">Edit</button>
@@ -63,32 +60,40 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
             </div>
           </div>          
         </div>
-
         <div class="card-body">
           <div class="content display-mode-normal">
 
             <div class="rendered">
-              ${this.content}
+              null
             </div>
 
             <div class="edit">
               <nav>
                 <div class="nav nav-tabs" role="tablist">
-                  <button class="nav-link write active" data-toggle="tab" data-target=".card-page[data-page-id='${this.id}'] .tab-pane.write" role="tab">Write</button>
-                  <button class="nav-link preview" role="tab" data-toggle="tab" data-target=".card-page[data-page-id='${this.id}'] .tab-pane.preview">Preview</button>
+                  <button class="nav-link active" data-toggle="tab" data-target=".card-page[data-page-id='3'] .tab-pane.write">Write</button>
+                  <button class="nav-link" data-toggle="tab" data-target=".card-page[data-page-id='3'] .tab-pane.preview">Preview</button>
                 </div>
               </nav>
               <div class="tab-content">
-                <div class="tab-pane write fade show active" role="tabpanel">
-                  write
+                <div class="tab-pane write show active" role="tabpanel">
+                  <textarea class="form-control" rows="5"></textarea>
+
+                  <div class="page-edit-buttons d-flex justify-content-end mt-3">
+                    <button type="button" class="btn btn-sm btn-outline-danger btn-page-update-cancel mr-2">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-success btn-page-update-save">Update note</button>
+                  </div>
                 </div>
-                <div class="tab-pane preview fade" role="tabpanel">preview</div>
+
+
+
+
+                <div class="tab-pane preview" role="tabpanel">preview</div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
+
 
     </div>
 

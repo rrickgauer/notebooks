@@ -6,8 +6,6 @@ const pagesList = [];
 // main
 $(document).ready(function() {
   loadPages();
-
-
   addListeners();
 });
 
@@ -62,6 +60,7 @@ function loadPages() {
       addPage(response[count]);
 
     displayPages();
+    // console.log($('.card-page').html());
   });
 }
 
