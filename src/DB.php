@@ -155,6 +155,30 @@ class DB {
 
     return $sql;
   }
+
+  ////////////////////////
+  // Get user notebooks //
+  ////////////////////////
+  public static function getNotebooks($userID) {
+    $stmt = 'SELECT n.id, 
+    n.name, 
+    n.date_created,
+    DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display
+    FROM Notebooks n 
+    where n.user_id = :userID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // sanitize and bind id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+
 }
 
 

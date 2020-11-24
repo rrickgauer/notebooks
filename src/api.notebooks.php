@@ -63,6 +63,17 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
 }
 
 
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebooks') {
+  $userID = $_SESSION['userID'];
+
+  // echo $userID;
+
+  $notebooks = DB::getNotebooks($userID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($notebooks);
+  // echo $notebooks;
+  exit;
+
+}
 
 
 
