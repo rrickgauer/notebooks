@@ -23,7 +23,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html>
 <head>
-  <?php include('header.php'); ?>
+  <?php include('php/header.php'); ?>
   <title><?php echo $notebook['name']; ?></title>
 </head>
 <body>
@@ -32,7 +32,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
   </div>
 
-  <?php include('footer.php'); ?>
+  <?php include('php/footer.php'); ?>
   <script src="js/home.js"></script>
 
 </body>

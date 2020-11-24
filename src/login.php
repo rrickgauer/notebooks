@@ -17,7 +17,7 @@ if (isset($_SESSION['error'])) {
 <!DOCTYPE html>
 <html>
 <head>
-  <?php include('header.php'); ?>
+  <?php include('php/header.php'); ?>
   <title>Notebooks - Create account</title>
 </head>
 <body>
@@ -42,7 +42,7 @@ if (isset($_SESSION['error'])) {
 
   </div>
 
-  <?php include('footer.php'); ?>
+  <?php include('php/footer.php'); ?>
 
 </body>
 </html>

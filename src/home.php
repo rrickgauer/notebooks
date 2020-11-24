@@ -14,7 +14,7 @@ require_once('DB.php');
 <!DOCTYPE html>
 <html>
 <head>
-  <?php include('header.php'); ?>
+  <?php include('php/header.php'); ?>
   <title>Notebooks Home</title>
 </head>
 <body>
@@ -26,7 +26,7 @@ require_once('DB.php');
 
   </div>
 
-  <?php include('footer.php'); ?>
+  <?php include('php/footer.php'); ?>
   <script src="js/home.js"></script>
 
 </body>

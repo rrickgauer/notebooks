@@ -4,7 +4,7 @@
 
 class DB {
   public static function dbConnect() {
-    include('db-info.php');
+    include('php/db-info.php');
 
     try {
       // connect to database
