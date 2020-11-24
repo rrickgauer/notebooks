@@ -13,5 +13,9 @@
 <!-- autotables -->
 <!-- <script src="js/external/auto-tables.js"></script> -->
 
+<!-- markdown parser: https://github.com/markdown-it/markdown-it -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.2/markdown-it.min.js"></script>
+
 <script src="js/classes/Constants.js"></script>
 <script src="js/classes/Global-Variables.js"></script>
+<script src="js/classes/Utilities.js"></script>
