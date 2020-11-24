@@ -1,5 +1,5 @@
 
-
+const CONSTANTS = new Constants();
 
 // main
 $(document).ready(function() {
@@ -10,10 +10,10 @@ $(document).ready(function() {
 
 function loadNotebooks() {
   const data = {
-    function: API_FUNCTIONS.getNotebooks,
+    function: CONSTANTS.API_FUNCTIONS.getNotebooks,
   }
 
-  $.getJSON(API, data, function(response) {
+  $.getJSON(CONSTANTS.API, data, function(response) {
     displayNotebooks(response);
   });
 }
@@ -42,7 +42,7 @@ function getNotebookCardHtml(notebook) {
   let html = `
   <div class="card card-notebook">
     <div class="card-body">
-      <h5><a href="${PAGES.notebook}?notebookID=${notebook.id}">${notebook.name}</a></h5>
+      <h5><a href="${CONSTANTS.PAGES.notebook}?notebookID=${notebook.id}">${notebook.name}</a></h5>
       <p class="date-created">${notebook.date_created_display}</p>
     </div>
   </div>`;

@@ -203,6 +203,34 @@ class DB {
     return $sql;
   }
 
+
+  public static function getPages($notebookID) {
+    $stmt = '
+    SELECT n.id as id, 
+    n.notebook_id as notebook_id, 
+    n.name as name, 
+    n.content as content, 
+    n.hidden as hidden, 
+    n.date_created as date_created,
+    n.date_modified as date_modified,
+    DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display,
+    DATE_FORMAT(n.date_modified, "%c/%d/%Y") as date_modified_display
+    FROM Notes n
+    WHERE n.notebook_id = :notebookID
+    ORDER BY date_created desc';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook id
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+
+  }
+
 }
 
 

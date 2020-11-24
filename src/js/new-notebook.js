@@ -1,5 +1,6 @@
 const notebookNameInput = $('#notebook-new-name');
 const createBtn = $('.btn-create-new-notebook');
+const CONSTANTS = new Constants();
 
 $(document).ready(function() {
   $(createBtn).on('click', createNewNotebook);
@@ -24,14 +25,14 @@ function createNewNotebook() {
   }
 
   const data = {
-    function: API_FUNCTIONS.insertNotebook,
+    function: CONSTANTS.API_FUNCTIONS.insertNotebook,
     name: name,
   }
 
 
   $.post(API, data, function(response) {
     response = JSON.parse(response);
-    const url = PAGES.notebook + '?notebookID=' + response.id;
+    const url = CONSTANTS.PAGES.notebook + '?notebookID=' + response.id;
     window.location.href = url;
   });
 }

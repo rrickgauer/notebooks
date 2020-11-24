@@ -1,10 +1,13 @@
 const globalVariables = new GlobalVariables();
+const constants = new Constants();
+const pagesList = [];
 
 
 // main
 $(document).ready(function() {
+  loadPages();
   $('#page-new-name').on('keyup', enableNewPageBtn);
-  $('.btn-page-new-create').on('click', insertPage);  
+  $('.btn-page-new-create').on('click', insertPage);
 });
 
 
@@ -24,18 +27,46 @@ function insertPage() {
   const type = $('input[name="page-new-type"]:checked').val();
 
   const data = {
-    function: API_FUNCTIONS.insertNote,
+    function: constants.API_FUNCTIONS.insertNote,
     name: name,
     notebookID: globalVariables.notebookID,
   }
 
-  $.post(API, data, function(response) {
+  $.post(constants.API, data, function(response) {
     console.log('success');
   });
 }
 
+function loadPages() {
+  const data = {
+    function: constants.API_FUNCTIONS.getPages,
+    notebookID: globalVariables.notebookID,
+  }
 
 
+  $.getJSON(constants.API, data, function(response) {
+    for (let count = 0; count < response.length; count++)
+      addPage(response[count]);
+
+    displayPages();
+  });
+}
+
+function addPage(page) {
+  const newPage = new Page(page);
+  pagesList.push(newPage);
+}
+
+function displayPages() {
+  
+  let html = '';
+
+  for (let count = 0; count < pagesList.length; count++) {
+    html += pagesList[count].getHtml();
+  }
+
+  $('.pages').html(html);
+}
 
 
 
