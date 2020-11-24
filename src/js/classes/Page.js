@@ -26,6 +26,8 @@ Page.prototype.getHtml = function() {
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
   html += '</div>';   // end card
+
+  let utils = new Utilities();
   return html;
 }
 
@@ -63,12 +65,16 @@ Page.prototype.getHtmlBody = function() {
   if (contentDisplayTextArea == null)
     contentDisplayTextArea = '';
 
+  let util = new Utilities();
+  const contentMarkdown = util.renderMarkdown(contentDisplayTextArea);
+
+
   let html = `
   <div class="card-body">
     <div class="content display-mode-normal">
 
       <div class="rendered">
-        ${this.content}
+        ${contentMarkdown}
       </div>
 
       <div class="edit">

@@ -7,6 +7,8 @@ const pagesList = [];
 $(document).ready(function() {
   loadPages();
   addListeners();
+
+
 });
 
 
@@ -74,6 +76,10 @@ function loadPages() {
     }
 
     displayPages();
+    
+    // enable textarea library
+    let utils = new Utilities();
+    utils.enableTextarea('.edit-input');
   });
 }
 
