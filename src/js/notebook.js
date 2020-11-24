@@ -7,6 +7,8 @@ const pagesList = [];
 $(document).ready(function() {
   loadPages();
   addListeners();
+
+
 });
 
 
@@ -26,6 +28,12 @@ function addListeners() {
   $('.pages').on('click', '.card-page .btn-page-update-save', function(e) {
     updateNoteContent(this);
   });
+
+
+  $('.pages').on('show.bs.tab', '.nav-link[data-toggle="tab"]', function(e) {
+    showNoteEditPreview(e.target);
+  });
+
 
 }
 
@@ -74,6 +82,10 @@ function loadPages() {
     }
 
     displayPages();
+
+    // enable textarea library
+    let utils = new Utilities();
+    utils.enableTextarea('.edit-input');
   });
 }
 
@@ -120,12 +132,34 @@ function updateNoteContent(selector) {
     content: newContent,
   }
 
-  $.post(constants.API, data, function(response) {
-    console.log(response);
+  $.post(constants.API, data).fail(function(response) {
+    console.log('Error: updateNoteContent()');
+    return;
   });
+
+  // update the display
+  let utils = new Utilities();
+
+  const newContentMd = utils.renderMarkdown(newContent);
+  $(note).find('.content .rendered').html(newContentMd);
+
+
+  // show the new shit
+  togglePageDisplayMode(selector);
 }
 
 
+//////////////////////////////////////////////////////////////
+// render the note edit update markdown in the preview pane //
+//////////////////////////////////////////////////////////////
+function showNoteEditPreview(target) {
+  const utils     = new Utilities();
+  const note      = $(target).closest('.card-page');
+  const editInput = $(note).find('.edit-input').val();
+  const md        = utils.renderMarkdown(editInput);
+
+  $(note).find('.tab-pane.preview').html(md);
+}
 
 
 
