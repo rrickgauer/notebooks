@@ -37,7 +37,11 @@ if (isset($_SESSION['error'])) {
         <div class="invalid-feedback"></div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="d-flex align-items-center justify-content-between">
+        <button type="submit" class="btn btn-primary">Log in</button>
+        <a href="create-account.php">Don't have an account? Signup</a>
+      </div>
+      
     </form>
 
   </div>

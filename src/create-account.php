@@ -42,8 +42,10 @@ require_once('DB.php');
         <div class="invalid-feedback"></div>
       </div>
 
-
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="d-flex align-items-center justify-content-between">
+        <button type="submit" class="btn btn-primary">Create account</button>
+        <a href="login.php">Already have an account? Log in</a>
+      </div>
     </form>
 
   </div>
