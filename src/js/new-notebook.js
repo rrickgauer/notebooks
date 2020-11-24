@@ -30,7 +30,7 @@ function createNewNotebook() {
   }
 
 
-  $.post(API, data, function(response) {
+  $.post(CONSTANTS.API, data, function(response) {
     response = JSON.parse(response);
     const url = CONSTANTS.PAGES.notebook + '?notebookID=' + response.id;
     window.location.href = url;

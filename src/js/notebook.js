@@ -69,6 +69,7 @@ function insertPage() {
   }
 
   $.post(constants.API, data, function(response) {
+    // reload the page if successful
     window.location.href = window.location.href;
   });
 }
@@ -84,6 +85,9 @@ function loadPages() {
   }
 
   $.getJSON(constants.API, data, function(response) {
+
+    console.log(response);
+
     for (let count = 0; count < response.length; count++) {
       addPage(response[count]);
     }
