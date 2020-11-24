@@ -62,20 +62,32 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
   exit;
 }
 
-
+///////////////////////////////////////
+// Retrieve all notebooks for a user //
+///////////////////////////////////////
 else if (isset($_GET['function']) && $_GET['function'] == 'get-notebooks') {
   $userID = $_SESSION['userID'];
-
-  // echo $userID;
-
   $notebooks = DB::getNotebooks($userID)->fetchAll(PDO::FETCH_ASSOC);
   echo json_encode($notebooks);
-  // echo $notebooks;
   exit;
-
 }
 
+///////////////////////
+// Insert a new note //
+///////////////////////
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-note') {
+  $notebookID  = $_POST['notebookID'];
+  $name        = $_POST['name'];
 
+  $result = DB::insertNote($notebookID, $name);
+
+  if ($result->rowCount() == 1)
+    http_response_code(201);
+  else
+    http_response_code(400);
+
+  exit;
+}
 
 
 
