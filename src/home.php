@@ -18,6 +18,8 @@ require_once('DB.php');
   <title>Notebooks Home</title>
 </head>
 <body>
+  <?php include('php/navbar.php'); ?>
+
   <div class="container">
     <h1 class="text-center mt-5">Home</h1>
 

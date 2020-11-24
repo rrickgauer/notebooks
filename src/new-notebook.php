@@ -20,6 +20,9 @@ require_once('DB.php');
   <title>Notebooks - New Notebook</title>
 </head>
 <body>
+
+  <?php include('php/navbar.php'); ?>
+
   <div class="container">
     <h1 class="text-center my-5">New notebook</h1>
     
