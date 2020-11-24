@@ -29,6 +29,12 @@ function addListeners() {
     updateNoteContent(this);
   });
 
+
+  $('.pages').on('show.bs.tab', '.nav-link[data-toggle="tab"]', function(e) {
+    showNoteEditPreview(e.target);
+  });
+
+
 }
 
 
@@ -76,7 +82,7 @@ function loadPages() {
     }
 
     displayPages();
-    
+
     // enable textarea library
     let utils = new Utilities();
     utils.enableTextarea('.edit-input');
@@ -132,6 +138,17 @@ function updateNoteContent(selector) {
 }
 
 
+//////////////////////////////////////////////////////////////
+// render the note edit update markdown in the preview pane //
+//////////////////////////////////////////////////////////////
+function showNoteEditPreview(target) {
+  const utils     = new Utilities();
+  const note      = $(target).closest('.card-page');
+  const editInput = $(note).find('.edit-input').val();
+  const md        = utils.renderMarkdown(editInput);
+
+  $(note).find('.tab-pane.preview').html(md);
+}
 
 
 
