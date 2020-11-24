@@ -7,7 +7,16 @@ if (!isset($_SESSION['userID'])) {
   exit;
 }
 
+// verify that the session user id is set
+if (!isset($_GET['notebookID'])) {
+  http_response_code(400);
+  exit;
+}
+
 require_once('DB.php');
+
+$notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -15,14 +24,11 @@ require_once('DB.php');
 <html>
 <head>
   <?php include('header.php'); ?>
-  <title>Notebooks Home</title>
+  <title><?php echo $notebook['name']; ?></title>
 </head>
 <body>
   <div class="container">
-    <h1 class="text-center mt-5">Home</h1>
-
-    
- 
+    <h1 class="text-center mt-5"><?php echo $notebook['name']; ?></h1>
 
   </div>
 

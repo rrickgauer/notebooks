@@ -46,8 +46,21 @@ else if (isset($_POST['user-login-email'], $_POST['user-login-password'])) {
 }
 
 
+///////////////////////////
+// Insert a new notebook //
+///////////////////////////
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
+  $userID = $_SESSION['userID'];
+  $name = $_POST['name'];
 
+  $result = DB::insertNotebook($userID, $name);
 
+  // get the id of the notebook
+  $notebook = DB::getMostRecentNotebook($userID)->fetch(PDO::FETCH_ASSOC);
+
+  echo json_encode($notebook);
+  exit;
+}
 
 
 

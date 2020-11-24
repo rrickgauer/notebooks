@@ -1,4 +1,5 @@
 
+// main
 $(document).ready(function() {
-  alert('home');
+  // alert('home');
 });
