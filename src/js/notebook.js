@@ -6,9 +6,22 @@ const pagesList = [];
 // main
 $(document).ready(function() {
   loadPages();
+
+
+  addListeners();
+});
+
+
+function addListeners() {
   $('#page-new-name').on('keyup', enableNewPageBtn);
   $('.btn-page-new-create').on('click', insertPage);
-});
+
+
+  $('.pages').on('click', '.btn-page-edit', function(e) {
+    $(this).closest('.card-page').find('.content').removeClass('display-mode-normal');
+    $(this).closest('.card-page').find('.content').addClass('display-mode-edit');
+  });
+}
 
 
 ///////////////////////////////////////////////////////////////

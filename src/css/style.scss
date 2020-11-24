@@ -1,5 +1,10 @@
+.card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
 
 .card-page {
+  margin: 30px 0px;
+
 
   .card-header {
     display: flex;
@@ -11,5 +16,24 @@
   }
 
 
+  .content.display-mode-normal {
+    .rendered {
+      display: block;
+    }
+
+    .edit {
+      display: none;
+    }
+  }
+
+  .content.display-mode-edit {
+    .rendered {
+      display: none;
+    }
+
+    .edit {
+      display: block;
+    }
+  }
 }
 

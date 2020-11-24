@@ -1,9 +1,28 @@
+.card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.card-page {
+  margin: 30px 0px;
+}
 .card-page .card-header {
   display: flex;
   justify-content: space-between;
 }
 .card-page .card-header .left {
   display: flex;
+}
+.card-page .content.display-mode-normal .rendered {
+  display: block;
+}
+.card-page .content.display-mode-normal .edit {
+  display: none;
+}
+.card-page .content.display-mode-edit .rendered {
+  display: none;
+}
+.card-page .content.display-mode-edit .edit {
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */
