@@ -1,17 +1,13 @@
 <?php 
 session_start();
 
-
 // verify that the session user id is set
 if (!isset($_SESSION['userID'])) {
   http_response_code(400);
   exit;
 }
 
-
 require_once('DB.php');
-
-
 ?>
 
 
@@ -26,7 +22,7 @@ require_once('DB.php');
     <h1 class="text-center mt-5">Home</h1>
 
     
-    <?php echo $_SESSION['userID']; ?>
+ 
 
   </div>
 

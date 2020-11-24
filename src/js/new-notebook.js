@@ -1,5 +1,7 @@
 
-// main
+
 $(document).ready(function() {
-  // alert('home');
+  console.log(API);
 });
+
+

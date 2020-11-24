@@ -11,4 +11,6 @@
 <!-- <script src="js/external/jquery.toast.min.js"></script> -->
 
 <!-- autotables -->
-<script src="js/external/auto-tables.js"></script>
+<!-- <script src="js/external/auto-tables.js"></script> -->
+
+<script src="js/classes/Constants.js"></script>
