@@ -44,8 +44,6 @@ require_once('DB.php');
       </div>
       <div class="card-body">
         <div class="content display-mode-normal">
-
-
           <div class="items">
 
             <div class="item">
@@ -70,14 +68,7 @@ require_once('DB.php');
                 </div>
               </div>
             </div>
-
-
-
-
-            
           </div>
-
-
         </div>
       </div>
     </div>

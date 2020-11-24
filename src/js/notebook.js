@@ -85,9 +85,6 @@ function loadPages() {
   }
 
   $.getJSON(constants.API, data, function(response) {
-
-    console.log(response);
-
     for (let count = 0; count < response.length; count++) {
       addPage(response[count]);
     }
@@ -104,8 +101,12 @@ function loadPages() {
 // Insert a new page into the list of pages //
 //////////////////////////////////////////////
 function addPage(page) {
-  const newPage = new Page(page);
-  pagesList.push(newPage);
+  // const newPage = new Note(page);
+
+  if (page.page_type == 'checklist')
+    pagesList.push(new Checklist(page));
+  else
+    pagesList.push(new Note(page));
 }
 
 /////////////////////////////////////////////////////////

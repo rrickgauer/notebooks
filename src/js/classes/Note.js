@@ -1,6 +1,6 @@
 
 
-function Page(parms) {
+function Note(parms) {
   this.id                  = parms.id;
   this.notebookID          = parms.notebook_id;
   this.name                = parms.name;
@@ -20,7 +20,7 @@ function Page(parms) {
 }
 
 
-Page.prototype.getHtml = function() {
+Note.prototype.getHtml = function() {
   let html = '';
   html += `<div class="card card-page card-note" data-page-id="${this.id}">`;
   html += this.getHtmlHeader();
@@ -31,7 +31,7 @@ Page.prototype.getHtml = function() {
   return html;
 }
 
-Page.prototype.getHtmlHeader = function() {
+Note.prototype.getHtmlHeader = function() {
   let html = `
   <div class="card-header">
     <div class="left">
@@ -57,7 +57,7 @@ Page.prototype.getHtmlHeader = function() {
 }
 
 
-Page.prototype.getHtmlBody = function() {
+Note.prototype.getHtmlBody = function() {
   const dataTarget = `.card-page[data-page-id='${this.id}'] .tab-pane`;
 
   // don't display null

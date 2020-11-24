@@ -149,7 +149,8 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
 
   <?php include('php/footer.php'); ?>
-  <script src="js/classes/Page.js"></script>
+  <script src="js/classes/Note.js"></script>
+  <script src="js/classes/Checklist.js"></script>
   <script src="js/notebook.js"></script>
 
 </body>
