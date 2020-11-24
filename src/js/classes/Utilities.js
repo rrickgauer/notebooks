@@ -8,4 +8,8 @@ Utilities.prototype.renderMarkdown = function(input) {
   return MD_RENDER.render(input);
 }
 
+Utilities.prototype.enableTextarea = function(textarea) {
+  let text = document.querySelectorAll(textarea);
+  tabOverride.tabSize(2).set(text);
+}
 

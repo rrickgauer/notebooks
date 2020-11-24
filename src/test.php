@@ -35,6 +35,7 @@ require_once('DB.php');
   </div>
 
   <?php include('php/footer.php'); ?>
+  <script src="js/test.js"></script>
  
 
 </body>
