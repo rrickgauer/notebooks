@@ -19,7 +19,39 @@ function addListeners() {
     $(this).closest('.card-page').find('.content').removeClass('display-mode-normal');
     $(this).closest('.card-page').find('.content').addClass('display-mode-edit');
   });
+
+  $('.pages').on('click', '.card-page .btn-page-update-save', function(e) {
+    updateNoteContent(this);
+  });
+
 }
+
+
+
+function updateNoteContent(selector) {
+  const note = $(selector).closest('.card-page');
+  const noteID = $(note).attr('data-page-id');
+  const newContent = $(note).find('.edit-input').val();
+
+
+  const data = {
+    function: constants.API_FUNCTIONS.updateNote,
+    noteID: noteID,
+    content: newContent,
+  }
+
+  $.post(constants.API, data, function(response) {
+    console.log(response);
+  });
+
+
+
+}
+
+
+
+
+
 
 
 ///////////////////////////////////////////////////////////////

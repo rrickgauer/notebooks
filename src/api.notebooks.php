@@ -106,9 +106,28 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-pages') {
   exit;
 }
 
+/**
+ * update-note
+ *
+ * Updates a note's content
+ *
+ * post - noteID
+ * post - content
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'update-note') {
+  $noteID = $_POST['noteID'];
+  $content = $_POST['content'];
 
+  $result = DB::updateNote($noteID, $content);
 
+  if ($result->rowCount() != 1) {
+    http_response_code(400);
+  } else {
+    http_response_code(202);
+  }
 
+  exit;
+}
 
 
 

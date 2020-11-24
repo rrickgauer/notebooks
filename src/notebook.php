@@ -76,7 +76,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
               </nav>
               <div class="tab-content">
                 <div class="tab-pane write show active" role="tabpanel">
-                  <textarea class="form-control" rows="5"></textarea>
+                  <textarea class="form-control edit-input" rows="5"></textarea>
 
                   <div class="page-edit-buttons d-flex justify-content-end mt-3">
                     <button type="button" class="btn btn-sm btn-outline-danger btn-page-update-cancel mr-2">Cancel</button>

@@ -203,7 +203,9 @@ class DB {
     return $sql;
   }
 
-
+  //////////////////////////////////////////////
+  // Return the pages belonging to a notebook //
+  //////////////////////////////////////////////
   public static function getPages($notebookID) {
     $stmt = '
     SELECT n.id as id, 
@@ -229,6 +231,29 @@ class DB {
 
     return $sql;
 
+  }
+
+  /////////////////////////////
+  // Update a note's content //
+  /////////////////////////////
+  public static function updateNote($noteID, $content) {
+    $stmt = '
+    UPDATE Notes SET content = :content, date_modified = NOW()
+    WHERE id = :noteID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // note id
+    $noteID = filter_var($noteID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':noteID', $noteID, PDO::PARAM_INT);
+
+    // note id
+    $content = filter_var($content, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':content', $content, PDO::PARAM_STR);
+
+    $sql->execute();
+
+    return $sql;
   }
 
 }
