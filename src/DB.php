@@ -344,12 +344,37 @@ class DB {
     $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
     $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
 
-    // name
+    // content
     $content = filter_var($content, FILTER_SANITIZE_STRING);
     $sql->bindParam(':content', $content, PDO::PARAM_STR);
 
     $sql->execute();
+    return $sql;
+  }
 
+  /**
+   * Update a checklist item's completed status
+   */
+  public static function updateChecklistItemCompleted($checklistItemID, $completed = 'y') {
+    $stmt = '
+    UPDATE Checklist_Items SET completed = :completed, date_modified = NOW()
+    WHERE id = :checklistItemID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist item id
+    $checklistItemID = filter_var($checklistItemID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistItemID', $checklistItemID, PDO::PARAM_INT);
+
+    // completed
+    if ($completed != 'y') {
+      $completed = 'n';
+    }
+
+    $completed = filter_var($completed, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':completed', $completed, PDO::PARAM_STR);
+
+    $sql->execute();
     return $sql;
   }
 

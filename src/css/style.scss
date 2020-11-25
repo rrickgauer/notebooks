@@ -38,10 +38,13 @@
 
 
 .card-checklist {
-
-  .item {
+  .checklist-item {
     display: flex;
     justify-content: space-between;
+  }
+
+  .checklist-item.completed .content {
+    text-decoration: line-through;
   }
 
 }

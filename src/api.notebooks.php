@@ -167,7 +167,12 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-checklist-items')
 }
 
 /**
+ * insert-checklist-item
+ * 
  * Insert a new checklist item
+ * 
+ * post - checklistID
+ * post - content
  */
 else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist-item') {
   $checklistID = $_POST['checklistID'];
@@ -176,13 +181,35 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist-it
   $result = DB::insertChecklistItem($checklistID, $content);
 
   if ($result->rowCount() == 1) {
-    http_response_code(202);
+    http_response_code(201);
   } else {
     http_response_code(400);
   }
 
   exit;
+}
 
+/**
+ * update-checklist-item-completed
+ * 
+ * Update the completed status of a checklist item
+ * 
+ * post - checklistItemID
+ * post - completed ('y', 'n')
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-item-completed') {  
+  $checklistItemID = $_POST['checklistItemID'];
+  $completed = $_POST['completed'];
+
+  $result = DB::updateChecklistItemCompleted($checklistItemID, $completed);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(204);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
 }
 
 

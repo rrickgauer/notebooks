@@ -38,8 +38,11 @@ function addListeners() {
   });
 
 
-}
+  $('.pages').on('change', '.form-check-input', function() {
+    updateChecklistItemComplete(this);
+  });
 
+}
 
 
 ///////////////////////////////////////////////////////////////
@@ -248,7 +251,36 @@ function addChecklistItem(selector) {
 }
 
 
+/**
+ * Toggle the checklist item's completed state
+ */
+function updateChecklistItemComplete(checkbox) {
+  const checklistItem = $(checkbox).closest('.checklist-item');
+  const checklistItemID = $(checklistItem).attr('data-checklist-item-id');
+  
+  // set the completed status
+  let completed = 'n';
+  if (checkbox.checked) {
+    completed = 'y';
+  }
 
+  const data = {
+    checklistItemID: checklistItemID,
+    completed: completed,
+    function: constants.API_FUNCTIONS.updateChecklistItemCompleted,
+  }
+
+   // send request to the api
+  $.post(constants.API, data, function(response) {
+    console.log(response);
+  })
+  .fail(function(response) {
+    console.error('API error: checklistItemID()');
+    return;
+  });
+
+  $(checklistItem).toggleClass('completed');
+}
 
 
 

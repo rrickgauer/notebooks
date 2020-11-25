@@ -14,8 +14,12 @@ ChecklistItem.prototype.getHtml = function() {
   if (this.completed == 'y')
     completedDisplay = 'checked';
 
+  let completedClass = '';
+  if (this.completed == 'y')
+    completedClass = 'completed';
+
   let html = `
-  <div class="item" data-checklist-item-id="${this.id}">
+  <div class="checklist-item ${completedClass}" data-checklist-item-id="${this.id}">
     <div class="left">
       <div class="form-check">
         <label class="form-check-label">
