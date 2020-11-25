@@ -45,12 +45,53 @@ function addListeners() {
     }
   });
 
-
   $('.pages').on('change', '.form-check-input', function() {
     updateChecklistItemComplete(this);
   });
 
+  $('.pages').on('click', '.btn-checklist-item-edit', function() {
+    updateChecklistItemContent(this);
+  });
+
 }
+
+
+function getPageIndex(childElement) {
+  const page = $(childElement).closest('.card-page');
+  const pageIndex = $(page).index();
+  return pageIndex;
+}
+
+function getChecklistItemIndex(checklistItem) {
+  return $(checklistItem).index();
+}
+
+
+function updateChecklistItemContent(selector) {
+
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
+
+  // get the page
+  const pageIndex = getPageIndex(checklistItemElement);
+  const checklist = pagesList[pageIndex];
+  
+  // get the checklist item object
+  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  const checklistItem = checklist.items[checklistItemIndex];
+
+  let newHtml = checklistItem.getEditContentHtml();
+
+  $(checklistItemElement).replaceWith(newHtml);
+
+
+}
+
+
+
+
+
+
 
 
 ///////////////////////////////////////////////////////////////

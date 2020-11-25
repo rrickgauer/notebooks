@@ -44,3 +44,28 @@ ChecklistItem.prototype.getHtml = function() {
 
   return html;
 };
+
+
+
+ChecklistItem.prototype.getEditContentHtml = function() {
+  let html = `
+  <div class="checklist-item" data-checklist-item-id="${this.id}">
+    <div class="checklist-item-editor">
+      <div class="input">
+        <input type="text" class="form-control checklist-item-editor-input" value="${this.content}" placeholder="Enter text...">
+      </div>
+      
+      <div class="buttons">
+        <button type="button" class="btn btn-sm btn-success btn-checklist-item-edit save">Save</button>
+        <button type="button" class="btn btn-sm btn-danger btn-checklist-item-edit cancel">Cancel</button>
+      </div>
+    </div>
+  </div>`;
+
+  return html;
+}
+
+
+
+
+
