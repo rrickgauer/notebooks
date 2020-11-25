@@ -106,29 +106,6 @@ function addListeners() {
 }
 
 
-function collapsePage(page) {
-  // collapse all pages
-  if (page == undefined) {
-    $('.card-page').addClass('collapsed');
-    return;
-  }
-
-  // collapse 1 page
-  $(page).closest('.card-page').addClass('collapsed');
-}
-
-function expandPage(page) {
-  // expand all pages
-  if (page == undefined) {
-    $('.card-page').removeClass('collapsed');
-    return;
-  }
-
-  // expand 1 page
-  $(page).closest('.card-page').removeClass('collapsed');
-}
-
-
 /**
  * Sets the notebook action states
  * 
@@ -534,7 +511,34 @@ function togglePageType(checkbox) {
   }
 }
 
+/**
+ * Collapse either a single page or all pages
+ */
+function collapsePage(page) {
+  // collapse all pages
+  if (page == undefined) {
+    $('.card-page').addClass('collapsed');
+    return;
+  }
 
+  // collapse 1 page
+  $(page).closest('.card-page').addClass('collapsed');
+}
+
+
+/**
+ * Expand either a single page or all pages
+ */
+function expandPage(page) {
+  // expand all pages
+  if (page == undefined) {
+    $('.card-page').removeClass('collapsed');
+    return;
+  }
+
+  // expand 1 page
+  $(page).closest('.card-page').removeClass('collapsed');
+}
 
 
 
