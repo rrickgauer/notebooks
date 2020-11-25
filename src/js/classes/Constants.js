@@ -15,6 +15,7 @@ Constants.prototype.API_FUNCTIONS = {
   insertChecklistItem: 'insert-checklist-item',
   updateChecklistItemCompleted: 'update-checklist-item-completed',
   updateChecklistItemContent: 'update-checklist-item-content',
+  deleteChecklistItem: 'delete-checklist-item',
 }
 
 Constants.prototype.PAGES = {

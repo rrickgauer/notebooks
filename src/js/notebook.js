@@ -68,6 +68,11 @@ function addListeners() {
     cancelUpdateChecklistItemContent(this);
   });
 
+  // btn-checklist-item-delete
+  $('.pages').on('click', '.btn-checklist-item-delete', function() {
+    deleteChecklistItem(this);
+  });
+
 }
 
 
@@ -142,6 +147,35 @@ function cancelUpdateChecklistItemContent(selector) {
   const newHtml = checklistItem.getHtml();
   $(checklistItemElement).replaceWith(newHtml);
 }
+
+
+/**
+ * Remove the checklist item
+ */
+function deleteChecklistItem(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
+
+  const data = {
+    function: constants.API_FUNCTIONS.deleteChecklistItem,
+    checklistItemID: checklistItemID,
+  }
+
+  $.post(constants.API, data).fail(function(response) {
+    console.error('API Error: deleteChecklistItem()');
+    return;
+  });
+
+  // remove the item from the list
+  const pageIndex = getPageIndex(checklistItemElement);
+  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  pagesList[pageIndex].items.splice(checklistItemIndex, 1);
+
+  // remove the html
+  $(checklistItemElement).remove();
+}
+
+
 
 
 
