@@ -37,6 +37,14 @@ function addListeners() {
     addChecklistItem(this);
   });
 
+  // add item when enter key is hit
+  $('.pages').on('keypress', '.checklist-item-input', function(e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      addChecklistItem(this);
+    }
+  });
+
 
   $('.pages').on('change', '.form-check-input', function() {
     updateChecklistItemComplete(this);
