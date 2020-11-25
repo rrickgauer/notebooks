@@ -213,6 +213,20 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-it
 }
 
 
+else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-item-content') {
+  $checklistItemID = $_POST['checklistItemID'];
+  $content = $_POST['content'];
+  $result = DB::updateChecklistItemContent($checklistItemID, $content);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(204);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
 
 
 

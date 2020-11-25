@@ -50,6 +50,17 @@ function addListeners() {
   });
 
   $('.pages').on('click', '.btn-checklist-item-edit', function() {
+    // don't do anything if the editor buttons are clicked
+    if ($(this).hasClass('save')) {
+      return;
+    } else if ($(this).hasClass('delete')) {
+      return;
+    }
+
+    displayChecklistItemEditor(this);
+  });
+
+  $('.pages').on('click', '.btn-checklist-item-edit.save', function() {
     updateChecklistItemContent(this);
   });
 
@@ -66,11 +77,24 @@ function getChecklistItemIndex(checklistItem) {
   return $(checklistItem).index();
 }
 
+function getChecklistItemObject(checklistItemElement) {
+  // get the page
+  const pageIndex = getPageIndex(checklistItemElement);
+  const checklist = pagesList[pageIndex];
+  
+  // get the checklist item object
+  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  const checklistItem = checklist.items[checklistItemIndex];
 
-function updateChecklistItemContent(selector) {
+  return checklistItem;
+}
 
+/**
+ * Display the editor for a checklist item
+ */
+function displayChecklistItemEditor(selector) {
   const checklistItemElement = $(selector).closest('.checklist-item');
-  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
+  // const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
 
   // get the page
   const pageIndex = getPageIndex(checklistItemElement);
@@ -80,13 +104,42 @@ function updateChecklistItemContent(selector) {
   const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
   const checklistItem = checklist.items[checklistItemIndex];
 
-  let newHtml = checklistItem.getEditContentHtml();
-
+  const newHtml = checklistItem.getEditContentHtml();
   $(checklistItemElement).replaceWith(newHtml);
-
-
 }
 
+/**
+ * Update the checklist item's content
+ */
+function updateChecklistItemContent(btn) {
+  const checklistItemElement = $(btn).closest('.checklist-item');
+  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
+  const content = $(checklistItemElement).find('.checklist-item-editor-input').val();
+
+  const data = {
+    function: constants.API_FUNCTIONS.updateChecklistItemContent,
+    content: content,
+    checklistItemID: checklistItemID,
+  }
+   // send the data to the api
+  $.post(constants.API, data).fail(function(response) {
+    console.error('api error: updateChecklistItemContent()');
+    return;
+  });
+
+  // update the checklist item in the list
+  let checklistItem = getChecklistItemObject(checklistItemElement);
+  checklistItem.content = content;
+
+  // update the array 
+  let checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  let checklistIndex = getPageIndex(checklistItemElement);
+  pagesList[checklistIndex].items[checklistItemIndex] = checklistItem;
+
+  // display the new html
+  let html = checklistItem.getHtml();
+  $(checklistItemElement).replaceWith(html);
+}
 
 
 

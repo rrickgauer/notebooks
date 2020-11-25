@@ -378,6 +378,29 @@ class DB {
     return $sql;
   }
 
+
+    /**
+   * Update a checklist item's content
+   */
+  public static function updateChecklistItemContent($checklistItemID, $content) {
+    $stmt = '
+    UPDATE Checklist_Items SET content = :content, date_modified = NOW()
+    WHERE id = :checklistItemID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist item id
+    $checklistItemID = filter_var($checklistItemID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistItemID', $checklistItemID, PDO::PARAM_INT);
+
+    // content
+    $content = filter_var($content, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':content', $content, PDO::PARAM_STR);
+
+    $sql->execute();
+    return $sql;
+  }
+
 }
 
 
