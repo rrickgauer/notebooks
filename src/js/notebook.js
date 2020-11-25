@@ -79,6 +79,19 @@ function addListeners() {
     refreshPage();
   });
 
+  $('input[name="notebook-action-filter-type"]').on('change', function() {
+    togglePageType(this);
+  });
+
+}
+
+// toggle page visibility by type
+function togglePageType(checkbox) {
+  if ($(checkbox).val() == 'notes') {
+    $('.card-note').toggleClass('d-none');
+  } else {
+    $('.card-checklist').toggleClass('d-none');
+  }
 }
 
 /**
@@ -92,8 +105,6 @@ function addListeners() {
 function setNotebookActionStates() {
   // sort
   $(`input[name="notebook-action-sort"][value="${globalVariables.sort}"]`).prop('checked', true);
-
-
 }
 
 ///////////////////////////////////////////////////////////////
