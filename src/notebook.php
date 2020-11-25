@@ -53,11 +53,12 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
           <!-- description -->
           <div class="form-group">
             <input type="text" class="form-control form-control-lg" id="notebook-edit-name" value="<?php echo $notebook['name']; ?>">
+            <div class="invalid-feedback">Please enter a name</div>
           </div>
 
           <!-- description -->
           <div class="form-group">
-            <textarea id="notebook-new-description" rows="7" class="form-control"><?php echo $notebook['description']; ?></textarea>
+            <textarea id="notebook-edit-description" rows="7" class="form-control"><?php echo $notebook['description']; ?></textarea>
           </div>
         </div>
 

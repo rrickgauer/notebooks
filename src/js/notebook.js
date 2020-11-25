@@ -109,7 +109,18 @@ function addListeners() {
     $('.notebook-meta-edit').toggleClass('d-none');
   });
 
+  // toggle the edit notbook meta section
+  $('.btn-notebook-meta-update-save').on('click', function() {
+    updateNotebookMetadata();
+  });
+
+  // remove the invalid class on keydown
+  $('#notebook-edit-name').on('keydown', function() {
+    $(this).removeClass('is-invalid');
+  });
+
 }
+
 
 
 /**
@@ -547,6 +558,33 @@ function expandPage(page) {
 }
 
 
+// update the metadata
+function updateNotebookMetadata() {
+  const name = $('#notebook-edit-name').val();
+  const notebookID = globalVariables.notebookID;
+  const description = $('#notebook-edit-description').val();
+
+  // make sure the name is not blank
+  if (name == '') {
+    $('#notebook-edit-name').addClass('is-invalid');
+    return;
+  }
+
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.updateNotebook,
+    notebookID: notebookID,
+    description: description,
+    name: name,
+  }
+
+  $.post(CONSTANTS.API, data, function(response) {
+    refreshPage();
+    // console.log(JSON.parse(response));
+  }).fail(function(response) {
+    console.error('API error: updateNotebookMetadata()');
+    return;
+  });
+}
 
 
 

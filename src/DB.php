@@ -115,16 +115,48 @@ class DB {
 
     // description
     $description = filter_var($description, FILTER_SANITIZE_STRING);
-
-    if ($description == '')
+    if ($description == '') {
       $description = null;
-
+    }
+    
     $sql->bindParam(':description', $description, PDO::PARAM_STR);
-
+    
     $sql->execute();
-
     return $sql;
   }
+
+
+  public static function updateNotebook($notebookID, $name, $description) {
+    $stmt = 'UPDATE Notebooks
+    SET name = :name,
+    description = :description
+    WHERE id = :notebookID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // sanitize and bind id
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    // sanitize and bind notebook name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    // description
+    $description = filter_var($description, FILTER_SANITIZE_STRING);
+    if ($description == '') {
+      $description = null;
+    }
+    
+    $sql->bindParam(':description', $description, PDO::PARAM_STR);
+    
+    $sql->execute();
+    return $sql;
+
+  }
+
+
+
 
 
   //////////////////////////////////////////////////////
