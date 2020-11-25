@@ -7,8 +7,6 @@ const pagesList = [];
 $(document).ready(function() {
   loadPages();
   addListeners();
-
-
 });
 
 
@@ -34,6 +32,46 @@ function addListeners() {
     showNoteEditPreview(e.target);
   });
 
+
+  $('.pages').on('click', '.btn-checklist-item-add', function() {
+    addChecklistItem(this);
+  });
+
+  // add item when enter key is hit
+  $('.pages').on('keypress', '.checklist-item-input', function(e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      addChecklistItem(this);
+    }
+  });
+
+  $('.pages').on('change', '.form-check-input', function() {
+    updateChecklistItemComplete(this);
+  });
+
+  $('.pages').on('click', '.btn-checklist-item-edit', function() {
+    // don't do anything if the editor buttons are clicked
+    if ($(this).hasClass('save')) {
+      return;
+    } else if ($(this).hasClass('cancel')) {
+      return;
+    }
+
+    displayChecklistItemEditor(this);
+  });
+
+  $('.pages').on('click', '.btn-checklist-item-edit.save', function() {
+    updateChecklistItemContent(this);
+  });
+
+  $('.pages').on('click', '.btn-checklist-item-edit.cancel', function() {
+    cancelUpdateChecklistItemContent(this);
+  });
+
+  // btn-checklist-item-delete
+  $('.pages').on('click', '.btn-checklist-item-delete', function() {
+    deleteChecklistItem(this);
+  });
 
 }
 
@@ -90,6 +128,7 @@ function loadPages() {
     }
 
     displayPages();
+    loadChecklistsItems();
 
     // enable textarea library
     let utils = new Utilities();
@@ -122,6 +161,48 @@ function displayPages() {
   $('.pages').html(html);
 }
 
+
+
+/////////////////////////////////////////
+// loads all items into the checklists //
+/////////////////////////////////////////
+function loadChecklistsItems() {
+  for (let count = 0; count < pagesList.length; count++) {
+    if (pagesList[count] instanceof Checklist) {
+      getChecklistItems(pagesList[count].id, count);
+    }
+  }
+}
+
+////////////////////////////////////////////
+// Requests all the items for a checklist //
+// Displays the items                     //
+////////////////////////////////////////////
+function getChecklistItems(checklistID, pagesListIndex) {
+  const data = {
+    function: constants.API_FUNCTIONS.getChecklistItems,
+    checklistID: checklistID,
+  }
+
+  $.getJSON(constants.API, data, function(response) {
+    let items = [];
+
+    // build a list of ChecklistItem objects
+    for (let count = 0; count < response.length; count++) {
+      items.push(new ChecklistItem(response[count]));
+    }
+
+    // set the items
+    pagesList[pagesListIndex].items = items;
+    let checklistItemHtml =  pagesList[pagesListIndex].getHtmlBody();
+
+    let cards = $('.card-page');
+    $(cards[pagesListIndex]).find('.items').replaceWith(checklistItemHtml);
+  });
+
+}
+
+
 /////////////////////////////////////////////////////
 // Toggles a page's display mode to edit or normal //
 /////////////////////////////////////////////////////
@@ -145,7 +226,7 @@ function updateNoteContent(selector) {
   }
 
   $.post(constants.API, data).fail(function(response) {
-    console.log('Error: updateNoteContent()');
+    console.error('Error: updateNoteContent()');
     return;
   });
 
@@ -174,13 +255,168 @@ function showNoteEditPreview(target) {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                          Checklists Shit
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////
+// add new checklist item //
+////////////////////////////
+function addChecklistItem(selector) {
+
+  const checklistElement   = $(selector).closest('.card-checklist');
+  const checklistID = $(checklistElement).attr('data-page-id');
+  const content     = $(checklistElement).find('.checklist-item-input').val();
+
+  const pageIndex = getPageIndex(checklistElement);
+
+  const data = {
+    function: constants.API_FUNCTIONS.insertChecklistItem,
+    checklistID: checklistID,
+    content: content,
+  }
+
+  // todo: make the response faster when loading the new html
+  $.post(constants.API, data, function(response) {
+    getChecklistItems(checklistID, pageIndex);
+    $(checklistElement).find('.checklist-item-input').val('');
+  })
+  .fail(function(response) {
+    console.error('error: addChecklistItem()');
+    return;
+  });
+}
 
 
+/**
+ * Toggle the checklist item's completed state
+ */
+function updateChecklistItemComplete(checkbox) {
+  const checklistItem = $(checkbox).closest('.checklist-item');
+  const checklistItemID = $(checklistItem).attr('data-checklist-item-id');
+  
+  // set the completed status
+  let completed = 'n';
+  if (checkbox.checked) {
+    completed = 'y';
+  }
+
+  const data = {
+    checklistItemID: checklistItemID,
+    completed: completed,
+    function: constants.API_FUNCTIONS.updateChecklistItemCompleted,
+  }
+
+   // send request to the api
+  $.post(constants.API, data).fail(function(response) {
+    console.error('API error: checklistItemID()');
+    return;
+  });
+
+  $(checklistItem).toggleClass('completed');
+}
 
 
+function getPageIndex(childElement) {
+  const page = $(childElement).closest('.card-page');
+  const pageIndex = $(page).index();
+  return pageIndex;
+}
+
+function getChecklistItemIndex(checklistItem) {
+  return $(checklistItem).index();
+}
+
+function getChecklistItemObject(checklistItemElement) {
+  const pageIndex = getPageIndex(checklistItemElement);
+  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+
+  return pagesList[pageIndex].items[checklistItemIndex];
+}
+
+/**
+ * Display the editor for a checklist item
+ */
+function displayChecklistItemEditor(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItem = getChecklistItemObject(checklistItemElement);
+  const newHtml = checklistItem.getEditContentHtml();
+  $(checklistItemElement).replaceWith(newHtml);
+}
+
+/**
+ * Update the checklist item's content
+ */
+function updateChecklistItemContent(btn) {
+  const checklistItemElement = $(btn).closest('.checklist-item');
+  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
+  const content = $(checklistItemElement).find('.checklist-item-editor-input').val();
+
+  const data = {
+    function: constants.API_FUNCTIONS.updateChecklistItemContent,
+    content: content,
+    checklistItemID: checklistItemID,
+  }
+   // send the data to the api
+  $.post(constants.API, data).fail(function(response) {
+    console.error('api error: updateChecklistItemContent()');
+    return;
+  });
+
+  // update the checklist item in the list
+  let checklistItem = getChecklistItemObject(checklistItemElement);
+  checklistItem.content = content;
+
+  // update the array 
+  let checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  let checklistIndex = getPageIndex(checklistItemElement);
+  pagesList[checklistIndex].items[checklistItemIndex] = checklistItem;
+
+  // display the new html
+  let html = checklistItem.getHtml();
+  $(checklistItemElement).replaceWith(html);
+}
+
+/**
+ * Revert back to the original checklist item display
+ * 
+ * Canceled from editing
+ */
+function cancelUpdateChecklistItemContent(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItem = getChecklistItemObject(checklistItemElement);
+  const newHtml = checklistItem.getHtml();
+  $(checklistItemElement).replaceWith(newHtml);
+}
 
 
+/**
+ * Remove the checklist item
+ */
+function deleteChecklistItem(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
 
+  const data = {
+    function: constants.API_FUNCTIONS.deleteChecklistItem,
+    checklistItemID: checklistItemID,
+  }
+
+  $.post(constants.API, data).fail(function(response) {
+    console.error('API Error: deleteChecklistItem()');
+    return;
+  });
+
+  // remove the item from the list
+  const pageIndex = getPageIndex(checklistItemElement);
+  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  pagesList[pageIndex].items.splice(checklistItemIndex, 1);
+
+  // remove the html
+  $(checklistItemElement).remove();
+}
 
 
 

@@ -25,9 +25,29 @@
   display: block;
 }
 
-.card-checklist .item {
+.card-checklist .checklist-item {
   display: flex;
   justify-content: space-between;
+}
+.card-checklist .checklist-item.completed .content {
+  text-decoration: line-through;
+}
+.card-checklist .checklist-item-editor {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0px;
+}
+.card-checklist .checklist-item-editor .input {
+  width: 100%;
+}
+.card-checklist .checklist-item-editor .buttons {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.card-checklist .checklist-item-editor .buttons button {
+  margin: 0px 5px;
 }
 
 /*# sourceMappingURL=style.css.map */

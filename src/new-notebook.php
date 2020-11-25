@@ -25,7 +25,9 @@ require_once('DB.php');
 
   <div class="container">
     <h1 class="text-center my-5">New notebook</h1>
+
     
+
     <form>
       <form method="post" action="api.notebooks.php">
         <div class="form-group">

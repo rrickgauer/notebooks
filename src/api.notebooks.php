@@ -94,7 +94,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-note') {
 /**
  * get-pages
  * 
- * Return all the pages that belong to a specif notebook
+ * Return all the pages that belong to a specific notebook
  *
  * get -> notebookID
  */
@@ -149,10 +149,110 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist') 
     http_response_code(400);
 
   exit;
-
-
 }
 
+/**
+ * get-checklist-items
+ *
+ * return all items of a checklist
+ *
+ * get - checklistID
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-checklist-items') {
+  $checklistID = $_GET['checklistID'];
+  $checklistItems = DB::getChecklistItems($checklistID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($checklistItems);
+  http_response_code(200);
+  exit;
+}
+
+/**
+ * insert-checklist-item
+ * 
+ * Insert a new checklist item
+ * 
+ * post - checklistID
+ * post - content
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist-item') {
+  $checklistID = $_POST['checklistID'];
+  $content = $_POST['content'];
+
+  $result = DB::insertChecklistItem($checklistID, $content);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(201);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+/**
+ * update-checklist-item-completed
+ * 
+ * Update the completed status of a checklist item
+ * 
+ * post - checklistItemID
+ * post - completed ('y', 'n')
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-item-completed') {  
+  $checklistItemID = $_POST['checklistItemID'];
+  $completed = $_POST['completed'];
+
+  $result = DB::updateChecklistItemCompleted($checklistItemID, $completed);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(204);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+/**
+ * update-checklist-item-content
+ * 
+ * Updates the checklist item content
+ * 
+ * post - checklistItemID
+ * post - content
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-item-content') {
+  $checklistItemID = $_POST['checklistItemID'];
+  $content = $_POST['content'];
+  $result = DB::updateChecklistItemContent($checklistItemID, $content);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(204);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+/**
+ * delete-checklist-item
+ * 
+ * Deletes a checklist item
+ * 
+ * post - checklistItemID
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist-item') {
+  $checklistItemID = $_POST['checklistItemID'];
+  $result = DB::deleteChecklistItem($checklistItemID);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(204);
+  } else {
+    http_response_code(400);
+  }
+  
+  exit;
+}
 
 
 

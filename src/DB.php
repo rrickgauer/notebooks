@@ -301,6 +301,123 @@ class DB {
     return $sql;
   }
 
+  /////////////////////////////////////////////
+  // Get all checklist items for a checklist //
+  /////////////////////////////////////////////
+  public static function getChecklistItems($checklistID) {
+    $stmt = '
+    SELECT 
+    c.id as id,
+    c.checklist_id as checklist_id,
+    c.content as content,
+    c.completed as completed,
+    c.date_created as date_created,
+    c.date_modified as date_modified
+    from Checklist_Items c 
+    where c.checklist_id = :checklistID 
+    order by date_created asc';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist id
+    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+
+  /////////////////////////////////
+  // Insert a new checklist item //
+  /////////////////////////////////
+  public static function insertChecklistItem($checklistID, $content) {
+
+    $stmt = '
+    INSERT INTO Checklist_Items (checklist_id, content, date_created, date_modified) 
+    VALUES (:checklistID, :content, NOW(), NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist id
+    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+    // content
+    $content = filter_var($content, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':content', $content, PDO::PARAM_STR);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * Update a checklist item's completed status
+   */
+  public static function updateChecklistItemCompleted($checklistItemID, $completed = 'y') {
+    $stmt = '
+    UPDATE Checklist_Items SET completed = :completed, date_modified = NOW()
+    WHERE id = :checklistItemID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist item id
+    $checklistItemID = filter_var($checklistItemID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistItemID', $checklistItemID, PDO::PARAM_INT);
+
+    // completed
+    if ($completed != 'y') {
+      $completed = 'n';
+    }
+
+    $completed = filter_var($completed, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':completed', $completed, PDO::PARAM_STR);
+
+    $sql->execute();
+    return $sql;
+  }
+
+
+  /**
+   * Update a checklist item's content
+   */
+  public static function updateChecklistItemContent($checklistItemID, $content) {
+    $stmt = '
+    UPDATE Checklist_Items SET content = :content, date_modified = NOW()
+    WHERE id = :checklistItemID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist item id
+    $checklistItemID = filter_var($checklistItemID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistItemID', $checklistItemID, PDO::PARAM_INT);
+
+    // content
+    $content = filter_var($content, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':content', $content, PDO::PARAM_STR);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * Update a checklist item's content
+   */
+  public static function deleteChecklistItem($checklistItemID) {
+    $stmt = '
+    DELETE FROM Checklist_Items WHERE id = :checklistItemID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist item id
+    $checklistItemID = filter_var($checklistItemID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistItemID', $checklistItemID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+  
 
 }
 

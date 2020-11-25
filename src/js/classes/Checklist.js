@@ -4,12 +4,13 @@ function Checklist(parms) {
   this.id                  = parms.id;
   this.notebookID          = parms.notebook_id;
   this.name                = parms.name;
-  // this.content             = parms.content;
   this.hidden              = parms.hidden;
   this.dateCreated         = parms.date_created;
   this.dateModified        = parms.date_modified;
   this.dateCreatedDisplay  = parms.date_created_display;
   this.dateModifiedDisplay = parms.date_modified_display;
+
+  this.items = [];
 
   const self = this;
 
@@ -21,6 +22,7 @@ Checklist.prototype.getHtml = function() {
   html += `<div class="card card-page card-checklist" data-page-id="${this.id}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
+  html += '</div></div>';
   html += '</div>';   // end card
 
   let utils = new Utilities();
@@ -28,8 +30,12 @@ Checklist.prototype.getHtml = function() {
 }
 
 Checklist.prototype.getHtmlHeader = function() {
+
+  const inputHtml = this.getHtmlItemInput();
+
   let html = `
   <div class="card-header">
+  
     <div class="left">
       <h5 class="card-page-name">${this.name}</h5>
       <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
@@ -47,19 +53,46 @@ Checklist.prototype.getHtmlHeader = function() {
         </div>
       </div>
     </div>          
-  </div>`;
+  </div>
+  <div class="card-body">
+    <div class="content">${inputHtml}`;
 
   return html;
 }
 
 
 Checklist.prototype.getHtmlBody = function() {
+
+  const itemsHtml = this.getHtmlItems();
+  
+
   let html = `
-  <div class="card-body">
-    <div class="content display-mode-normal">
-      <div class="items"></div>
-    </div>
+  <div class="items">
+    ${itemsHtml}
   </div>`;
 
   return html;
+}
+
+
+Checklist.prototype.getHtmlItems = function() {
+  let html = '';
+  for (let count = 0; count < this.items.length; count++)
+    html += this.items[count].getHtml();
+
+  return html;
+}
+
+
+Checklist.prototype.getHtmlItemInput = function() {
+  let html = `
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary btn-checklist-item-add" type="button">+</button>
+    </div>
+    <input type="text" class="form-control checklist-item-input">
+  </div>`;
+
+  return html;
+
 }
