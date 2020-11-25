@@ -22,6 +22,7 @@ Checklist.prototype.getHtml = function() {
   html += `<div class="card card-page card-checklist" data-page-id="${this.id}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
+  html += '</div></div>';
   html += '</div>';   // end card
 
   let utils = new Utilities();
@@ -29,8 +30,12 @@ Checklist.prototype.getHtml = function() {
 }
 
 Checklist.prototype.getHtmlHeader = function() {
+
+  const inputHtml = this.getHtmlItemInput();
+
   let html = `
   <div class="card-header">
+  
     <div class="left">
       <h5 class="card-page-name">${this.name}</h5>
       <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
@@ -48,7 +53,9 @@ Checklist.prototype.getHtmlHeader = function() {
         </div>
       </div>
     </div>          
-  </div>`;
+  </div>
+  <div class="card-body">
+    <div class="content">${inputHtml}`;
 
   return html;
 }
@@ -57,16 +64,11 @@ Checklist.prototype.getHtmlHeader = function() {
 Checklist.prototype.getHtmlBody = function() {
 
   const itemsHtml = this.getHtmlItems();
-  const inputHtml = this.getHtmlItemInput();
+  
 
   let html = `
-  <div class="card-body">
-    <div class="content">
-      ${inputHtml}
-      <div class="items">
-        ${itemsHtml}
-      </div>
-    </div>
+  <div class="items">
+    ${itemsHtml}
   </div>`;
 
   return html;

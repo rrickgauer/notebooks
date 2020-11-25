@@ -194,10 +194,10 @@ function getChecklistItems(checklistID, pagesListIndex) {
 
     // set the items
     pagesList[pagesListIndex].items = items;
-    let checklistItemHtml =  pagesList[pagesListIndex].getHtml();
+    let checklistItemHtml =  pagesList[pagesListIndex].getHtmlBody();
 
     let cards = $('.card-page');
-    $(cards[pagesListIndex]).replaceWith(checklistItemHtml);
+    $(cards[pagesListIndex]).find('.items').replaceWith(checklistItemHtml);
   });
 
 }
@@ -266,9 +266,11 @@ function showNoteEditPreview(target) {
 ////////////////////////////
 function addChecklistItem(selector) {
 
-  const checklist   = $(selector).closest('.card-checklist');
-  const checklistID = $(checklist).attr('data-page-id');
-  const content     = $(checklist).find('.checklist-item-input').val();
+  const checklistElement   = $(selector).closest('.card-checklist');
+  const checklistID = $(checklistElement).attr('data-page-id');
+  const content     = $(checklistElement).find('.checklist-item-input').val();
+
+  const pageIndex = getPageIndex(checklistElement);
 
   const data = {
     function: constants.API_FUNCTIONS.insertChecklistItem,
@@ -278,13 +280,13 @@ function addChecklistItem(selector) {
 
   // todo: make the response faster when loading the new html
   $.post(constants.API, data, function(response) {
-    loadChecklistsItems();
+    getChecklistItems(checklistID, pageIndex);
+    $(checklistElement).find('.checklist-item-input').val('');
   })
   .fail(function(response) {
     console.error('error: addChecklistItem()');
     return;
   });
-
 }
 
 
