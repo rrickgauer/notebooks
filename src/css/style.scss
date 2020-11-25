@@ -20,6 +20,11 @@
 }
 
 .card-note {
+
+  .card-header {
+    background-color: MistyRose;
+  }
+
   .content.display-mode-normal {
     .rendered {
       display: block;
@@ -41,11 +46,21 @@
   }
 }
 
-
+// checklists
 .card-checklist {
+
+  .card-header {
+    background-color: lightcyan;
+  }
+
   .checklist-item {
     display: flex;
     justify-content: space-between;
+    
+  }
+
+  .checklist-item:hover {
+    background-color: ghostwhite;
   }
 
   .checklist-item.completed .content {
