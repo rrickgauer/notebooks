@@ -83,16 +83,28 @@ function addListeners() {
     togglePageType(this);
   });
 
+  // collapse all pages
+  $('.btn-notebook-view-collapse').on('click', function() {
+    collapsePage();
+  });
+
+  // expand all pages
+  $('.btn-notebook-view-expand').on('click', function() {
+    expandPage();
+  });
+
+  // collapse a single page
+  $('.pages').on('click', '.btn-page-collapse', function() {
+    collapsePage(this);
+  });
+
+  // expand a single page
+  $('.pages').on('click', '.btn-page-expand', function() {
+    expandPage(this);
+  });
+
 }
 
-// toggle page visibility by type
-function togglePageType(checkbox) {
-  if ($(checkbox).val() == 'notes') {
-    $('.card-note').toggleClass('d-none');
-  } else {
-    $('.card-checklist').toggleClass('d-none');
-  }
-}
 
 /**
  * Sets the notebook action states
@@ -490,8 +502,43 @@ function refreshPage() {
 }
 
 
+// toggle page visibility by type
+function togglePageType(checkbox) {
+  if ($(checkbox).val() == 'notes') {
+    $('.card-note').toggleClass('d-none');
+  } else {
+    $('.card-checklist').toggleClass('d-none');
+  }
+}
+
+/**
+ * Collapse either a single page or all pages
+ */
+function collapsePage(page) {
+  // collapse all pages
+  if (page == undefined) {
+    $('.card-page').addClass('collapsed');
+    return;
+  }
+
+  // collapse 1 page
+  $(page).closest('.card-page').addClass('collapsed');
+}
 
 
+/**
+ * Expand either a single page or all pages
+ */
+function expandPage(page) {
+  // expand all pages
+  if (page == undefined) {
+    $('.card-page').removeClass('collapsed');
+    return;
+  }
+
+  // expand 1 page
+  $(page).closest('.card-page').removeClass('collapsed');
+}
 
 
 

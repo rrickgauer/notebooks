@@ -14,7 +14,12 @@
     }
   }
 
+  &.collapsed .card-body {
+    display: none;
+  }
+}
 
+.card-note {
   .content.display-mode-normal {
     .rendered {
       display: block;
