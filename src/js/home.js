@@ -38,11 +38,12 @@ function displayNotebooks(notebooks) {
 
 
 function getNotebookCardHtml(notebook) {
+  const href = `${CONSTANTS.PAGES.notebook}?notebookID=${notebook.id}&sort=${CONSTANTS.PAGE_SORTING.oldest}`;
 
   let html = `
   <div class="card card-notebook">
     <div class="card-body">
-      <h5><a href="${CONSTANTS.PAGES.notebook}?notebookID=${notebook.id}">${notebook.name}</a></h5>
+      <h5><a href="${href}">${notebook.name}</a></h5>
       <p class="date-created">${notebook.date_created_display}</p>
     </div>
   </div>`;

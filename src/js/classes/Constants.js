@@ -20,7 +20,14 @@ Constants.prototype.API_FUNCTIONS = {
 
 Constants.prototype.PAGES = {
   notebook: 'notebook.php',
+  home: 'home.php',
 }
 
+
+Constants.prototype.PAGE_SORTING = {
+  oldest: 'oldest',
+  newest: 'newest',
+  name: 'name',
+}
 
 
