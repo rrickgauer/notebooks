@@ -30,24 +30,93 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
   <?php include('php/navbar.php'); ?>
 
-  <div class="container">
-    <h1 class="text-center mt-5"><?php echo $notebook['name']; ?></h1>
-    
-    <!-- toggle new page modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-page-new">New page</button>
-    
-    <!-- pages -->
-    <h4 class="my-4">Your pages</h4>
-    <div class="pages">
-
+  <!-- header -->
+  <section id="notebook-header">
+    <div class="container">
+      <h1 class="text-center mt-5"><?php echo $notebook['name']; ?></h1>
+      
+      <!-- toggle new page modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-page-new">New page</button>
     </div>
+  </section>
+
+  <!-- body -->
+  <section id="notebook-body" class="mt-5">
+    <div class="container">
+      <div class="row">
+        <!-- pages -->
+        <div class="col-sm-12 col-md-9">
+          <h4>Your pages</h4>
+          <div class="pages"></div>
+        </div>
+
+        <!-- action buttons -->
+        <div class="col-sm-12 col-md-3">
+          <ul class="list-group list-group-flush notebook-action-list">
+            <!-- sorting -->
+            <li class="list-group-item notebook-action">
+              <h6 class="notebook-action-header">Sort</h6>
+              <!-- oldest -->
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notebook-action-sort" id="notebook-action-sort-oldest" value="oldest" checked>
+                <label class="form-check-label" for="notebook-action-sort-oldest">Oldest</label>
+              </div>
+              <!-- newest -->
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notebook-action-sort" id="notebook-action-sort-newest" value="newest">
+                <label class="form-check-label" for="notebook-action-sort-newest">Newest</label>
+              </div>
+              <!-- name -->
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notebook-action-sort" id="notebook-action-sort-name" value="name">
+                <label class="form-check-label" for="notebook-action-sort-name">Name</label>
+              </div>
+            </li>
+
+            <!-- filter pages -->
+            <li class="list-group-item notebook-action">
+              <h6 class="notebook-action-header">Page types</h6>
+              <!-- notes -->
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="notes" name="notebook-action-filter-type" id="notebook-action-filter-type-notes" checked>
+                <label class="form-check-label" for="notebook-action-filter-type-notes">Notes</label>
+              </div>
+              <!-- checklists -->
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="checklists" name="notebook-action-filter-type" id="notebook-action-filter-type-checklists" checked>
+                <label class="form-check-label" for="notebook-action-filter-type-checklists">Checklists</label>
+              </div>
+            </li>
+
+            <!-- toggle hidden pages -->
+            <li class="list-group-item notebook-action">
+              <h6 class="notebook-action-header">Hidden pages</h6>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="notebook-action-hidden-toggle" checked>
+                <label class="custom-control-label" for="notebook-action-hidden-toggle">Show</label>
+              </div>
+            </li>
+
+            <!-- expand/shrink pages -->
+            <li class="list-group-item notebook-action">
+              <h6 class="notebook-action-header">View</h6>
+              <button type="button" class="btn btn-sm btn-light btn-block btn-notebook-action-view btn-notebook-view-collapse">Collapse</button>
+              <button type="button" class="btn btn-sm btn-light btn-block btn-notebook-action-view btn-notebook-view-expand">Expand</button>
+            </li>
+          </ul>
 
 
 
-  </div>
 
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- modals -->
   <div class="modals">
-
     <!-- new page modal -->
     <div class="modal fade modal-page-new" id="modal-page-new" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
