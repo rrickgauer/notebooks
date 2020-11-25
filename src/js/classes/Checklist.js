@@ -57,10 +57,12 @@ Checklist.prototype.getHtmlHeader = function() {
 Checklist.prototype.getHtmlBody = function() {
 
   const itemsHtml = this.getHtmlItems();
+  const inputHtml = this.getHtmlItemInput();
 
   let html = `
   <div class="card-body">
-    <div class="content display-mode-normal">
+    <div class="content">
+      ${inputHtml}
       <div class="items">
         ${itemsHtml}
       </div>
@@ -72,10 +74,22 @@ Checklist.prototype.getHtmlBody = function() {
 
 
 Checklist.prototype.getHtmlItems = function() {
-
   let html = '';
   for (let count = 0; count < this.items.length; count++)
     html += this.items[count].getHtml();
+
+  return html;
+}
+
+
+Checklist.prototype.getHtmlItemInput = function() {
+  let html = `
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary btn-checklist-item-add" type="button">+</button>
+    </div>
+    <input type="text" class="form-control checklist-item-input">
+  </div>`;
 
   return html;
 

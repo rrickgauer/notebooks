@@ -33,7 +33,13 @@ function addListeners() {
   });
 
 
+  $('.pages').on('click', '.btn-checklist-item-add', function() {
+    addChecklistItem(this);
+  });
+
+
 }
+
 
 
 ///////////////////////////////////////////////////////////////
@@ -215,7 +221,31 @@ function showNoteEditPreview(target) {
 }
 
 
+////////////////////////////
+// add new checklist item //
+////////////////////////////
+function addChecklistItem(selector) {
 
+  const checklist   = $(selector).closest('.card-checklist');
+  const checklistID = $(checklist).attr('data-page-id');
+  const content     = $(checklist).find('.checklist-item-input').val();
+
+  const data = {
+    function: constants.API_FUNCTIONS.insertChecklistItem,
+    checklistID: checklistID,
+    content: content,
+  }
+
+  // todo: make the response faster when loading the new html
+  $.post(constants.API, data, function(response) {
+    loadChecklistsItems();
+  })
+  .fail(function(response) {
+    console.log('error: addChecklistItem()');
+    return;
+  });
+
+}
 
 
 

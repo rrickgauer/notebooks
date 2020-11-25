@@ -151,13 +151,38 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist') 
   exit;
 }
 
-
+/**
+ * get-checklist-items
+ *
+ * return all items of a checklist
+ *
+ * get - checklistID
+ */
 else if (isset($_GET['function']) && $_GET['function'] == 'get-checklist-items') {
   $checklistID = $_GET['checklistID'];
   $checklistItems = DB::getChecklistItems($checklistID)->fetchAll(PDO::FETCH_ASSOC);
   echo json_encode($checklistItems);
   http_response_code(200);
   exit;
+}
+
+/**
+ * Insert a new checklist item
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist-item') {
+  $checklistID = $_POST['checklistID'];
+  $content = $_POST['content'];
+
+  $result = DB::insertChecklistItem($checklistID, $content);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(202);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+
 }
 
 

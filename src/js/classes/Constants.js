@@ -12,6 +12,7 @@ Constants.prototype.API_FUNCTIONS = {
   getPages: 'get-pages',
   updateNote: 'update-note',
   getChecklistItems: 'get-checklist-items',
+  insertChecklistItem: 'insert-checklist-item',
 }
 
 Constants.prototype.PAGES = {

@@ -301,7 +301,9 @@ class DB {
     return $sql;
   }
 
-
+  /////////////////////////////////////////////
+  // Get all checklist items for a checklist //
+  /////////////////////////////////////////////
   public static function getChecklistItems($checklistID) {
     $stmt = '
     SELECT 
@@ -320,6 +322,31 @@ class DB {
     // checklist id
     $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
     $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+
+  /////////////////////////////////
+  // Insert a new checklist item //
+  /////////////////////////////////
+  public static function insertChecklistItem($checklistID, $content) {
+
+    $stmt = '
+    INSERT INTO Checklist_Items (checklist_id, content, date_created, date_modified) 
+    VALUES (:checklistID, :content, NOW(), NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist id
+    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+    // name
+    $content = filter_var($content, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':content', $content, PDO::PARAM_STR);
 
     $sql->execute();
 
