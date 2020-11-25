@@ -100,8 +100,8 @@ class DB {
   ///////////////////////////
   // Create a new notebook //
   ///////////////////////////
-  public static function insertNotebook($userID, $name) {
-    $stmt = 'INSERT INTO Notebooks (user_id, name, date_created) VALUES (:userID, :name, NOW())';
+  public static function insertNotebook($userID, $name, $description = null) {
+    $stmt = 'INSERT INTO Notebooks (user_id, name, description, date_created) VALUES (:userID, :name, :description, NOW())';
 
     $sql = DB::dbConnect()->prepare($stmt);
 
@@ -112,6 +112,14 @@ class DB {
     // sanitize and bind notebook name
     $name = filter_var($name, FILTER_SANITIZE_STRING);
     $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    // description
+    $description = filter_var($description, FILTER_SANITIZE_STRING);
+
+    if ($description == '')
+      $description = null;
+
+    $sql->bindParam(':description', $description, PDO::PARAM_STR);
 
     $sql->execute();
 
