@@ -12,16 +12,20 @@
 .card-page .card-header .left {
   display: flex;
 }
-.card-page .content.display-mode-normal .rendered {
+.card-page.collapsed .card-body {
+  display: none;
+}
+
+.card-note .content.display-mode-normal .rendered {
   display: block;
 }
-.card-page .content.display-mode-normal .edit {
+.card-note .content.display-mode-normal .edit {
   display: none;
 }
-.card-page .content.display-mode-edit .rendered {
+.card-note .content.display-mode-edit .rendered {
   display: none;
 }
-.card-page .content.display-mode-edit .edit {
+.card-note .content.display-mode-edit .edit {
   display: block;
 }
 

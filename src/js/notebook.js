@@ -83,16 +83,35 @@ function addListeners() {
     togglePageType(this);
   });
 
+  // collapse all pages
+  $('.btn-notebook-view-collapse').on('click', function() {
+    collapsePage();
+  });
+
+  // expand all pages
+  $('.btn-notebook-view-expand').on('click', function() {
+    expandPage();
+  });
+
 }
 
-// toggle page visibility by type
-function togglePageType(checkbox) {
-  if ($(checkbox).val() == 'notes') {
-    $('.card-note').toggleClass('d-none');
-  } else {
-    $('.card-checklist').toggleClass('d-none');
+
+function collapsePage(page) {
+  // collapse all pages
+  if (page == undefined) {
+    $('.card-page').addClass('collapsed');
+    return;
   }
 }
+
+function expandPage(page) {
+  // expand all pages
+  if (page == undefined) {
+    $('.card-page').removeClass('collapsed');
+    return;
+  }
+}
+
 
 /**
  * Sets the notebook action states
@@ -490,6 +509,14 @@ function refreshPage() {
 }
 
 
+// toggle page visibility by type
+function togglePageType(checkbox) {
+  if ($(checkbox).val() == 'notes') {
+    $('.card-note').toggleClass('d-none');
+  } else {
+    $('.card-checklist').toggleClass('d-none');
+  }
+}
 
 
 
