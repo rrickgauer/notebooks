@@ -151,7 +151,17 @@ class DB {
   // Get notebook meta data //
   ////////////////////////////
   public static function getNotebook($notebookID) {
-    $stmt = 'SELECT * FROM Notebooks where id = :notebookID LIMIT 1';
+    // $stmt = 'SELECT * FROM Notebooks where id = :notebookID LIMIT 1';
+
+    $stmt = 'SELECT 
+    n.id AS id, 
+    n.name AS name, 
+    n.description AS description,
+    n.date_created AS date_created,
+    DATE_FORMAT(n.date_created, "%c/%d/%Y") AS date_created_display
+    FROM Notebooks n 
+    WHERE id = :notebookID 
+    LIMIT 1';
 
     $sql = DB::dbConnect()->prepare($stmt);
 
