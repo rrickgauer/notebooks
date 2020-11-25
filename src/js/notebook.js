@@ -93,6 +93,16 @@ function addListeners() {
     expandPage();
   });
 
+  // collapse a single page
+  $('.pages').on('click', '.btn-page-collapse', function() {
+    collapsePage(this);
+  });
+
+  // expand a single page
+  $('.pages').on('click', '.btn-page-expand', function() {
+    expandPage(this);
+  });
+
 }
 
 
@@ -102,6 +112,9 @@ function collapsePage(page) {
     $('.card-page').addClass('collapsed');
     return;
   }
+
+  // collapse 1 page
+  $(page).closest('.card-page').addClass('collapsed');
 }
 
 function expandPage(page) {
@@ -110,6 +123,9 @@ function expandPage(page) {
     $('.card-page').removeClass('collapsed');
     return;
   }
+
+  // expand 1 page
+  $(page).closest('.card-page').removeClass('collapsed');
 }
 
 
