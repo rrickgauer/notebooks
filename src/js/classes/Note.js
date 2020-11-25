@@ -77,7 +77,7 @@ Note.prototype.getHtmlBody = function() {
   <div class="card-body">
     <div class="content display-mode-normal">
 
-      <div class="rendered">
+      <div class="rendered github-css">
         ${contentMarkdown}
       </div>
 
@@ -99,7 +99,7 @@ Note.prototype.getHtmlBody = function() {
               </div>
             </div>
           </div>
-          <div class="tab-pane preview" role="tabpanel">preview</div>
+          <div class="tab-pane preview github-css" role="tabpanel"></div>
         </div>
       </div>
 
