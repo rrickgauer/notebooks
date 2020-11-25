@@ -149,8 +149,15 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist') 
     http_response_code(400);
 
   exit;
+}
 
 
+else if (isset($_GET['function']) && $_GET['function'] == 'get-checklist-items') {
+  $checklistID = $_GET['checklistID'];
+  $checklistItems = DB::getChecklistItems($checklistID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($checklistItems);
+  http_response_code(200);
+  exit;
 }
 
 

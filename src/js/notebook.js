@@ -7,8 +7,6 @@ const pagesList = [];
 $(document).ready(function() {
   loadPages();
   addListeners();
-
-
 });
 
 
@@ -90,6 +88,7 @@ function loadPages() {
     }
 
     displayPages();
+    loadChecklistsItems();
 
     // enable textarea library
     let utils = new Utilities();
@@ -121,6 +120,48 @@ function displayPages() {
 
   $('.pages').html(html);
 }
+
+
+
+/////////////////////////////////////////
+// loads all items into the checklists //
+/////////////////////////////////////////
+function loadChecklistsItems() {
+  for (let count = 0; count < pagesList.length; count++) {
+    if (pagesList[count] instanceof Checklist) {
+      getChecklistItems(pagesList[count].id, count);
+    }
+  }
+}
+
+////////////////////////////////////////////
+// Requests all the items for a checklist //
+// Displays the items                     //
+////////////////////////////////////////////
+function getChecklistItems(checklistID, pagesListIndex) {
+  const data = {
+    function: constants.API_FUNCTIONS.getChecklistItems,
+    checklistID: checklistID,
+  }
+
+  $.getJSON(constants.API, data, function(response) {
+    let items = [];
+
+    // build a list of ChecklistItem objects
+    for (let count = 0; count < response.length; count++) {
+      items.push(new ChecklistItem(response[count]));
+    }
+
+    // set the items
+    pagesList[pagesListIndex].items = items;
+    let checklistItemHtml =  pagesList[pagesListIndex].getHtml();
+
+    let cards = $('.card-page');
+    $(cards[pagesListIndex]).replaceWith(checklistItemHtml);
+  });
+
+}
+
 
 /////////////////////////////////////////////////////
 // Toggles a page's display mode to edit or normal //

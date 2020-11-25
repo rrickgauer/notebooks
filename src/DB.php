@@ -302,6 +302,30 @@ class DB {
   }
 
 
+  public static function getChecklistItems($checklistID) {
+    $stmt = '
+    SELECT 
+    c.id as id,
+    c.checklist_id as checklist_id,
+    c.content as content,
+    c.completed as completed,
+    c.date_created as date_created,
+    c.date_modified as date_modified
+    from Checklist_Items c 
+    where c.checklist_id = :checklistID 
+    order by date_created asc';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // checklist id
+    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
 }
 
 
