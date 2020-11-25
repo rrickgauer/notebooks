@@ -30,10 +30,18 @@ require_once('DB.php');
 
     <form>
       <form method="post" action="api.notebooks.php">
+
+        <!-- name -->
         <div class="form-group">
           <label for="notebook-new-name">Name</label>
           <input type="text" class="form-control" id="notebook-new-name">
           <div class="invalid-feedback"></div>
+        </div>
+
+        <!-- description -->
+        <div class="form-group">
+          <label for="notebook-new-name">Description</label>
+          <textarea id="notebook-new-description" rows="7" class="form-control"></textarea>
         </div>
 
         <button type="button" class="btn btn-primary btn-create-new-notebook">Create new notebook</button>

@@ -52,8 +52,9 @@ else if (isset($_POST['user-login-email'], $_POST['user-login-password'])) {
 else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
   $userID = $_SESSION['userID'];
   $name = $_POST['name'];
+  $description = $_POST['description'];
 
-  $result = DB::insertNotebook($userID, $name);
+  $result = DB::insertNotebook($userID, $name, $description);
 
   // get the id of the notebook
   $notebook = DB::getMostRecentNotebook($userID)->fetch(PDO::FETCH_ASSOC);

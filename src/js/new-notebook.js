@@ -1,6 +1,7 @@
 const notebookNameInput = $('#notebook-new-name');
 const createBtn = $('.btn-create-new-notebook');
 const CONSTANTS = new Constants();
+const notebookDescriptionInput = $('#notebook-new-description');
 
 $(document).ready(function() {
   $(createBtn).on('click', createNewNotebook);
@@ -14,6 +15,7 @@ $(document).ready(function() {
 
 function createNewNotebook() {
   const name = $(notebookNameInput).val();
+  const description = $(notebookDescriptionInput).val();
 
   // verify that the name field has been filled out
   if (name == '') {
@@ -27,6 +29,7 @@ function createNewNotebook() {
   const data = {
     function: CONSTANTS.API_FUNCTIONS.insertNotebook,
     name: name,
+    description: description,
   }
 
 
