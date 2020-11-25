@@ -16,6 +16,9 @@
   display: none;
 }
 
+.card-note .card-header {
+  background-color: MistyRose;
+}
 .card-note .content.display-mode-normal .rendered {
   display: block;
 }
@@ -29,6 +32,9 @@
   display: block;
 }
 
+.card-checklist .card-header {
+  background-color: lightcyan;
+}
 .card-checklist .checklist-item {
   display: flex;
   justify-content: space-between;
