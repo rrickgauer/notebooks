@@ -41,11 +41,16 @@
   }
 }
 
-
+// checklists
 .card-checklist {
   .checklist-item {
     display: flex;
     justify-content: space-between;
+    
+  }
+
+  .checklist-item:hover {
+    background-color: ghostwhite;
   }
 
   .checklist-item.completed .content {

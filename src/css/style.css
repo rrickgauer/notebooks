@@ -33,6 +33,9 @@
   display: flex;
   justify-content: space-between;
 }
+.card-checklist .checklist-item:hover {
+  background-color: ghostwhite;
+}
 .card-checklist .checklist-item.completed .content {
   text-decoration: line-through;
 }
