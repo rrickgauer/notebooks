@@ -73,6 +73,11 @@ function addListeners() {
     deleteChecklistItem(this);
   });
 
+  // refresh page if the pages sorting was changed
+  $('input[name="notebook-action-sort"]').on('change', function() {
+    refreshPage();
+  });
+
 }
 
 
@@ -444,7 +449,19 @@ function deleteChecklistItem(selector) {
   $(checklistItemElement).remove();
 }
 
+/**
+ * Refreshes the page by getting all the action states
+ */
+function refreshPage() {
+  // get notebook id
+  const notebookID = globalVariables.notebookID;
 
+  // get the value of the selected sorting
+  const sort = $('input[name="notebook-action-sort"]:checked').val();
+
+  let newHref = `notebook.php?notebookID=${notebookID}&sort=${sort}`;
+  window.location.href = newHref;
+}
 
 
 
