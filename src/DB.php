@@ -401,7 +401,7 @@ class DB {
     return $sql;
   }
 
-    /**
+  /**
    * Update a checklist item's content
    */
   public static function deleteChecklistItem($checklistItemID) {

@@ -76,110 +76,6 @@ function addListeners() {
 }
 
 
-function getPageIndex(childElement) {
-  const page = $(childElement).closest('.card-page');
-  const pageIndex = $(page).index();
-  return pageIndex;
-}
-
-function getChecklistItemIndex(checklistItem) {
-  return $(checklistItem).index();
-}
-
-function getChecklistItemObject(checklistItemElement) {
-  const pageIndex = getPageIndex(checklistItemElement);
-  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
-
-  return pagesList[pageIndex].items[checklistItemIndex];
-}
-
-/**
- * Display the editor for a checklist item
- */
-function displayChecklistItemEditor(selector) {
-  const checklistItemElement = $(selector).closest('.checklist-item');
-  const checklistItem = getChecklistItemObject(checklistItemElement);
-  const newHtml = checklistItem.getEditContentHtml();
-  $(checklistItemElement).replaceWith(newHtml);
-}
-
-/**
- * Update the checklist item's content
- */
-function updateChecklistItemContent(btn) {
-  const checklistItemElement = $(btn).closest('.checklist-item');
-  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
-  const content = $(checklistItemElement).find('.checklist-item-editor-input').val();
-
-  const data = {
-    function: constants.API_FUNCTIONS.updateChecklistItemContent,
-    content: content,
-    checklistItemID: checklistItemID,
-  }
-   // send the data to the api
-  $.post(constants.API, data).fail(function(response) {
-    console.error('api error: updateChecklistItemContent()');
-    return;
-  });
-
-  // update the checklist item in the list
-  let checklistItem = getChecklistItemObject(checklistItemElement);
-  checklistItem.content = content;
-
-  // update the array 
-  let checklistItemIndex = getChecklistItemIndex(checklistItemElement);
-  let checklistIndex = getPageIndex(checklistItemElement);
-  pagesList[checklistIndex].items[checklistItemIndex] = checklistItem;
-
-  // display the new html
-  let html = checklistItem.getHtml();
-  $(checklistItemElement).replaceWith(html);
-}
-
-/**
- * Revert back to the original checklist item display
- * 
- * Canceled from editing
- */
-function cancelUpdateChecklistItemContent(selector) {
-  const checklistItemElement = $(selector).closest('.checklist-item');
-  const checklistItem = getChecklistItemObject(checklistItemElement);
-  const newHtml = checklistItem.getHtml();
-  $(checklistItemElement).replaceWith(newHtml);
-}
-
-
-/**
- * Remove the checklist item
- */
-function deleteChecklistItem(selector) {
-  const checklistItemElement = $(selector).closest('.checklist-item');
-  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
-
-  const data = {
-    function: constants.API_FUNCTIONS.deleteChecklistItem,
-    checklistItemID: checklistItemID,
-  }
-
-  $.post(constants.API, data).fail(function(response) {
-    console.error('API Error: deleteChecklistItem()');
-    return;
-  });
-
-  // remove the item from the list
-  const pageIndex = getPageIndex(checklistItemElement);
-  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
-  pagesList[pageIndex].items.splice(checklistItemIndex, 1);
-
-  // remove the html
-  $(checklistItemElement).remove();
-}
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////
 // Disable the create new page button if name input is empty //
 ///////////////////////////////////////////////////////////////
@@ -359,6 +255,12 @@ function showNoteEditPreview(target) {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                          Checklists Shit
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////
 // add new checklist item //
 ////////////////////////////
@@ -415,7 +317,104 @@ function updateChecklistItemComplete(checkbox) {
 }
 
 
+function getPageIndex(childElement) {
+  const page = $(childElement).closest('.card-page');
+  const pageIndex = $(page).index();
+  return pageIndex;
+}
 
+function getChecklistItemIndex(checklistItem) {
+  return $(checklistItem).index();
+}
+
+function getChecklistItemObject(checklistItemElement) {
+  const pageIndex = getPageIndex(checklistItemElement);
+  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+
+  return pagesList[pageIndex].items[checklistItemIndex];
+}
+
+/**
+ * Display the editor for a checklist item
+ */
+function displayChecklistItemEditor(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItem = getChecklistItemObject(checklistItemElement);
+  const newHtml = checklistItem.getEditContentHtml();
+  $(checklistItemElement).replaceWith(newHtml);
+}
+
+/**
+ * Update the checklist item's content
+ */
+function updateChecklistItemContent(btn) {
+  const checklistItemElement = $(btn).closest('.checklist-item');
+  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
+  const content = $(checklistItemElement).find('.checklist-item-editor-input').val();
+
+  const data = {
+    function: constants.API_FUNCTIONS.updateChecklistItemContent,
+    content: content,
+    checklistItemID: checklistItemID,
+  }
+   // send the data to the api
+  $.post(constants.API, data).fail(function(response) {
+    console.error('api error: updateChecklistItemContent()');
+    return;
+  });
+
+  // update the checklist item in the list
+  let checklistItem = getChecklistItemObject(checklistItemElement);
+  checklistItem.content = content;
+
+  // update the array 
+  let checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  let checklistIndex = getPageIndex(checklistItemElement);
+  pagesList[checklistIndex].items[checklistItemIndex] = checklistItem;
+
+  // display the new html
+  let html = checklistItem.getHtml();
+  $(checklistItemElement).replaceWith(html);
+}
+
+/**
+ * Revert back to the original checklist item display
+ * 
+ * Canceled from editing
+ */
+function cancelUpdateChecklistItemContent(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItem = getChecklistItemObject(checklistItemElement);
+  const newHtml = checklistItem.getHtml();
+  $(checklistItemElement).replaceWith(newHtml);
+}
+
+
+/**
+ * Remove the checklist item
+ */
+function deleteChecklistItem(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
+
+  const data = {
+    function: constants.API_FUNCTIONS.deleteChecklistItem,
+    checklistItemID: checklistItemID,
+  }
+
+  $.post(constants.API, data).fail(function(response) {
+    console.error('API Error: deleteChecklistItem()');
+    return;
+  });
+
+  // remove the item from the list
+  const pageIndex = getPageIndex(checklistItemElement);
+  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
+  pagesList[pageIndex].items.splice(checklistItemIndex, 1);
+
+  // remove the html
+  $(checklistItemElement).remove();
+}
 
 
 
