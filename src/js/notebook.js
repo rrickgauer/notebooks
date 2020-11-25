@@ -1,11 +1,12 @@
 const globalVariables = new GlobalVariables();
-const constants = new Constants();
+const CONSTANTS = new Constants();
 const pagesList = [];
 
 
 // main
 $(document).ready(function() {
   loadPages();
+  setNotebookActionStates();
   addListeners();
 });
 
@@ -73,8 +74,27 @@ function addListeners() {
     deleteChecklistItem(this);
   });
 
+  // refresh page if the pages sorting was changed
+  $('input[name="notebook-action-sort"]').on('change', function() {
+    refreshPage();
+  });
+
 }
 
+/**
+ * Sets the notebook action states
+ * 
+ * sort
+ * page type
+ * hidden pages
+ * view
+ */
+function setNotebookActionStates() {
+  // sort
+  $(`input[name="notebook-action-sort"][value="${globalVariables.sort}"]`).prop('checked', true);
+
+
+}
 
 ///////////////////////////////////////////////////////////////
 // Disable the create new page button if name input is empty //
@@ -95,10 +115,10 @@ function insertPage() {
 
 
   // determine which type of page to insert
-  let apiFunction = constants.API_FUNCTIONS.insertNote;
+  let apiFunction = CONSTANTS.API_FUNCTIONS.insertNote;
 
   if (type != 'note')
-    apiFunction = constants.API_FUNCTIONS.insertChecklist;
+    apiFunction = CONSTANTS.API_FUNCTIONS.insertChecklist;
 
   const data = {
     function: apiFunction,
@@ -106,7 +126,7 @@ function insertPage() {
     notebookID: globalVariables.notebookID,
   }
 
-  $.post(constants.API, data, function(response) {
+  $.post(CONSTANTS.API, data, function(response) {
     // reload the page if successful
     window.location.href = window.location.href;
   });
@@ -118,11 +138,11 @@ function insertPage() {
 ///////////////////////////////////////
 function loadPages() {
   const data = {
-    function: constants.API_FUNCTIONS.getPages,
+    function: CONSTANTS.API_FUNCTIONS.getPages,
     notebookID: globalVariables.notebookID,
   }
 
-  $.getJSON(constants.API, data, function(response) {
+  $.getJSON(CONSTANTS.API, data, function(response) {
     for (let count = 0; count < response.length; count++) {
       addPage(response[count]);
     }
@@ -154,11 +174,37 @@ function addPage(page) {
 function displayPages() {
   let html = '';
 
+  // sort the pages
+  sortPagesList();
+
   for (let count = 0; count < pagesList.length; count++) {
     html += pagesList[count].getHtml();
   }
 
   $('.pages').html(html);
+}
+
+function sortPagesList() {
+  switch(globalVariables.sort) {
+    case CONSTANTS.PAGE_SORTING.newest:             // newest
+      pagesList.sort(function(a, b) {
+        let dateA = new Date(a.dateCreated);
+        let dateB = new Date(b.dateCreated);
+        return (dateA > dateB) ? -1 : 1;
+      }); break;
+    case CONSTANTS.PAGE_SORTING.name:               // name
+      pagesList.sort(function(a, b) {
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase();
+        return (nameA < nameB) ? -1 : 1;
+      }); break;
+    default:                                        // oledest (default)
+      pagesList.sort(function(a, b) {               
+        let dateA = new Date(a.dateCreated);
+        let dateB = new Date(b.dateCreated);
+        return (dateA > dateB) ? -1 : 1;
+      }); break;
+  }
 }
 
 
@@ -180,11 +226,11 @@ function loadChecklistsItems() {
 ////////////////////////////////////////////
 function getChecklistItems(checklistID, pagesListIndex) {
   const data = {
-    function: constants.API_FUNCTIONS.getChecklistItems,
+    function: CONSTANTS.API_FUNCTIONS.getChecklistItems,
     checklistID: checklistID,
   }
 
-  $.getJSON(constants.API, data, function(response) {
+  $.getJSON(CONSTANTS.API, data, function(response) {
     let items = [];
 
     // build a list of ChecklistItem objects
@@ -220,12 +266,12 @@ function updateNoteContent(selector) {
   const newContent = $(note).find('.edit-input').val();
 
   const data = {
-    function: constants.API_FUNCTIONS.updateNote,
+    function: CONSTANTS.API_FUNCTIONS.updateNote,
     noteID: noteID,
     content: newContent,
   }
 
-  $.post(constants.API, data).fail(function(response) {
+  $.post(CONSTANTS.API, data).fail(function(response) {
     console.error('Error: updateNoteContent()');
     return;
   });
@@ -273,13 +319,13 @@ function addChecklistItem(selector) {
   const pageIndex = getPageIndex(checklistElement);
 
   const data = {
-    function: constants.API_FUNCTIONS.insertChecklistItem,
+    function: CONSTANTS.API_FUNCTIONS.insertChecklistItem,
     checklistID: checklistID,
     content: content,
   }
 
   // todo: make the response faster when loading the new html
-  $.post(constants.API, data, function(response) {
+  $.post(CONSTANTS.API, data, function(response) {
     getChecklistItems(checklistID, pageIndex);
     $(checklistElement).find('.checklist-item-input').val('');
   })
@@ -306,11 +352,11 @@ function updateChecklistItemComplete(checkbox) {
   const data = {
     checklistItemID: checklistItemID,
     completed: completed,
-    function: constants.API_FUNCTIONS.updateChecklistItemCompleted,
+    function: CONSTANTS.API_FUNCTIONS.updateChecklistItemCompleted,
   }
 
    // send request to the api
-  $.post(constants.API, data).fail(function(response) {
+  $.post(CONSTANTS.API, data).fail(function(response) {
     console.error('API error: checklistItemID()');
     return;
   });
@@ -355,12 +401,12 @@ function updateChecklistItemContent(btn) {
   const content = $(checklistItemElement).find('.checklist-item-editor-input').val();
 
   const data = {
-    function: constants.API_FUNCTIONS.updateChecklistItemContent,
+    function: CONSTANTS.API_FUNCTIONS.updateChecklistItemContent,
     content: content,
     checklistItemID: checklistItemID,
   }
    // send the data to the api
-  $.post(constants.API, data).fail(function(response) {
+  $.post(CONSTANTS.API, data).fail(function(response) {
     console.error('api error: updateChecklistItemContent()');
     return;
   });
@@ -400,11 +446,11 @@ function deleteChecklistItem(selector) {
   const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
 
   const data = {
-    function: constants.API_FUNCTIONS.deleteChecklistItem,
+    function: CONSTANTS.API_FUNCTIONS.deleteChecklistItem,
     checklistItemID: checklistItemID,
   }
 
-  $.post(constants.API, data).fail(function(response) {
+  $.post(CONSTANTS.API, data).fail(function(response) {
     console.error('API Error: deleteChecklistItem()');
     return;
   });
@@ -418,7 +464,19 @@ function deleteChecklistItem(selector) {
   $(checklistItemElement).remove();
 }
 
+/**
+ * Refreshes the page by getting all the action states
+ */
+function refreshPage() {
+  // get notebook id
+  const notebookID = globalVariables.notebookID;
 
+  // get the value of the selected sorting
+  const sort = $('input[name="notebook-action-sort"]:checked').val();
+
+  let newHref = `notebook.php?notebookID=${notebookID}&sort=${sort}`;
+  window.location.href = newHref;
+}
 
 
 

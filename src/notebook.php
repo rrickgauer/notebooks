@@ -54,11 +54,11 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
         <div class="col-sm-12 col-md-3">
           <ul class="list-group list-group-flush notebook-action-list">
             <!-- sorting -->
-            <li class="list-group-item notebook-action">
+            <li class="list-group-item notebook-action sorting">
               <h6 class="notebook-action-header">Sort</h6>
               <!-- oldest -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="notebook-action-sort" id="notebook-action-sort-oldest" value="oldest" checked>
+                <input class="form-check-input" type="radio" name="notebook-action-sort" id="notebook-action-sort-oldest" value="oldest">
                 <label class="form-check-label" for="notebook-action-sort-oldest">Oldest</label>
               </div>
               <!-- newest -->
