@@ -53,7 +53,7 @@ function addListeners() {
     // don't do anything if the editor buttons are clicked
     if ($(this).hasClass('save')) {
       return;
-    } else if ($(this).hasClass('delete')) {
+    } else if ($(this).hasClass('cancel')) {
       return;
     }
 
@@ -62,6 +62,10 @@ function addListeners() {
 
   $('.pages').on('click', '.btn-checklist-item-edit.save', function() {
     updateChecklistItemContent(this);
+  });
+
+  $('.pages').on('click', '.btn-checklist-item-edit.cancel', function() {
+    cancelUpdateChecklistItemContent(this);
   });
 
 }
@@ -78,15 +82,10 @@ function getChecklistItemIndex(checklistItem) {
 }
 
 function getChecklistItemObject(checklistItemElement) {
-  // get the page
   const pageIndex = getPageIndex(checklistItemElement);
-  const checklist = pagesList[pageIndex];
-  
-  // get the checklist item object
   const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
-  const checklistItem = checklist.items[checklistItemIndex];
 
-  return checklistItem;
+  return pagesList[pageIndex].items[checklistItemIndex];
 }
 
 /**
@@ -94,16 +93,7 @@ function getChecklistItemObject(checklistItemElement) {
  */
 function displayChecklistItemEditor(selector) {
   const checklistItemElement = $(selector).closest('.checklist-item');
-  // const checklistItemID = $(checklistItemElement).attr('data-checklist-item-id');
-
-  // get the page
-  const pageIndex = getPageIndex(checklistItemElement);
-  const checklist = pagesList[pageIndex];
-  
-  // get the checklist item object
-  const checklistItemIndex = getChecklistItemIndex(checklistItemElement);
-  const checklistItem = checklist.items[checklistItemIndex];
-
+  const checklistItem = getChecklistItemObject(checklistItemElement);
   const newHtml = checklistItem.getEditContentHtml();
   $(checklistItemElement).replaceWith(newHtml);
 }
@@ -141,8 +131,17 @@ function updateChecklistItemContent(btn) {
   $(checklistItemElement).replaceWith(html);
 }
 
-
-
+/**
+ * Revert back to the original checklist item display
+ * 
+ * Canceled from editing
+ */
+function cancelUpdateChecklistItemContent(selector) {
+  const checklistItemElement = $(selector).closest('.checklist-item');
+  const checklistItem = getChecklistItemObject(checklistItemElement);
+  const newHtml = checklistItem.getHtml();
+  $(checklistItemElement).replaceWith(newHtml);
+}
 
 
 
@@ -297,7 +296,7 @@ function updateNoteContent(selector) {
   }
 
   $.post(constants.API, data).fail(function(response) {
-    console.log('Error: updateNoteContent()');
+    console.error('Error: updateNoteContent()');
     return;
   });
 
@@ -346,7 +345,7 @@ function addChecklistItem(selector) {
     loadChecklistsItems();
   })
   .fail(function(response) {
-    console.log('error: addChecklistItem()');
+    console.error('error: addChecklistItem()');
     return;
   });
 
@@ -373,10 +372,7 @@ function updateChecklistItemComplete(checkbox) {
   }
 
    // send request to the api
-  $.post(constants.API, data, function(response) {
-    console.log(response);
-  })
-  .fail(function(response) {
+  $.post(constants.API, data).fail(function(response) {
     console.error('API error: checklistItemID()');
     return;
   });

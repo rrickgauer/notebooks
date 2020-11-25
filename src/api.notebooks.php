@@ -212,7 +212,14 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-it
   exit;
 }
 
-
+/**
+ * update-checklist-item-content
+ * 
+ * Updates the checklist item content
+ * 
+ * post - checklistItemID
+ * post - content
+ */
 else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-item-content') {
   $checklistItemID = $_POST['checklistItemID'];
   $content = $_POST['content'];
