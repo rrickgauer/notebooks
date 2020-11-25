@@ -9,17 +9,17 @@ function ChecklistItem(parms) {
 
 
 ChecklistItem.prototype.getHtml = function() {
-
-  let completedDisplay = 'false';
+  // determine whether or not to check the checkbox
+  let completedDisplay = '';
   if (this.completed == 'y')
-    completedDisplay = 'true';
+    completedDisplay = 'checked';
 
   let html = `
   <div class="item" data-checklist-item-id="${this.id}">
     <div class="left">
       <div class="form-check">
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" checked="${completedDisplay}">
+          <input class="form-check-input" type="checkbox" ${completedDisplay}>
           <span class="content">${this.content}</span>
         </label>
       </div>

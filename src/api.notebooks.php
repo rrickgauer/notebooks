@@ -94,7 +94,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-note') {
 /**
  * get-pages
  * 
- * Return all the pages that belong to a specif notebook
+ * Return all the pages that belong to a specific notebook
  *
  * get -> notebookID
  */
