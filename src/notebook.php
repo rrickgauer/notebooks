@@ -33,10 +33,22 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
   <!-- header -->
   <section id="notebook-header">
     <div class="container">
-      <h1 class="text-center mt-5"><?php echo $notebook['name']; ?></h1>
-      
-      <!-- toggle new page modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-page-new">New page</button>
+
+      <div class="notebook-meta">
+        <div class="notebook-meta-info">
+          <h1 class="notebook-meta-name"><?php echo $notebook['name']; ?></h1>
+          <h6 class="notebook-meta-description"><?php echo $notebook['description']; ?></h6>
+        </div>
+
+        <div class="notebook-meta-buttons">
+          <button type="button" class="btn btn-sm btn-light">Edit</button>
+          <!-- toggle new page modal -->
+          <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-page-new">New page</button>
+        </div>
+
+      </div>
+
+
     </div>
   </section>
 

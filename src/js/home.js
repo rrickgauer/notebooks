@@ -15,6 +15,7 @@ function loadNotebooks() {
 
   $.getJSON(CONSTANTS.API, data, function(response) {
     displayNotebooks(response);
+    console.log(response);
   });
 }
 
@@ -40,11 +41,17 @@ function displayNotebooks(notebooks) {
 function getNotebookCardHtml(notebook) {
   const href = `${CONSTANTS.PAGES.notebook}?notebookID=${notebook.id}&sort=${CONSTANTS.PAGE_SORTING.oldest}`;
 
+  let description = notebook.description;
+  if (description == null) {
+    description = '';
+  }
+
   let html = `
   <div class="card card-notebook">
     <div class="card-body">
       <h5><a href="${href}">${notebook.name}</a></h5>
       <p class="date-created">${notebook.date_created_display}</p>
+      <p class="description">${description}</p>
     </div>
   </div>`;
 
