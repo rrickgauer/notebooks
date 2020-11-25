@@ -6,6 +6,7 @@ const pagesList = [];
 // main
 $(document).ready(function() {
   loadPages();
+  setNotebookActionStates();
   addListeners();
 });
 
@@ -80,6 +81,20 @@ function addListeners() {
 
 }
 
+/**
+ * Sets the notebook action states
+ * 
+ * sort
+ * page type
+ * hidden pages
+ * view
+ */
+function setNotebookActionStates() {
+  // sort
+  $(`input[name="notebook-action-sort"][value="${globalVariables.sort}"]`).prop('checked', true);
+
+
+}
 
 ///////////////////////////////////////////////////////////////
 // Disable the create new page button if name input is empty //
