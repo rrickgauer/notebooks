@@ -103,6 +103,12 @@ function addListeners() {
     expandPage(this);
   });
 
+  // edit notebook
+  $('.btn-notebook-meta-edit, .btn-notebook-meta-update-cancel').on('click', function() {
+    $('.notebook-meta').toggleClass('d-none');
+    $('.notebook-meta-edit').toggleClass('d-none');
+  });
+
 }
 
 
