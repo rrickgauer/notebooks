@@ -63,6 +63,25 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
   exit;
 }
 
+/**
+ * Update a notebook name and description
+ */
+
+ else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook') {
+   $notebookID = $_POST['notebookID'];
+   $name = $_POST['name'];
+   $description = $_POST['description'];
+
+   $result = DB::updateNotebook($notebookID, $name, $description);
+
+   if ($result->rowCount() == 1)
+      http_response_code(204);
+  else
+    http_response_code(400);
+
+   exit;
+ }
+
 
 /** 
  * Retrieve all notebooks for a user 

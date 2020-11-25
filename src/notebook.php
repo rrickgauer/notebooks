@@ -41,9 +41,30 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
         </div>
 
         <div class="notebook-meta-buttons">
-          <button type="button" class="btn btn-sm btn-light">Edit</button>
+          <button type="button" class="btn btn-sm btn-light btn-notebook-meta-edit">Edit</button>
           <!-- toggle new page modal -->
           <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-page-new">New page</button>
+        </div>
+      </div>
+
+      <!-- edit notebook meta data -->
+      <div class="notebook-meta-edit d-none">
+        <div class="inputs">
+          <!-- description -->
+          <div class="form-group">
+            <input type="text" class="form-control form-control-lg" id="notebook-edit-name" value="<?php echo $notebook['name']; ?>">
+            <div class="invalid-feedback">Please enter a name</div>
+          </div>
+
+          <!-- description -->
+          <div class="form-group">
+            <textarea id="notebook-edit-description" rows="7" class="form-control"><?php echo $notebook['description']; ?></textarea>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button type="button" class="btn btn-sm btn-success btn-notebook-meta-update-save">Save</button>
+          <button type="button" class="btn btn-sm btn-light btn-notebook-meta-update-cancel">Cancel</button>
         </div>
 
       </div>

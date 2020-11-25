@@ -73,4 +73,24 @@
   justify-content: space-between;
 }
 
+.notebook-meta-edit {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.notebook-meta-edit .inputs {
+  width: 100%;
+}
+.notebook-meta-edit .inputs textarea,
+.notebook-meta-edit .inputs input {
+  width: 100%;
+}
+.notebook-meta-edit .buttons {
+  display: flex;
+  margin-left: 30px;
+}
+.notebook-meta-edit .buttons button {
+  margin-left: 5px;
+}
+
 /*# sourceMappingURL=style.css.map */
