@@ -170,6 +170,7 @@ class DB {
   public static function getNotebooks($userID) {
     $stmt = 'SELECT n.id, 
     n.name, 
+    n.description as description,
     n.date_created,
     DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display
     FROM Notebooks n 
