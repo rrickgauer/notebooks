@@ -190,7 +190,10 @@ class DB {
     n.name AS name, 
     n.description AS description,
     n.date_created AS date_created,
-    DATE_FORMAT(n.date_created, "%c/%d/%Y") AS date_created_display
+    DATE_FORMAT(n.date_created, "%c/%d/%Y") AS date_created_display,
+    (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id) AS count_notes,
+    (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id) AS count_checklists,
+    (SELECT count_notes + count_checklists) AS count_pages
     FROM Notebooks n 
     WHERE id = :notebookID 
     LIMIT 1';
@@ -214,7 +217,10 @@ class DB {
     n.name, 
     n.description as description,
     n.date_created,
-    DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display
+    DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display,
+    (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id) AS count_notes,
+    (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id) AS count_checklists,
+    (SELECT count_notes + count_checklists) AS count_pages
     FROM Notebooks n 
     where n.user_id = :userID';
 

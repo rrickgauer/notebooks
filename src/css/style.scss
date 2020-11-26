@@ -127,3 +127,31 @@
     }
   }
 }
+
+
+.card-notebook {
+  .notebook-head {
+    display: flex;
+    .badges {
+      margin-left: 10px;
+    }
+  }
+
+  .date-created {
+    color: rgb(88, 96, 105);
+    font-size: 12px;
+  }
+}
+
+.badge-count-notes {
+  background-color: fuchsia;
+  color: white;
+}
+
+.badge-count-checklists {
+  background-color: lime;
+}
+
+
+
+

@@ -93,4 +93,24 @@
   margin-left: 5px;
 }
 
+.card-notebook .notebook-head {
+  display: flex;
+}
+.card-notebook .notebook-head .badges {
+  margin-left: 10px;
+}
+.card-notebook .date-created {
+  color: #586069;
+  font-size: 12px;
+}
+
+.badge-count-notes {
+  background-color: fuchsia;
+  color: white;
+}
+
+.badge-count-checklists {
+  background-color: lime;
+}
+
 /*# sourceMappingURL=style.css.map */

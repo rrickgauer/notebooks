@@ -79,7 +79,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
       <div class="row">
         <!-- pages -->
         <div class="col-sm-12 col-md-9">
-          <h4>Your pages</h4>
+          <h4>Your pages (<span class="notebook-meta-count-pages"><?php echo $notebook['count_pages']; ?></span>)</h4>
           <div class="pages"></div>
         </div>
 

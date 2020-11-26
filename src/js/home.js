@@ -49,9 +49,18 @@ function getNotebookCardHtml(notebook) {
   let html = `
   <div class="card card-notebook">
     <div class="card-body">
-      <h5><a href="${href}">${notebook.name}</a></h5>
+
+      <div class="notebook-head">
+        <h5><a href="${href}">${notebook.name}</a></h5>
+        <div class="badges">
+          <span class="badge badge-count-notes">${notebook.count_notes} notes</span>
+          <span class="badge badge-count-checklists">${notebook.count_checklists} checklists</span>
+        </div>
+      </div>
+      
       <p class="date-created">${notebook.date_created_display}</p>
       <p class="description">${description}</p>
+
     </div>
   </div>`;
 
