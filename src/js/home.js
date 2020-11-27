@@ -21,20 +21,13 @@ function loadNotebooks() {
 
 
 function displayNotebooks(notebooks) {
-  let html = '<div class="card-deck">';
+  let html = '';
 
   for (let count = 0; count < notebooks.length; count++) {
-    // after 3 cards new line
-    if (count % 3 == 0) {
-      html += '</div><div class="card-deck">';
-    }
-
     html += getNotebookCardHtml(notebooks[count]);
   }
 
-  html += '</div>';
-
-  $('.notebook-cards').html(html);
+  $('.list-notebooks').html(html);
 }
 
 
@@ -47,22 +40,28 @@ function getNotebookCardHtml(notebook) {
   }
 
   let html = `
-  <div class="card card-notebook">
-    <div class="card-body">
-
-      <div class="notebook-head">
-        <h5><a href="${href}">${notebook.name}</a></h5>
-        <div class="badges">
-          <span class="badge badge-count-notes">${notebook.count_notes} notes</span>
-          <span class="badge badge-count-checklists">${notebook.count_checklists} checklists</span>
-        </div>
-      </div>
-      
-      <p class="date-created">${notebook.date_created_display}</p>
-      <p class="description">${description}</p>
-
+  <li class="list-group-item notebook">
+    <div class="d-flex">
+      <h5><a href="${href}">${notebook.name}</a></h5>
     </div>
-  </div>`;
+    
+    <div class="date-created">
+      <span>Added on </span>
+      <span class="date-created-display">${notebook.date_created_display}</span>
+    </div>
+    <div class="description">${description}</div>
+
+    <div class="page-counts">
+      <span class="page-counts-item page-counts-notes">
+        <i class='bx bx-note'></i>
+        <span class="page-count-data">${notebook.count_notes}</span>
+      </span>
+      <span class="page-counts-item page-counts-checklists">
+        <i class='bx bx-list-check'></i>
+        <span class="page-count-data">${notebook.count_checklists}</span>
+      </span>
+    </div>
+  </li>`;
 
   return html;
 }

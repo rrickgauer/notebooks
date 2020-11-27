@@ -93,15 +93,22 @@
   margin-left: 5px;
 }
 
-.card-notebook .notebook-head {
-  display: flex;
-}
-.card-notebook .notebook-head .badges {
-  margin-left: 10px;
-}
-.card-notebook .date-created {
+.list-notebooks .notebook .description {
   color: #586069;
   font-size: 12px;
+}
+.list-notebooks .notebook .page-counts,
+.list-notebooks .notebook .description {
+  margin-top: 10px;
+}
+.list-notebooks .notebook .page-counts {
+  color: #586069;
+}
+.list-notebooks .notebook .page-counts-item {
+  margin-right: 20px;
+}
+.list-notebooks .notebook .page-counts-item .page-count-data {
+  margin-left: 5px;
 }
 
 .badge-count-notes {

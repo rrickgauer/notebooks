@@ -129,19 +129,41 @@
 }
 
 
-.card-notebook {
-  .notebook-head {
-    display: flex;
-    .badges {
-      margin-left: 10px;
+
+
+.list-notebooks {
+
+  .notebook {
+    .description {
+      color: rgb(88, 96, 105);
+      font-size: 12px;
     }
+
+    .page-counts,
+    .description {
+      margin-top: 10px;
+    }
+
+    .page-counts {
+      color: rgb(88, 96, 105);
+    }
+
+    .page-counts-item {
+      margin-right: 20px;
+      
+      .page-count-data {
+        margin-left: 5px;
+      }
+  
+    }
+
+
   }
 
-  .date-created {
-    color: rgb(88, 96, 105);
-    font-size: 12px;
-  }
+
+
 }
+
 
 .badge-count-notes {
   background-color: fuchsia;
