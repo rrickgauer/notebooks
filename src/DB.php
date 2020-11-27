@@ -329,11 +329,14 @@ class DB {
   }
 
   /////////////////////////////
-  // Update a note's content //
+  // Update a note's content, name, hidden //
   /////////////////////////////
-  public static function updateNote($noteID, $content) {
-    $stmt = '
-    UPDATE Notes SET content = :content, date_modified = NOW()
+  public static function updateNote($noteID, $content, $name, $hidden = 'n') {
+    $stmt = 'UPDATE Notes 
+    SET content = :content, 
+    date_modified = NOW(),
+    name = :name,
+    hidden = :hidden
     WHERE id = :noteID';
 
     $sql = DB::dbConnect()->prepare($stmt);
@@ -342,9 +345,21 @@ class DB {
     $noteID = filter_var($noteID, FILTER_SANITIZE_NUMBER_INT);
     $sql->bindParam(':noteID', $noteID, PDO::PARAM_INT);
 
-    // note id
+    // content
     $content = filter_var($content, FILTER_SANITIZE_STRING);
     $sql->bindParam(':content', $content, PDO::PARAM_STR);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+     // hidden
+    if ($hidden != 'n') {
+      $hidden = 'y';
+    }
+
+    $hidden = filter_var($hidden, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':hidden', $hidden, PDO::PARAM_STR);
 
     $sql->execute();
 
