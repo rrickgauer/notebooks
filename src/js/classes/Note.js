@@ -22,7 +22,7 @@ function Note(parms) {
 
 Note.prototype.getHtml = function() {
   let html = '';
-  html += `<div class="card card-page card-note" data-page-id="${this.id}">`;
+  html += `<div class="card card-page card-note display-mode-normal" data-page-id="${this.id}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
   html += '</div>';   // end card
@@ -34,27 +34,34 @@ Note.prototype.getHtml = function() {
 Note.prototype.getHtmlHeader = function() {
   let html = `
   <div class="card-header">
-    <div class="left">
-      <h5 class="card-page-name">${this.name}</h5>
-      <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
+    <div class="card-header-normal">
+      <div class="left">
+        <h5 class="card-page-name">${this.name}</h5>
+        <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
+      </div>
+
+      <div class="right">
+        <div class="dropdown">
+          <button class="btn btn-sm" type="button" data-toggle="dropdown">
+            <i class='bx bx-dots-horizontal'></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item btn-page-edit" type="button">Edit</button>
+            <button class="dropdown-item btn-page-hide" type="button">Hide</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
+            <button class="dropdown-item btn-page-expand" type="button">Expand</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item btn-page-delete" type="button">Delete</button>
+          </div>
+        </div>
+      </div> 
     </div>
 
-    <div class="right">
-      <div class="dropdown">
-        <button class="btn btn-sm" type="button" data-toggle="dropdown">
-          <i class='bx bx-dots-horizontal'></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <button class="dropdown-item btn-page-edit" type="button">Edit</button>
-          <button class="dropdown-item btn-page-hide" type="button">Hide</button>
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
-          <button class="dropdown-item btn-page-expand" type="button">Expand</button>
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item btn-page-delete" type="button">Delete</button>
-        </div>
-      </div>
-    </div>          
+    <div class="card-header-edit">
+      <input type="text" class="form-control" placeholder="Update the name" value="${this.name}">
+    </div>
+
   </div>`;
 
   return html;
@@ -75,7 +82,7 @@ Note.prototype.getHtmlBody = function() {
 
   let html = `
   <div class="card-body">
-    <div class="content display-mode-normal">
+    <div class="content">
 
       <div class="rendered github-css">
         ${contentMarkdown}

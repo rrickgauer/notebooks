@@ -5,7 +5,7 @@
 .card-page {
   margin: 30px 0px;
 
-  .card-header {
+  .card-header-normal {
     display: flex;
     justify-content: space-between;
 
@@ -14,41 +14,38 @@
     }
   }
 
+
+
+
   &.collapsed .card-body {
     display: none;
   }
 }
 
 .card-note {
-
-  .card-header {
-    background-color: MistyRose;
-  }
-
-  .content.display-mode-normal {
-    .rendered {
-      display: block;
-    }
-
-    .edit {
-      display: none;
-    }
-  }
-
-  .content.display-mode-edit {
-    .rendered {
-      display: none;
-    }
-
-    .edit {
-      display: block;
-    }
-  }
+  .card-header {background-color: MistyRose;}
 }
+
+
+
+// note - normal display
+.card-note.display-mode-normal {
+  .card-header-edit {display: none;}
+  .rendered {display: block;}
+  .edit {display: none;}
+}
+
+// note - edit mode
+.card-note.display-mode-edit {
+  .card-header-edit {display: block;}
+  .card-header-normal {display: none;}
+  .rendered {display: none;}
+  .edit {display: block;}
+}
+
 
 // checklists
 .card-checklist {
-
   .card-header {
     background-color: lightcyan;
   }
@@ -84,6 +81,38 @@
 
       button {
         margin: 0px 5px;
+      }
+    }
+  }
+}
+
+// checklist - normal display
+.card-checklist.display-mode-normal {
+  .card-header-edit {display: none;}
+  .rendered {display: block;}
+  .edit {display: none;}
+}
+
+// checklist - edit mode
+.card-checklist.display-mode-edit {
+  .card-header-normal {display: none;}
+
+  .card-header-edit {
+    display: flex;
+    align-items: center;
+  }
+
+  .page-edit-name-container {
+    width: 100%;
+  }
+
+  .card-header-edit {
+    .buttons {
+      display: flex;
+      margin-left: 30px;
+      
+      button {
+        margin-left: 5px;
       }
     }
   }

@@ -298,8 +298,8 @@ function getChecklistItems(checklistID, pagesListIndex) {
 // Toggles a page's display mode to edit or normal //
 /////////////////////////////////////////////////////
 function togglePageDisplayMode(selector) {
-  $(selector).closest('.card-page').find('.content').toggleClass('display-mode-normal');
-  $(selector).closest('.card-page').find('.content').toggleClass('display-mode-edit');
+  $(selector).closest('.card-page').toggleClass('display-mode-normal');
+  $(selector).closest('.card-page').toggleClass('display-mode-edit');
 }
 
 /////////////////////////////
