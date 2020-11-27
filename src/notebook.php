@@ -125,7 +125,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
             <li class="list-group-item notebook-action">
               <h6 class="notebook-action-header">Hidden pages</h6>
               <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="notebook-action-hidden-toggle" checked>
+                <input type="checkbox" class="custom-control-input" id="notebook-action-hidden-toggle">
                 <label class="custom-control-label" for="notebook-action-hidden-toggle">Show</label>
               </div>
             </li>

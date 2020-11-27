@@ -102,6 +102,10 @@
   margin-left: 5px;
 }
 
+.card-page.hidden {
+  display: none;
+}
+
 .notebook-action-list {
   margin-top: 40px;
 }

@@ -22,7 +22,13 @@ function Note(parms) {
 
 Note.prototype.getHtml = function() {
   let html = '';
-  html += `<div class="card card-page card-note display-mode-normal" data-page-id="${this.id}">`;
+
+  let hidden = '';
+  if (this.hidden == 'y') {
+    hidden = 'd-none';
+  }
+
+  html += `<div class="card card-page card-note display-mode-normal ${hidden}" data-page-id="${this.id}" data-page-hidden="${this.hidden}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
   html += '</div>';   // end card

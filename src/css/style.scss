@@ -9,23 +9,15 @@
     display: flex;
     justify-content: space-between;
 
-    .left {
-      display: flex;
-    }
+    .left {display: flex;}
   }
 
-
-
-
-  &.collapsed .card-body {
-    display: none;
-  }
+  &.collapsed .card-body {display: none;}
 }
 
 .card-note {
   .card-header {background-color: MistyRose;}
 }
-
 
 
 // note - normal display
@@ -116,6 +108,10 @@
       }
     }
   }
+}
+
+.card-page.hidden {
+  display: none;
 }
 
 

@@ -125,9 +125,16 @@ function addListeners() {
     deletePage(this);
   });
 
+  // user wants to hide a page
+  $('.pages').on('click', '.btn-page-hide', function() {
+    togglePageHidden(this);
+  });
+
+  $('#notebook-action-hidden-toggle').on('click', function() {
+    toggleHiddenPages();
+  });
+
 }
-
-
 
 /**
  * Sets the notebook action states
@@ -323,12 +330,17 @@ function updateChecklist(selector) {
   const checklistElement = $(selector).closest('.card-page');
   const checklistID = $(checklistElement).attr('data-page-id');
   const name = $(checklistElement).find('.page-edit-name-input').val();
+  
+  // hidden
+  const hidden = $(checklistElement).attr('data-page-hidden');
 
   const data = {
     function: CONSTANTS.API_FUNCTIONS.updateChecklist,
     checklistID: checklistID,
     name: name,
+    hidden: hidden,
   }
+
 
   // send request to the api
   $.post(CONSTANTS.API, data).fail(function(response) {
@@ -355,12 +367,14 @@ function updateNote(selector) {
   const noteID = $(noteElement).attr('data-page-id');
   const newContent = $(noteElement).find('.edit-input').val();
   const newName = $(noteElement).find('.page-edit-name-input').val();
+  const hidden = $(noteElement).attr('data-page-hidden');
 
   const data = {
     function: CONSTANTS.API_FUNCTIONS.updateNote,
     noteID: noteID,
     content: newContent,
     name: newName,
+    hidden: hidden,
   }
 
   $.post(CONSTANTS.API, data).fail(function(response) {
@@ -682,6 +696,37 @@ function deletePage(selector) {
 }
 
 
+/**
+ * Toggle hidden pages all
+ */
+function toggleHiddenPages() {
+  const checkbox = document.getElementById('notebook-action-hidden-toggle');
+  // show hidden shit
+  if (checkbox.checked) {
+    $('.card-page[data-page-hidden="y"]').removeClass('d-none');
+  } else {
+    $('.card-page[data-page-hidden="y"]').addClass('d-none');
+  }
+}
+
+/**
+ * Show/hide a page
+ */
+function togglePageHidden(selector) {
+  const pageElement = $(selector).closest('.card-page');
+
+  if ($(pageElement).attr('data-page-hidden') == 'n') {
+    $(pageElement).attr('data-page-hidden', 'y');
+    $(pageElement).addClass('d-none');
+  } else {
+    $(pageElement).attr('data-page-hidden', 'n');
+  }
+
+  updatePage(selector);
+  if ($(pageElement).hasClass('display-mode-edit')) {
+    togglePageDisplayMode(selector);
+  }
+}
 
 
 
