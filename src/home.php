@@ -26,7 +26,7 @@ require_once('DB.php');
     <h4 class="mb-3">Your notebooks</h4>
 
     <!-- notebooks -->
-    <div class="notebook-cards"></div>
+    <ul class="list-group list-notebooks"></ul>
     
  
 
