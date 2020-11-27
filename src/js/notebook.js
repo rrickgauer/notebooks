@@ -25,7 +25,8 @@ function addListeners() {
   });
 
   $('.pages').on('click', '.card-page .btn-page-update-save', function(e) {
-    updateNoteContent(this);
+    // updateNoteContent(this);
+    updatePage(this);
   });
 
 
@@ -301,6 +302,48 @@ function togglePageDisplayMode(selector) {
   $(selector).closest('.card-page').toggleClass('display-mode-normal');
   $(selector).closest('.card-page').toggleClass('display-mode-edit');
 }
+
+
+/**
+ * Determines which type of page update to perform
+ */
+function updatePage(selector) {
+  const pageElement = ($(selector).closest('.card-page'));
+  if ($(pageElement).hasClass('card-note')) {
+    updateNoteContent(selector);
+  } else {
+    updateChecklist(selector);
+  }
+}
+
+/**
+ * Update a checklist name
+ */
+function updateChecklist(selector) {
+  const checklistElement = $(selector).closest('.card-page');
+  const checklistID = $(checklistElement).attr('data-page-id');
+  const name = $(checklistElement).find('.page-edit-name-input').val();
+
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.updateChecklist,
+    checklistID: checklistID,
+    name: name,
+  }
+
+  // send request to the api
+  $.post(CONSTANTS.API, data).fail(function(response) {
+    console.error('API error: updateChecklist()');
+    return;
+  });
+
+  $(checklistElement).find('.card-page-name').text(name);
+  togglePageDisplayMode(selector);
+
+  // update the name in the pages array
+  const pageIndex = getPageIndex(checklistElement);
+  pagesList[pageIndex].name = name;
+}
+
 
 /////////////////////////////
 // Update a note's content //

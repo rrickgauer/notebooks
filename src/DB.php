@@ -275,21 +275,6 @@ class DB {
     return $sql;
   }
 
-  /**
-   * Delete a checklist
-   */
-  public static function deleteChecklist($checklistID) {
-    $stmt = 'DELETE FROM Checklists WHERE id = :checklistID';
-    $sql = DB::dbConnect()->prepare($stmt);
-
-    // notebook id
-    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
-    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
-
-    $sql->execute();
-    return $sql;
-  }
-
 
   //////////////////////////////////////////////
   // Return the pages belonging to a notebook //
@@ -383,6 +368,54 @@ class DB {
     // name
     $name = filter_var($name, FILTER_SANITIZE_STRING);
     $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+  /**
+   * Delete a checklist
+   */
+  public static function deleteChecklist($checklistID) {
+    $stmt = 'DELETE FROM Checklists WHERE id = :checklistID';
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook id
+    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * Update a checklist name and hidden
+   */
+  public static function updateChecklist($checklistID, $name, $hidden = 'n') {
+    $stmt = 'UPDATE Checklists 
+    SET name = :name,
+    hidden = :hidden 
+    WHERE id = :checklistID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    // hidden
+    if ($hidden != 'n') {
+      $hidden = 'y';
+    }
+
+    $hidden = filter_var($hidden, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':hidden', $hidden, PDO::PARAM_STR);
+
+
+    // checklist id
+    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
 
     $sql->execute();
 

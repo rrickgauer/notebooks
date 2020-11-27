@@ -151,6 +151,30 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist') 
   exit;
 }
 
+/**
+ * update-checklist
+ * 
+ * Update a checklist's name and hidden
+ * 
+ * post - checklistID
+ * post - name
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist') {
+  $checklistID = $_POST['checklistID'];
+  $name = $_POST['name'];
+  // $hidden = $_POST['hidden'];
+
+  $result = DB::updateChecklist($checklistID, $name);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(202);
+  } else {
+    http_response_code(400);
+  }
+    
+  exit;
+}
+
 
 
 

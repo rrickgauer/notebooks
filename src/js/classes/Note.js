@@ -59,7 +59,7 @@ Note.prototype.getHtmlHeader = function() {
     </div>
 
     <div class="card-header-edit">
-      <input type="text" class="form-control" placeholder="Update the name" value="${this.name}">
+      <input type="text" class="form-control page-edit-name-input" placeholder="Update the name" value="${this.name}">
     </div>
 
   </div>`;

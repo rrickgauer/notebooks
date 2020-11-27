@@ -61,7 +61,7 @@ Checklist.prototype.getHtmlHeader = function() {
         
     <div class="card-header-edit">
       <div class="page-edit-name-container">
-        <input type="text" class="form-control" placeholder="Update the name" value="${this.name}">
+        <input type="text" class="form-control page-edit-name-input" placeholder="Update the name" value="${this.name}">
       </div>
       <div class="buttons">
         <button type="button" class="btn btn-sm btn-success btn-page-update-save">Save</button>
