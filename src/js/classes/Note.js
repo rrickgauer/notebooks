@@ -105,14 +105,14 @@ Note.prototype.getHtmlBody = function() {
           <div class="tab-pane write show active" role="tabpanel">
             <div class="tab-pane write show active" role="tabpanel">
               <textarea class="form-control edit-input" rows="5" placeholder="Add text...">${contentDisplayTextArea}</textarea>
-
-              <div class="page-edit-buttons d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-sm btn-outline-danger btn-page-update-cancel mr-2">Cancel</button>
-                <button type="button" class="btn btn-sm btn-success btn-page-update-save">Update note</button>
-              </div>
             </div>
           </div>
           <div class="tab-pane preview github-css" role="tabpanel"></div>
+        </div>
+
+        <div class="page-edit-buttons d-flex justify-content-end mt-3">
+          <button type="button" class="btn btn-sm btn-outline-danger btn-page-update-cancel mr-2">Cancel</button>
+          <button type="button" class="btn btn-sm btn-success btn-page-update-save">Update note</button>
         </div>
       </div>
 
