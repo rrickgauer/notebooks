@@ -260,6 +260,37 @@ class DB {
     return $sql;
   }
 
+  /**
+   * Delete a note
+   */
+  public static function deleteNote($noteID) {
+    $stmt = 'DELETE FROM Notes WHERE id = :noteID';
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook id
+    $noteID = filter_var($noteID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':noteID', $noteID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * Delete a checklist
+   */
+  public static function deleteChecklist($checklistID) {
+    $stmt = 'DELETE FROM Checklists WHERE id = :checklistID';
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook id
+    $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+
   //////////////////////////////////////////////
   // Return the pages belonging to a notebook //
   //////////////////////////////////////////////

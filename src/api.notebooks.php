@@ -110,6 +110,49 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-note') {
   exit;
 }
 
+/**
+ * delete-note
+ * 
+ * delete a note from the database
+ * 
+ * post - noteID
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'delete-note') {
+  $noteID = $_POST['noteID'];
+  $result = DB::deleteNote($noteID);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(200);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+
+/**
+ * delete-checklist
+ * 
+ * delete a checklist from the database
+ * 
+ * post - checklistID
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist') {
+  $noteID = $_POST['checklistID'];
+  $result = DB::deleteChecklist($noteID);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(200);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+
+
 
 /**
  * get-pages

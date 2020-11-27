@@ -119,6 +119,11 @@ function addListeners() {
     $(this).removeClass('is-invalid');
   });
 
+  // delete a page button clicked
+  $('.pages').on('click', '.btn-page-delete', function() {
+    deletePage(this);
+  });
+
 }
 
 
@@ -586,8 +591,39 @@ function updateNotebookMetadata() {
   });
 }
 
+/**
+ * Send request to the api to delete a checklist
+ */
+function deletePage(selector) {
+  // confirm with user that they are sure they want to delete the page
+  if (!confirm('Are you sure you want to delete this page?')) {
+    return;
+  }
 
+  const pageElement = $(selector).closest('.card-page');
+  const pageID = $(pageElement).attr('data-page-id');
 
+  let data = null;
+  if ($(pageElement).hasClass('card-checklist')) {
+    data = {
+      function: CONSTANTS.API_FUNCTIONS.deleteChecklist,
+      checklistID: pageID,
+    }
+  } else {
+    data = {
+      function: CONSTANTS.API_FUNCTIONS.deleteNote,
+      noteID: pageID,
+    }
+  }
+
+  // send request to the API
+  $.post(CONSTANTS.API, data, function(response) {
+    refreshPage();
+  }).fail(function(response) {
+    console.error('API error: deletePage()');
+    return;
+  });
+}
 
 
 
