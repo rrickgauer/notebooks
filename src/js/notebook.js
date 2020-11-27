@@ -134,6 +134,14 @@ function addListeners() {
     toggleHiddenPages();
   });
 
+  $('.pages').on('keydown', '.edit-input', function(e) {
+    if (e.keyCode == 13) {
+      // e.preventDefault();
+      // addChecklistItem(this);
+      autosize.update(this);
+    }
+  });
+
 }
 
 /**
@@ -235,6 +243,7 @@ function displayPages() {
   }
 
   $('.pages').html(html);
+  autosize($('.edit-input'));
 }
 
 function sortPagesList() {

@@ -17,6 +17,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.2/markdown-it.min.js"></script>
 
 <!-- taboverride: https://github.com/wjbryant/taboverride -->
+<script src="js/external/autosize.min.js"></script>
+
+<!-- textarea autosize: https://github.com/jackmoore/autosize -->
 <script src="js/external/taboverride.min.js"></script>
 
 <script src="js/classes/Constants.js"></script>
