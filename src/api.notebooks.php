@@ -151,6 +151,30 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist') 
   exit;
 }
 
+/**
+ * update-checklist
+ * 
+ * Update a checklist's name and hidden
+ * 
+ * post - checklistID
+ * post - name
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist') {
+  $checklistID = $_POST['checklistID'];
+  $name = $_POST['name'];
+  // $hidden = $_POST['hidden'];
+
+  $result = DB::updateChecklist($checklistID, $name);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(202);
+  } else {
+    http_response_code(400);
+  }
+    
+  exit;
+}
+
 
 
 
@@ -172,7 +196,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-pages') {
 /**
  * update-note
  *
- * Updates a note's content
+ * Updates a note's  content, name
  *
  * post - noteID
  * post - content
@@ -180,8 +204,10 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-pages') {
 else if (isset($_POST['function']) && $_POST['function'] == 'update-note') {
   $noteID = $_POST['noteID'];
   $content = $_POST['content'];
+  $name = $_POST['name'];
+  // $hidden = $_POST['hidden'];
 
-  $result = DB::updateNote($noteID, $content);
+  $result = DB::updateNote($noteID, $content, $name);
 
   if ($result->rowCount() != 1) {
     http_response_code(400);

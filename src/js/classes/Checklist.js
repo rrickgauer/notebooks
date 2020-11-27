@@ -19,7 +19,7 @@ function Checklist(parms) {
 
 Checklist.prototype.getHtml = function() {
   let html = '';
-  html += `<div class="card card-page card-checklist" data-page-id="${this.id}">`;
+  html += `<div class="card card-page card-checklist display-mode-normal" data-page-id="${this.id}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
   html += '</div></div>';
@@ -35,28 +35,42 @@ Checklist.prototype.getHtmlHeader = function() {
 
   let html = `
   <div class="card-header">
-  
-    <div class="left">
-      <h5 class="card-page-name">${this.name}</h5>
-      <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
+    <div class="card-header-normal">
+      <div class="left">
+        <h5 class="card-page-name">${this.name}</h5>
+        <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
+      </div>
+
+      <div class="right">
+        <div class="dropdown">
+          <button class="btn btn-sm" type="button" data-toggle="dropdown">
+            <i class='bx bx-dots-horizontal'></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item btn-page-edit" type="button">Edit</button>
+            <button class="dropdown-item btn-page-hide" type="button">Hide</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
+            <button class="dropdown-item btn-page-expand" type="button">Expand</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item btn-page-delete" type="button">Delete</button>
+          </div>
+        </div>
+      </div> 
+    </div>
+        
+    <div class="card-header-edit">
+      <div class="page-edit-name-container">
+        <input type="text" class="form-control page-edit-name-input" placeholder="Update the name" value="${this.name}">
+      </div>
+      <div class="buttons">
+        <button type="button" class="btn btn-sm btn-success btn-page-update-save">Save</button>
+        <button type="button" class="btn btn-sm btn-light btn-page-update-cancel">Cancel</button>
+      </div>
+      
+
     </div>
 
-    <div class="right">
-      <div class="dropdown">
-        <button class="btn btn-sm" type="button" data-toggle="dropdown">
-          <i class='bx bx-dots-horizontal'></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-          <button class="dropdown-item btn-page-edit" type="button">Edit</button>
-          <button class="dropdown-item btn-page-hide" type="button">Hide</button>
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
-          <button class="dropdown-item btn-page-expand" type="button">Expand</button>
-          <div class="dropdown-divider"></div>
-          <button class="dropdown-item btn-page-delete" type="button">Delete</button>
-        </div>
-      </div>
-    </div>          
   </div>
   <div class="card-body">
     <div class="content">${inputHtml}`;

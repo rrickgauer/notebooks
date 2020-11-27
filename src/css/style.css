@@ -5,11 +5,11 @@
 .card-page {
   margin: 30px 0px;
 }
-.card-page .card-header {
+.card-page .card-header-normal {
   display: flex;
   justify-content: space-between;
 }
-.card-page .card-header .left {
+.card-page .card-header-normal .left {
   display: flex;
 }
 .card-page.collapsed .card-body {
@@ -19,16 +19,27 @@
 .card-note .card-header {
   background-color: MistyRose;
 }
-.card-note .content.display-mode-normal .rendered {
+
+.card-note.display-mode-normal .card-header-edit {
+  display: none;
+}
+.card-note.display-mode-normal .rendered {
   display: block;
 }
-.card-note .content.display-mode-normal .edit {
+.card-note.display-mode-normal .edit {
   display: none;
 }
-.card-note .content.display-mode-edit .rendered {
+
+.card-note.display-mode-edit .card-header-edit {
+  display: block;
+}
+.card-note.display-mode-edit .card-header-normal {
   display: none;
 }
-.card-note .content.display-mode-edit .edit {
+.card-note.display-mode-edit .rendered {
+  display: none;
+}
+.card-note.display-mode-edit .edit {
   display: block;
 }
 
@@ -61,6 +72,34 @@
 }
 .card-checklist .checklist-item-editor .buttons button {
   margin: 0px 5px;
+}
+
+.card-checklist.display-mode-normal .card-header-edit {
+  display: none;
+}
+.card-checklist.display-mode-normal .rendered {
+  display: block;
+}
+.card-checklist.display-mode-normal .edit {
+  display: none;
+}
+
+.card-checklist.display-mode-edit .card-header-normal {
+  display: none;
+}
+.card-checklist.display-mode-edit .card-header-edit {
+  display: flex;
+  align-items: center;
+}
+.card-checklist.display-mode-edit .page-edit-name-container {
+  width: 100%;
+}
+.card-checklist.display-mode-edit .card-header-edit .buttons {
+  display: flex;
+  margin-left: 30px;
+}
+.card-checklist.display-mode-edit .card-header-edit .buttons button {
+  margin-left: 5px;
 }
 
 .notebook-action-list {

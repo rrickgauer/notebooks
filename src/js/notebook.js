@@ -25,7 +25,8 @@ function addListeners() {
   });
 
   $('.pages').on('click', '.card-page .btn-page-update-save', function(e) {
-    updateNoteContent(this);
+    // updateNote(this);
+    updatePage(this);
   });
 
 
@@ -298,38 +299,93 @@ function getChecklistItems(checklistID, pagesListIndex) {
 // Toggles a page's display mode to edit or normal //
 /////////////////////////////////////////////////////
 function togglePageDisplayMode(selector) {
-  $(selector).closest('.card-page').find('.content').toggleClass('display-mode-normal');
-  $(selector).closest('.card-page').find('.content').toggleClass('display-mode-edit');
+  $(selector).closest('.card-page').toggleClass('display-mode-normal');
+  $(selector).closest('.card-page').toggleClass('display-mode-edit');
 }
 
-/////////////////////////////
-// Update a note's content //
-/////////////////////////////
-function updateNoteContent(selector) {
-  const note = $(selector).closest('.card-page');
-  const noteID = $(note).attr('data-page-id');
-  const newContent = $(note).find('.edit-input').val();
+
+/**
+ * Determines which type of page update to perform
+ */
+function updatePage(selector) {
+  const pageElement = ($(selector).closest('.card-page'));
+  if ($(pageElement).hasClass('card-note')) {
+    updateNote(selector);
+  } else {
+    updateChecklist(selector);
+  }
+}
+
+/**
+ * Update a checklist name
+ */
+function updateChecklist(selector) {
+  const checklistElement = $(selector).closest('.card-page');
+  const checklistID = $(checklistElement).attr('data-page-id');
+  const name = $(checklistElement).find('.page-edit-name-input').val();
+
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.updateChecklist,
+    checklistID: checklistID,
+    name: name,
+  }
+
+  // send request to the api
+  $.post(CONSTANTS.API, data).fail(function(response) {
+    console.error('API error: updateChecklist()');
+    return;
+  });
+
+  $(checklistElement).find('.card-page-name').text(name);
+  togglePageDisplayMode(selector);
+
+  // update the name in the pages array
+  const pageIndex = getPageIndex(checklistElement);
+  pagesList[pageIndex].name = name;
+}
+
+
+/**
+ * Update a note's:
+ * - content 
+ * - name
+ */
+function updateNote(selector) {
+  const noteElement = $(selector).closest('.card-page');
+  const noteID = $(noteElement).attr('data-page-id');
+  const newContent = $(noteElement).find('.edit-input').val();
+  const newName = $(noteElement).find('.page-edit-name-input').val();
 
   const data = {
     function: CONSTANTS.API_FUNCTIONS.updateNote,
     noteID: noteID,
     content: newContent,
+    name: newName,
   }
 
   $.post(CONSTANTS.API, data).fail(function(response) {
-    console.error('Error: updateNoteContent()');
+    console.error('Error: updateNote()');
     return;
   });
 
   // update the display
   let utils = new Utilities();
 
+  // content
   const newContentMd = utils.renderMarkdown(newContent);
-  $(note).find('.content .rendered').html(newContentMd);
+  $(noteElement).find('.content .rendered').html(newContentMd);
 
+  // name
+  $(noteElement).find('.card-page-name').text(newName);
 
   // show the new shit
   togglePageDisplayMode(selector);
+
+  // update the element in the pages list
+  const pageIndex = getPageIndex(noteElement);
+  pagesList[pageIndex].name = newName;
+  pagesList[pageIndex].content = newContent;
+
 }
 
 
