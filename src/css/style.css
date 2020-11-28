@@ -115,6 +115,9 @@
   align-items: baseline;
   justify-content: space-between;
 }
+.notebook-meta .notebook-meta-description {
+  color: #586069;
+}
 
 .notebook-meta-edit {
   display: flex;
@@ -168,6 +171,23 @@
 }
 .pages-toc summary:hover {
   background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 668px) {
+  .notebook-meta,
+.notebook-meta-edit {
+    flex-direction: column;
+  }
+  .notebook-meta .notebook-meta-buttons,
+.notebook-meta .buttons,
+.notebook-meta-edit .notebook-meta-buttons,
+.notebook-meta-edit .buttons {
+    margin-top: 5px;
+  }
+
+  .notebook-meta-edit .buttons {
+    margin-left: 0px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

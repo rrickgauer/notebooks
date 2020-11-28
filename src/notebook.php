@@ -37,7 +37,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
       <div class="notebook-meta">
         <div class="notebook-meta-info">
           <h1 class="notebook-meta-name"><?php echo $notebook['name']; ?></h1>
-          <h6 class="notebook-meta-description"><?php echo $notebook['description']; ?></h6>
+          <div class="notebook-meta-description"><?php echo $notebook['description']; ?></div>
         </div>
 
         <div class="notebook-meta-buttons">
@@ -75,7 +75,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
   <!-- body -->
   <section id="notebook-body" class="mt-5">
-    <div class="container">
+    <div class="container-md">
 
       <!-- table of content -->
       <div class="pages-toc mb-3">
@@ -88,14 +88,8 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
       <!-- pages -->
       <div class="row">
-        <!-- pages -->
-        <div class="col-sm-12 col-md-9">
-          <h4>Your pages (<span class="notebook-meta-count-pages"><?php echo $notebook['count_pages']; ?></span>)</h4>
-          <div class="pages"></div>
-        </div>
-
         <!-- action buttons -->
-        <div class="col-sm-12 col-md-3">
+        <div class="col-sm-12 col-md-3 order-md-2">
           <ul class="list-group list-group-flush notebook-action-list">
             <!-- sorting -->
             <li class="list-group-item notebook-action sorting">
@@ -153,6 +147,12 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
 
 
+        </div>
+
+          <!-- pages -->
+          <div class="col-sm-12 col-md-9 order-md-1">
+          <h4>Your pages (<span class="notebook-meta-count-pages"><?php echo $notebook['count_pages']; ?></span>)</h4>
+          <div class="pages"></div>
         </div>
       </div>
     </div>
