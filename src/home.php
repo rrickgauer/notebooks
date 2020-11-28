@@ -22,7 +22,23 @@ require_once('DB.php');
 
   <div class="container-md">
     <h1 class="text-center mt-5">Home</h1>
-    <h4 class="mb-3">Your notebooks</h4>
+
+    <div class="d-flex justify-content-between align-items-baseline">
+      <div>
+        <h4 class="mb-3">Your notebooks</h4>
+      </div>
+
+      <div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="bx bx-search"></i></span>
+          </div>
+          <input type="text" class="form-control" id="notebooks-search-input" placeholder="Find a notebook...">
+        </div>
+      </div>    
+    </div>
+
+    
 
     <!-- notebooks -->
     <ul class="list-group list-notebooks"></ul>

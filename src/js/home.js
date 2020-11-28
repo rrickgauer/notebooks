@@ -6,8 +6,21 @@ const utilities = new Utilities();
 $(document).ready(function() {
   loadNotebooks();
 
-  utilities.displayAlert('test');
+  $('#notebooks-search-input').on('keyup', function() {
+    searchNotebooks();
+  });
 });
+
+
+function searchNotebooks() {
+  const input = $('#notebooks-search-input').val().toUpperCase();
+  if (input == '') {
+    $('.notebook').removeClass('d-none');
+  }
+
+  $(`.notebook .name-search:not(:contains(${input}))`).closest('.notebook').addClass('d-none');
+  $(`.notebook .name-search:contains(${input})`).closest('.notebook').removeClass('d-none');
+}
 
 
 
@@ -42,11 +55,16 @@ function getNotebookCardHtml(notebook) {
     description = '';
   }
 
+  const nameSearchData = notebook.name.toUpperCase();
+  console.log(nameSearchData);
+
   let html = `
   <li class="list-group-item notebook">
     <div class="d-flex">
-      <h5><a href="${href}">${notebook.name}</a></h5>
+      <h5 class="name"><a href="${href}">${notebook.name}</a></h5>
     </div>
+
+    <div class="name-search d-none">${nameSearchData}</div>
     
     <div class="date-created">
       <span>Added on </span>
