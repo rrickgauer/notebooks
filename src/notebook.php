@@ -141,12 +141,13 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
               <button type="button" class="btn btn-sm btn-light btn-block btn-notebook-action-view btn-notebook-view-collapse">Collapse</button>
               <button type="button" class="btn btn-sm btn-light btn-block btn-notebook-action-view btn-notebook-view-expand">Expand</button>
             </li>
+
+            <!-- delete notebook -->
+            <li class="list-group-item notebook-action">
+              <h6 class="notebook-action-header">Delete</h6>
+              <button type="button" class="btn btn-sm btn-outline-danger btn-block btn-notebook-action-delete" data-toggle="modal" data-target="#modal-notebook-delete">Delete notebook</button>
+            </li>
           </ul>
-
-
-
-
-
         </div>
 
           <!-- pages -->
@@ -196,6 +197,33 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary btn-page-new-create" disabled>Create new page</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <!-- delete notebook modal -->
+      <div class="modal fade modal-notebook-delete" id="modal-notebook-delete" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete notebook</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <h6>Are you sure you want to delete this notebook?</h6>
+
+            <ul>
+              <li>This cannot be undone</li>
+              <li>All notes will be deleted</li>
+              <li>All checklists will be deleted</li>
+            </ul>
+
+            <a href="#" class="btn btn-sm btn-outline-danger btn-block btn-delete-notebook">Delete this notebook</a>
           </div>
         </div>
       </div>
