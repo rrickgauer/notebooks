@@ -5,6 +5,7 @@ function Constants() {
 
 Constants.prototype.API_FUNCTIONS = {
   insertNotebook: 'insert-notebook',
+  deleteNotebook: 'delete-notebook',
   getNotebooks: 'get-notebooks',
   insertPage: 'insert-page',
   insertNote: 'insert-note',

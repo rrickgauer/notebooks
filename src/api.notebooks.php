@@ -64,6 +64,34 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
 }
 
 /**
+ * Delete a notebook
+ */
+else if(isset($_POST['function']) && $_POST['function'] == 'delete-notebook') {
+  $password = $_POST['password'];
+  $notebookID = $_POST['notebookID'];
+
+  // verify user password is ok
+  $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+
+  if (!DB::isValidEmailAndPassword($user['email'], $password)) {
+    echo 'Invalid password';
+    http_response_code(400);
+    exit;
+  }
+
+  $result = DB::deleteNotebook($notebookID);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(200);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+
+/**
  * Update a notebook name and description
  */
 

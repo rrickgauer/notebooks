@@ -55,6 +55,33 @@ class DB {
     return $sql;
   }
 
+  /**
+   * Get user info from db
+   */
+  public static function getUser($userID) {
+    $stmt = 'SELECT u.id as id,
+    u.name_first as name_first,
+    u.name_last as name_last,
+    u.email as email,
+    u.date_created as date_created,
+    DATE_FORMAT(u.date_created, "%c/%d/%Y") as date_created_display,
+    (SELECT count(n.id) FROM Notebooks n WHERE n.user_id= u.id) AS count_notebooks
+    FROM Users u
+    WHERE u.id = :userID
+    LIMIT 1';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // sanitize and bind id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    $sql->execute();
+
+    return $sql;
+  }
+
+
   /////////////////////////////////////////////////////////////
   // Returns the user id by looking for the email associated //
   /////////////////////////////////////////////////////////////
@@ -155,9 +182,20 @@ class DB {
 
   }
 
+  /**
+   * Delete a notebook from the database
+   */
+  public static function deleteNotebook($notebookID) {
+    $stmt = 'DELETE FROM Notebooks where id = :notebookID';
+    $sql = DB::dbConnect()->prepare($stmt);
 
+    // sanitize and bind id
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
 
-
+    $sql->execute();
+    return $sql;
+  }
 
   //////////////////////////////////////////////////////
   // Get the most recently created notebook           //
