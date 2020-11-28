@@ -12,8 +12,12 @@
 <!-- jquery toast: https://kamranahmed.info/toast -->
 <!-- <link rel="stylesheet" href="css/external/jquery.toast.min.css"> -->
 
+
 <!-- github css -->
 <link rel="stylesheet" type="text/css" href="css/github.css" />
+
+<!-- prism css -->
+<link rel="stylesheet" type="text/css" href="css//external/prism.css" />
 
 <!-- personal css -->
 <link rel="stylesheet" type="text/css" href="css/style.css" />
