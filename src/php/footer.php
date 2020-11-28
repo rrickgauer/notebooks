@@ -22,6 +22,9 @@
 <!-- textarea autosize: https://github.com/jackmoore/autosize -->
 <script src="js/external/taboverride.min.js"></script>
 
+<!-- prism: https://github.com/jackmoore/autosize -->
+<script src="js/external/prism.js"></script>
+
 <script src="js/classes/Constants.js"></script>
 <script src="js/classes/Global-Variables.js"></script>
 <script src="js/classes/Utilities.js"></script>

@@ -257,6 +257,9 @@ function displayPages() {
 
   $('.pages').html(html);
   autosize($('.edit-input'));
+
+  Prism.highlightAll();
+
 }
 
 
@@ -415,6 +418,8 @@ function updateNote(selector) {
   // name
   $(noteElement).find('.card-page-name').text(newName);
 
+  Prism.highlightAll();
+
   // show the new shit
   togglePageDisplayMode(selector);
 
@@ -436,6 +441,7 @@ function showNoteEditPreview(target) {
   const md        = utils.renderMarkdown(editInput);
 
   $(note).find('.tab-pane.preview').html(md);
+  Prism.highlightAll();
 }
 
 
