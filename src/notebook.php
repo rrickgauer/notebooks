@@ -223,7 +223,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
               <li>All checklists will be deleted</li>
             </ul>
 
-            <a href="#" class="btn btn-sm btn-outline-danger btn-block btn-delete-notebook">Delete this notebook</a>
+            <a href="delete-notebook.php?notebookID=<?php echo $_GET['notebookID']; ?>" class="btn btn-sm btn-outline-danger btn-block btn-delete-notebook">Delete this notebook</a>
           </div>
         </div>
       </div>
