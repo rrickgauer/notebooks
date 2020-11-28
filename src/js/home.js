@@ -9,7 +9,61 @@ $(document).ready(function() {
   $('#notebooks-search-input').on('keyup', function() {
     searchNotebooks();
   });
+
+  $('.notebooks-sort').on('click', function() {
+    sortNotebooks(this);
+  });
 });
+
+
+function sortNotebooks(btn) {
+  if ($(btn).hasClass('oldest')) {
+    sortNotebooksOldest();
+  } else if ($(btn).hasClass('newest')) {
+    sortNotebooksNewest();
+  } else {
+    sortNotebooksName();
+  }
+}
+
+function sortNotebooksOldest() {
+  let notebooks = $('.notebook');
+  notebooks.sort(function(a, b) {
+    let dateA = new Date($(a).attr('data-notebook-date-created'));
+    let dateB = new Date($(b).attr('data-notebook-date-created'));
+    return (dateA < dateB) ? -1 : 1;
+  });
+
+  $('.list-notebooks').html(notebooks);
+
+}
+
+function sortNotebooksNewest() {
+  let notebooks = $('.notebook');
+  notebooks.sort(function(a, b) {
+    let dateA = new Date($(a).attr('data-notebook-date-created'));
+    let dateB = new Date($(b).attr('data-notebook-date-created'));
+    return (dateA > dateB) ? -1 : 1;
+  });
+
+  $('.list-notebooks').html(notebooks);
+}
+
+
+function sortNotebooksName() {
+  let notebooks = $('.notebook');
+  notebooks.sort(function(a, b) {
+    let nameA = $(a).attr('data-notebook-name');
+    let nameB = $(b).attr('data-notebook-name');
+    return (nameA < nameB) ? -1 : 1;
+  });
+
+  $('.list-notebooks').html(notebooks);
+}
+
+
+
+
 
 
 function searchNotebooks() {
@@ -56,10 +110,14 @@ function getNotebookCardHtml(notebook) {
   }
 
   const nameSearchData = notebook.name.toUpperCase();
-  console.log(nameSearchData);
+  const name = `data-notebook-name="${nameSearchData}"`;
+  const notebookID = `data-notebook-id="${notebook.id}"`;
+  const dateCreated = `data-notebook-date-created="${notebook.date_created}"`;
+  
+
 
   let html = `
-  <li class="list-group-item notebook">
+  <li class="list-group-item notebook" ${notebookID} ${name} ${dateCreated}>
     <div class="d-flex">
       <h5 class="name"><a href="${href}">${notebook.name}</a></h5>
     </div>

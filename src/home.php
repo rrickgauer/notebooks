@@ -28,12 +28,26 @@ require_once('DB.php');
         <h4 class="mb-3">Your notebooks</h4>
       </div>
 
-      <div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="bx bx-search"></i></span>
+      
+      <div>        
+        <div class="d-flex">
+          <!-- sort notebooks -->
+          <div class="dropdown mr-3">
+            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">Sort</button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item notebooks-sort oldest" type="button">Oldest</button>
+              <button class="dropdown-item notebooks-sort newest" type="button">Newest</button>
+              <button class="dropdown-item notebooks-sort name" type="button">Name</button>
+            </div>
           </div>
-          <input type="text" class="form-control" id="notebooks-search-input" placeholder="Find a notebook...">
+
+          <!-- search for notebook -->
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="bx bx-search"></i></span>
+            </div>
+            <input type="text" class="form-control" id="notebooks-search-input" placeholder="Find a notebook...">
+          </div>
         </div>
       </div>    
     </div>
