@@ -13,3 +13,13 @@ Utilities.prototype.enableTextarea = function(textarea) {
   tabOverride.tabSize(2).set(text);
 }
 
+Utilities.prototype.displayAlert = function(text) {
+  $.toast({
+    text: text,
+    position: 'top-right',
+    loader: false,
+    bgColor: '#3D3D3D',
+    textColor: 'white'
+  });
+}
+

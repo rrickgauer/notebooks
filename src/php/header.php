@@ -10,7 +10,7 @@
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" /> -->
 
 <!-- jquery toast: https://kamranahmed.info/toast -->
-<!-- <link rel="stylesheet" href="css/external/jquery.toast.min.css"> -->
+<link rel="stylesheet" href="css/external/jquery.toast.min.css" />
 
 
 <!-- github css -->

@@ -1,9 +1,12 @@
 
 const CONSTANTS = new Constants();
+const utilities = new Utilities();
 
 // main
 $(document).ready(function() {
   loadNotebooks();
+
+  utilities.displayAlert('test');
 });
 
 
