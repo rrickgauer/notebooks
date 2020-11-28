@@ -208,14 +208,30 @@ function loadPages() {
       addPage(response[count]);
     }
 
+    sortPagesList();
     displayPages();
     loadChecklistsItems();
+    displayTableOfContent();
 
     // enable textarea library
     let utils = new Utilities();
     utils.enableTextarea('.edit-input');
   });
 }
+
+
+
+/**
+ * Adds ids to all the page elements for the table of contents links
+ */
+function generatePageElementIds() {
+  $('.card-page').each(function() {
+    let index = $(this).index();
+    let id = `page-${index}`;
+    this.id = id;
+  });
+}
+
 
 //////////////////////////////////////////////
 // Insert a new page into the list of pages //
@@ -235,9 +251,6 @@ function addPage(page) {
 function displayPages() {
   let html = '';
 
-  // sort the pages
-  sortPagesList();
-
   for (let count = 0; count < pagesList.length; count++) {
     html += pagesList[count].getHtml();
   }
@@ -245,6 +258,7 @@ function displayPages() {
   $('.pages').html(html);
   autosize($('.edit-input'));
 }
+
 
 function sortPagesList() {
   switch(globalVariables.sort) {
@@ -738,5 +752,20 @@ function togglePageHidden(selector) {
 }
 
 
+// generate the toc
+function displayTableOfContent() {
+  generatePageElementIds();
+  let html = '';
+
+  $('.card-page').each(function() {
+    if ($(this).attr('data-page-hidden') == 'n') {
+      const pageID = this.id;
+      const name = $(this).find('.card-page-name').text();
+      html += `<li class="pages-toc-list-item"><a href="#${pageID}">${name}</a></li>`;
+    }
+  });
+
+  $('.pages-toc-list').html(html);
+}
 
 

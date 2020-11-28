@@ -157,7 +157,6 @@
 
 
 .list-notebooks {
-
   .notebook {
     .description {
       color: rgb(88, 96, 105);
@@ -179,14 +178,8 @@
       .page-count-data {
         margin-left: 5px;
       }
-  
     }
-
-
   }
-
-
-
 }
 
 
@@ -200,5 +193,14 @@
 }
 
 
+.pages-toc {
+  summary {
+    outline: none;
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+  }
+}
 
 

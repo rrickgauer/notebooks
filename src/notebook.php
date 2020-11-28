@@ -76,6 +76,17 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
   <!-- body -->
   <section id="notebook-body" class="mt-5">
     <div class="container">
+
+      <!-- table of content -->
+      <div class="pages-toc mb-3">
+        <details open>
+          <summary open class="h4">Table of content</summary>
+          <ol class="pages-toc-list"></ol>
+        </details>
+      </div>
+
+
+      <!-- pages -->
       <div class="row">
         <!-- pages -->
         <div class="col-sm-12 col-md-9">
