@@ -20,9 +20,8 @@ require_once('DB.php');
 <body>
   <?php include('php/navbar.php'); ?>
 
-  <div class="container">
+  <div class="container-md">
     <h1 class="text-center mt-5">Home</h1>
-
     <h4 class="mb-3">Your notebooks</h4>
 
     <!-- notebooks -->
