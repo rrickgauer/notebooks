@@ -152,6 +152,17 @@ function addListeners() {
       autosize.update(this);
     }
   });
+
+  // enable/disable create new label button
+  $('#form-notebooks-labels-new-name').on('keyup', function() {
+    if ($(this).val() != '') {
+      $('#form-notebooks-labels-new-btn').prop('disabled', false);
+    } else {
+      $('#form-notebooks-labels-new-btn').prop('disabled', true);
+    }
+  });
+
+
 }
 
 /**
