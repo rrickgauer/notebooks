@@ -15,38 +15,43 @@ require_once('DB.php');
 </head>
 <body>
   <div class="container">
-    <h1 class="text-center mt-5">Create Account</h1>
+    <h1 class="text-center mb-5 mt-center">Create Account</h1>
 
-    <form method="post" action="api.notebooks.php">
-      <div class="form-group">
-        <label for="user-new-name-first">First name</label>
-        <input type="text" class="form-control" id="user-new-name-first" name="user-new-name-first" required>
-        <div class="invalid-feedback"></div>
-      </div>
+    <div class="d-flex justify-content-center">
+      <form method="post" action="api.notebooks.php" class="form-md">
+        <div class="form-group">
+          <label for="user-new-name-first">First name</label>
+          <input type="text" class="form-control" id="user-new-name-first" name="user-new-name-first" required>
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="user-new-name-last">Last name</label>
-        <input type="text" class="form-control" id="user-new-name-last" name="user-new-name-last" required>
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label for="user-new-name-last">Last name</label>
+          <input type="text" class="form-control" id="user-new-name-last" name="user-new-name-last" required>
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="user-new-email">Email address</label>
-        <input type="email" class="form-control" id="user-new-email" name="user-new-email" required>
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label for="user-new-email">Email address</label>
+          <input type="email" class="form-control" id="user-new-email" name="user-new-email" required>
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="form-group">
-        <label for="user-new-password">Password</label>
-        <input type="password" class="form-control" id="user-new-password" name="user-new-password" required>
-        <div class="invalid-feedback"></div>
-      </div>
+        <div class="form-group">
+          <label for="user-new-password">Password</label>
+          <input type="password" class="form-control" id="user-new-password" name="user-new-password" required>
+          <div class="invalid-feedback"></div>
+        </div>
 
-      <div class="d-flex align-items-center justify-content-between">
-        <button type="submit" class="btn btn-primary">Create account</button>
-        <a href="login.php">Already have an account? Log in</a>
-      </div>
-    </form>
+        <div class="d-flex align-items-center justify-content-between">
+          <button type="submit" class="btn btn-sm btn-primary">Create account</button>
+          <a href="login.php">Already have an account? Log in</a>
+        </div>
+      </form>
+
+    </div>
+
+
 
   </div>
 
