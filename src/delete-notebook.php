@@ -28,7 +28,7 @@ require_once('DB.php');
   <h4 class="text-center mt-5 mb-5">Confirm password to continue</h4>
 
   <div class="d-flex justify-content-center">
-    <form id="form-notebook-delete">
+    <form id="form-notebook-delete" class="form-sm">
       <div class="form-group">
         <label for="form-notebook-delete-password">Password</label>
         <input type="password" class="form-control form-control-sm" id="form-notebook-delete-password">
