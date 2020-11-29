@@ -142,6 +142,12 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
               <button type="button" class="btn btn-sm btn-light btn-block btn-notebook-action-view btn-notebook-view-expand">Expand</button>
             </li>
 
+            <!-- edit labels -->
+            <li class="list-group-item notebook-action">
+              <h6 class="notebook-action-header">Labels</h6>
+              <button type="button" class="btn btn-sm btn-light btn-block btn-notebook-action-labels" data-toggle="modal" data-target="#modal-notebook-labels">Edit labels</button>
+            </li>
+
             <!-- delete notebook -->
             <li class="list-group-item notebook-action">
               <h6 class="notebook-action-header">Delete</h6>
@@ -203,8 +209,8 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
     </div>
 
 
-      <!-- delete notebook modal -->
-      <div class="modal fade modal-notebook-delete" id="modal-notebook-delete" tabindex="-1">
+    <!-- delete notebook modal -->
+    <div class="modal fade modal-notebook-delete" id="modal-notebook-delete" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
@@ -224,6 +230,41 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
             </ul>
 
             <a href="delete-notebook.php?notebookID=<?php echo $_GET['notebookID']; ?>" class="btn btn-sm btn-outline-danger btn-block btn-delete-notebook">Delete this notebook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- edit labels modal-->
+    <div class="modal fade modal-notebook-labels" id="modal-notebook-labels" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Labels</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+            <!-- create new label -->
+            <p><b>Create a new label</b></p>
+            <form id="form-notebooks-labels-new">
+              <div class="form-row align-items-center">
+                <!-- name -->
+                <div class="col-8">
+                  <input type="text" class="form-control form-control-sm" id="form-notebooks-labels-new-name" placeholder="Name">
+                </div>
+                <!-- color -->
+                <div class="col-auto">
+                  <input type="text" class="color-picker" id="form-notebooks-labels-new-color">
+                </div>
+                <!-- submit -->
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-sm btn-primary" id="form-notebooks-labels-new-btn" disabled>Create</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

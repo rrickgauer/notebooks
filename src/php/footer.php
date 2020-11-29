@@ -25,6 +25,9 @@
 <!-- prism: https://github.com/jackmoore/autosize -->
 <script src="js/external/prism.js"></script>
 
+<!-- color picker: https://github.com/Simonwep/pickr -->
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
 <script src="js/classes/Constants.js"></script>
 <script src="js/classes/Global-Variables.js"></script>
 <script src="js/classes/Utilities.js"></script>

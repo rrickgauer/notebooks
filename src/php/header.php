@@ -12,6 +12,9 @@
 <!-- jquery toast: https://kamranahmed.info/toast -->
 <link rel="stylesheet" href="css/external/jquery.toast.min.css" />
 
+<!-- color picker: https://github.com/Simonwep/pickr -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+
 
 <!-- github css -->
 <link rel="stylesheet" type="text/css" href="css/github.css" />
