@@ -1,10 +1,3 @@
---
--- Table structure for table `Checklist_Items`
---
-
-DROP TABLE IF EXISTS `Checklist_Items`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Checklist_Items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `checklist_id` int(10) unsigned NOT NULL,
@@ -16,16 +9,8 @@ CREATE TABLE `Checklist_Items` (
   UNIQUE KEY `id` (`id`),
   KEY `checklist_id` (`checklist_id`),
   CONSTRAINT `Checklist_Items_ibfk_1` FOREIGN KEY (`checklist_id`) REFERENCES `Checklists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Table structure for table `Checklists`
---
-
-DROP TABLE IF EXISTS `Checklists`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Checklists` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `notebook_id` int(10) unsigned NOT NULL,
@@ -36,16 +21,19 @@ CREATE TABLE `Checklists` (
   UNIQUE KEY `id` (`id`),
   KEY `notebook_id` (`notebook_id`),
   CONSTRAINT `Checklists_ibfk_1` FOREIGN KEY (`notebook_id`) REFERENCES `Notebooks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `Notebook_Labels` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `name` char(200) COLLATE utf8_unicode_ci NOT NULL,
+  `color` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `Notebook_Labels_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `Notebooks`
---
-
-DROP TABLE IF EXISTS `Notebooks`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Notebooks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -56,16 +44,8 @@ CREATE TABLE `Notebooks` (
   UNIQUE KEY `id` (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `Notebooks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Table structure for table `Notes`
---
-
-DROP TABLE IF EXISTS `Notes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Notes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `notebook_id` int(10) unsigned NOT NULL,
@@ -78,16 +58,8 @@ CREATE TABLE `Notes` (
   UNIQUE KEY `id` (`id`),
   KEY `notebook_id` (`notebook_id`),
   CONSTRAINT `Notes_ibfk_1` FOREIGN KEY (`notebook_id`) REFERENCES `Notebooks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Table structure for table `Users`
---
-
-DROP TABLE IF EXISTS `Users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name_first` char(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -98,5 +70,4 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
