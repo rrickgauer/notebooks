@@ -372,7 +372,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist-it
 }
 
 /**
- * create-notebook-label
+ * insert-notebook-label
  * 
  * Creates a new user notebook label
  * 
@@ -393,8 +393,23 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-lab
   }
     
   exit;
-
 }
+
+/**
+ * get-notebook-labels
+ * 
+ * Get all notebooks labels belonging to a user
+ * 
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels') {
+  $userID = $_SESSION['userID'];
+
+  $result = DB::getNotebookLabels($userID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($result);
+  http_response_code(200);
+  exit;
+}
+
 
 
 

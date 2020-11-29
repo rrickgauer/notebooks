@@ -10,6 +10,8 @@ $(document).ready(function() {
   addListeners();
   
   // loadColorPickers();
+
+  loadAvailableLabels();
   
   $('#modal-notebook-labels').modal('show');
 });
@@ -166,6 +168,8 @@ function addListeners() {
     createNewNotebookLabel();
   });
 
+
+
 }
 
 
@@ -184,9 +188,37 @@ function createNewNotebookLabel() {
     return;
   });
 
-  
+  // actions to take after the label has been created
+}
 
-  
+function loadAvailableLabels() {
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.getNotebookLabels,
+  }
+
+  $.getJSON(CONSTANTS.API, data, function(response) {
+    displayAvailableLabels(response);
+    console.log(response);
+  }).fail(function(response) {
+    console.error('API error: loadAvailableLables()');
+    return;
+  });
+}
+
+function displayAvailableLabels(labels) {
+
+  let html = '';
+
+  for (let count = 0; count < labels.count; count++) {
+    html += `<option value="${labels[count].id}">${labels[count].name}</option>`;
+  }
+
+  console.log(html);
+
+  $('#form-notebooks-labels-assign-label').html(html);
+
+
+
 
 }
 

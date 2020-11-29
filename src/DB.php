@@ -617,6 +617,25 @@ class DB {
     $sql->execute();
     return $sql;
   }
+
+  public static function getNotebookLabels($userID) {
+    $stmt = 'SELECT 
+    nl.id as id,
+    nl.name as name,
+    nl.color as color
+    FROM Notebook_Labels nl
+    WHERE nl.user_id = :userID
+    ORDER BY name ASC';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // user id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
   
 
 }
