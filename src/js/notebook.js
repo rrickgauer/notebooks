@@ -9,7 +9,7 @@ $(document).ready(function() {
   setNotebookActionStates();
   addListeners();
   
-  loadColorPickers();
+  // loadColorPickers();
   
   $('#modal-notebook-labels').modal('show');
 });
@@ -162,8 +162,36 @@ function addListeners() {
     }
   });
 
+  $('#form-notebooks-labels-new-btn').on('click', function() {
+    createNewNotebookLabel();
+  });
 
 }
+
+
+function createNewNotebookLabel() {
+  const name = $('#form-notebooks-labels-new-name').val();
+  const color = $('#form-notebooks-labels-new-color').val();
+
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.insertNotebookLabel,
+    name: name,
+    color: color,
+  }
+
+  $.post(CONSTANTS.API, data).fail(function(response) {
+    console.error('API error: createNewNotebookLabel()');
+    return;
+  });
+
+  
+
+  
+
+}
+
+
+
 
 /**
 * Sets the notebook action states

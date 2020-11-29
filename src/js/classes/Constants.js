@@ -21,6 +21,7 @@ Constants.prototype.API_FUNCTIONS = {
   updateNotebook: 'update-notebook',
   deleteNote: 'delete-note',
   deleteChecklist: 'delete-checklist',
+  insertNotebookLabel: 'insert-notebook-label',
 }
 
 Constants.prototype.PAGES = {

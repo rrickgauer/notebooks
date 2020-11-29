@@ -257,11 +257,11 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
                 </div>
                 <!-- color -->
                 <div class="col-auto">
-                  <input type="text" class="color-picker" id="form-notebooks-labels-new-color">
+                  <input type="color" class="color-picker" id="form-notebooks-labels-new-color">
                 </div>
                 <!-- submit -->
                 <div class="col-auto">
-                  <button type="submit" class="btn btn-sm btn-primary" id="form-notebooks-labels-new-btn" disabled>Create</button>
+                  <button type="button" class="btn btn-sm btn-primary" id="form-notebooks-labels-new-btn" disabled>Create</button>
                 </div>
               </div>
             </form>

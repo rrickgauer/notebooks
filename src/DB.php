@@ -591,6 +591,32 @@ class DB {
     $sql->execute();
     return $sql;
   }
+
+  /**
+   * Inserts a new notebook label into the database
+   */
+  public static function insertNotebookLabel($userID, $name, $color) {
+    $stmt = 'INSERT INTO Notebook_Labels 
+    (user_id, name, color) 
+    VALUES (:userID, :name, :color)';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // user id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    // color
+    $color = filter_var($color, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':color', $color, PDO::PARAM_STR);
+
+    $sql->execute();
+    return $sql;
+  }
   
 
 }

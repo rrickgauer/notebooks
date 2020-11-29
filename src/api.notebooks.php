@@ -371,7 +371,30 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist-it
   exit;
 }
 
+/**
+ * create-notebook-label
+ * 
+ * Creates a new user notebook label
+ * 
+ * post - name
+ * post - color
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-label') {
+  $name = $_POST['name'];
+  $color = $_POST['color'];
+  $userID = $_SESSION['userID'];
 
+  $result = DB::insertNotebookLabel($userID, $name, $color);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(201);
+  } else {
+    http_response_code(400);
+  }
+    
+  exit;
+
+}
 
 
 
