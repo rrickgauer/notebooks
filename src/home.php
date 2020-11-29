@@ -8,6 +8,8 @@ if (!isset($_SESSION['userID'])) {
 }
 
 require_once('DB.php');
+
+$user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -25,7 +27,7 @@ require_once('DB.php');
 
     <div class="d-flex justify-content-between align-items-baseline">
       <div>
-        <h4 class="mb-3">Your notebooks</h4>
+        <h4 class="mb-3">Your notebooks <span class="badge badge-secondary"><?php echo $user['count_notebooks']; ?></span></h4>
       </div>
 
       
