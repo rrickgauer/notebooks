@@ -15,6 +15,16 @@ function addListeners() {
   $('#page-new-name').on('keyup', enableNewPageBtn);
   $('.btn-page-new-create').on('click', insertPage);
 
+  $('#page-new-name').on('keydown', function(e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+
+      if ($(this).val() != '') {
+        insertPage();
+      }
+    }
+  });
+
 
   $('.pages').on('click', '.btn-page-edit', function(e) {
     togglePageDisplayMode(this);
@@ -136,12 +146,9 @@ function addListeners() {
 
   $('.pages').on('keydown', '.edit-input', function(e) {
     if (e.keyCode == 13) {
-      // e.preventDefault();
-      // addChecklistItem(this);
       autosize.update(this);
     }
   });
-
 }
 
 /**
@@ -174,7 +181,6 @@ function insertPage() {
   const name = $('#page-new-name').val();
   const type = $('input[name="page-new-type"]:checked').val();
 
-
   // determine which type of page to insert
   let apiFunction = CONSTANTS.API_FUNCTIONS.insertNote;
 
@@ -189,7 +195,7 @@ function insertPage() {
 
   $.post(CONSTANTS.API, data, function(response) {
     // reload the page if successful
-    window.location.href = window.location.href;
+    refreshPage();
   });
 }
 
