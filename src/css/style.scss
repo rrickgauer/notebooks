@@ -223,6 +223,14 @@
   margin-top: 100px;
 }
 
+.assigned-labels-list {
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
 
 
 @media screen and (max-width: 668px) {

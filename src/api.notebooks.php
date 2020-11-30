@@ -459,6 +459,23 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-lab
 }
 
 
+else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-label-assigned') {
+  $labelID = $_POST['labelID'];
+  $notebookID = $_POST['notebookID'];
+  $result = DB::deleteNotebookLabelsAssigned($labelID, $notebookID);
+
+  echo $result->rowCount();
+  
+  // if ($result->rowCount() == 1) {
+  //   http_response_code(201);
+  // } else {
+  //   http_response_code(400);
+  // }
+
+  exit;
+}
+
+
 
 
 

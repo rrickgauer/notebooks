@@ -177,8 +177,11 @@ function addListeners() {
     $(this).removeClass('is-invalid');
   });
 
-}
+  $('.assigned-labels-list').on('click', '.btn-notebook-label-remove', function() {
+    removeAssignedNotebookLabel(this);
+  });
 
+}
 
 
 /**
@@ -905,7 +908,9 @@ function assignNotebookLabel() {
   // add the label to the assigned labels list
   $.getJSON(CONSTANTS.API, data, function(response) {
     console.log(response);
-    const newLabel = '<li>' + getAssignedLabelHtml(response) + '</li>';
+    let newLabel = '<li>' + getAssignedLabelHtml(response);
+    newLabel += `<button class="btn btn-sm btn-notebook-label-remove"><i class='bx bx-x'></i></button>`;
+    newLabel += '</li>';
     $('.assigned-labels-list').append(newLabel);
   });
 
@@ -933,7 +938,9 @@ function isLabelAlreadyAssigned(labelID) {
 
 
 
-
+/**
+ * Loads all the assigned labels on page load
+ */
 function loadLabelsAssigned() {
   const data = {
     function: CONSTANTS.API_FUNCTIONS.getNotebookLabelsAssigned,
@@ -945,6 +952,7 @@ function loadLabelsAssigned() {
     for (let count = 0; count < response.length; count++) {
       html += '<li>';
       html += getAssignedLabelHtml(response[count]);
+      html += `<button class="btn btn-sm btn-notebook-label-remove"><i class='bx bx-x'></i></button>`;
       html += '</li>';
     }
 
@@ -963,4 +971,25 @@ function getAssignedLabelHtml(label) {
   const html = `<span ${labelID} class="badge badge-notebook-label" ${style}>${label.name}</span>`;
   
   return html;
+}
+
+/**
+ * Removes the assigned label from the notebook
+ */
+function removeAssignedNotebookLabel(btn) {
+  const labelElement = $(btn).closest('li');
+  const labelID = $(labelElement).find('.badge-notebook-label').attr('data-label-id');
+
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.deleteNotebookLabelAssigned,
+    labelID: labelID,
+    notebookID: globalVariables.notebookID,
+  }
+
+  $.post(CONSTANTS.API, data).fail(function(response) {
+    console.error('API error: removeAssignedNotebookLabel()');
+    return;
+  });
+
+  $(labelElement).remove();
 }

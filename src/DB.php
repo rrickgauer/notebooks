@@ -713,6 +713,27 @@ class DB {
     $sql->execute();
     return $sql;
   }
+
+  public static function deleteNotebookLabelsAssigned($labelID, $notebookID) {
+    $stmt = 'DELETE FROM Notebook_Labels_Assigned
+    WHERE notebook_label_id = :labelID 
+    AND notebook_id = :notebookID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // label ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    // notebook ID
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+
+
+  }
   
 
 }
