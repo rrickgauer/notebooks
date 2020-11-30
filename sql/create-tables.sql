@@ -32,6 +32,16 @@ CREATE TABLE `Notebook_Labels` (
   UNIQUE KEY `id` (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `Notebook_Labels_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `Notebook_Labels_Assigned` (
+  `notebook_label_id` int(10) unsigned NOT NULL,
+  `notebook_id` int(10) unsigned NOT NULL,
+  `date_assigned` datetime NOT NULL,
+  PRIMARY KEY (`notebook_label_id`,`notebook_id`),
+  KEY `notebook_id` (`notebook_id`),
+  CONSTRAINT `Notebook_Labels_Assigned_ibfk_1` FOREIGN KEY (`notebook_label_id`) REFERENCES `Notebook_Labels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Notebook_Labels_Assigned_ibfk_2` FOREIGN KEY (`notebook_id`) REFERENCES `Notebooks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `Notebooks` (
