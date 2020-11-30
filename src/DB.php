@@ -638,6 +638,28 @@ class DB {
     $sql->execute();
     return $sql;
   }
+
+
+  public static function getNotebookLabelsAssigned($notebookID) {
+    $stmt = 'SELECT 
+    label.id as label_id,
+    label.name as label_name,
+    label.color as label_color,
+    assigned.date_assigned as date_assigned
+    from Notebook_Labels_Assigned assigned 
+    left join Notebook_Labels label on assigned.notebook_label_id = label.id
+    where assigned.notebook_id = :notebookID
+    ORDER BY label_name ASC';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
   
 
 }

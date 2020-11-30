@@ -247,12 +247,9 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
           </div>
           <div class="modal-body">
 
-          <h6 class="mb-5">Assigned labels</h6>
-          <div class="assigned-labels"> 
-
-          </div>
-
-
+          <!-- list of assigned labels goes here -->
+          <h6>Assigned labels</h6>
+          <ul class="assigned-labels-list"></ul>
 
           <form id="form-notebooks-labels-assign">
             <div class="form-group">

@@ -9,7 +9,8 @@ $(document).ready(function() {
   setNotebookActionStates();
   addListeners();
 
-  loadAvailableLabels();
+  loadLabelsAvailable();
+  loadLabelsAssigned();
   $('#modal-notebook-labels').modal('show');
 });
 
@@ -166,15 +167,40 @@ function addListeners() {
     createNewNotebookLabel();
   });
 
-
-
 }
 
 
+function loadLabelsAssigned() {
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.getNotebookLabelsAssigned,
+    notebookID: globalVariables.notebookID,
+  }
+
+  $.getJSON(CONSTANTS.API, data, function(response) {
+    console.table(response);
+
+    let html = '';
+    for (let count = 0; count < response.length; count++) {
+      html += '<li>';
+      html += getAssignedLabelHtml(response[count]);
+      html += '</li>';
+    }
+
+    $('.assigned-labels-list').html(html);
+
+  }).fail(function(response) {
+    console.error('API error: loadLabelsAssigned()');
+    return;
+  });
+}
 
 
-
-
+function getAssignedLabelHtml(label) {
+  const style = `style="background-color: ${label.label_color};"`;
+  const html = `<span class="badge badge-notebook-label" ${style}>${label.label_name}</span>`;
+  
+  return html;
+}
 
 
 
@@ -837,7 +863,7 @@ function createNewNotebookLabel() {
 /**
  * Retrieve all the labels from the database
  */
-function loadAvailableLabels() {
+function loadLabelsAvailable() {
   const data = {
     function: CONSTANTS.API_FUNCTIONS.getNotebookLabels,
   }

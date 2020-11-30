@@ -412,6 +412,14 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels')
 }
 
 
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels-assigned') {
+  $notebookID = $_GET['notebookID'];
+  $assignedLabels = DB::getNotebookLabelsAssigned($notebookID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($assignedLabels);
+  http_response_code(200);
+  exit;
+}
+
 
 
 

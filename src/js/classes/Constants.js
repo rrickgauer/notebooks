@@ -23,6 +23,7 @@ Constants.prototype.API_FUNCTIONS = {
   deleteChecklist: 'delete-checklist',
   insertNotebookLabel: 'insert-notebook-label',
   getNotebookLabels: 'get-notebook-labels',
+  getNotebookLabelsAssigned: 'get-notebook-labels-assigned',
 }
 
 Constants.prototype.PAGES = {
