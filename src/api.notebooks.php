@@ -371,6 +371,121 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist-it
   exit;
 }
 
+/**
+ * insert-notebook-label
+ * 
+ * Creates a new user notebook label
+ * 
+ * post - name
+ * post - color
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-label') {
+  $name = $_POST['name'];
+  $color = $_POST['color'];
+  $userID = $_SESSION['userID'];
+
+  $result = DB::insertNotebookLabel($userID, $name, $color);
+
+  $response = [];
+  $response['name'] = $name;
+  $response['id'] = $result;
+
+  echo json_encode($response);
+  http_response_code(201);
+    
+  exit;
+}
+
+/**
+ * get-notebook-labels
+ * 
+ * Get all notebooks labels belonging to a user
+ * 
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels') {
+  $userID = $_SESSION['userID'];
+
+  $result = DB::getNotebookLabels($userID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($result);
+  http_response_code(200);
+  exit;
+}
+
+/**
+ * get-notebook-label
+ * 
+ * Get data for a notebook label
+ * 
+ * get - labelID
+ * 
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-label') {
+  $labelID = $_GET['labelID'];
+  $result = DB::getNotebookLabel($labelID)->fetch(PDO::FETCH_ASSOC);
+  echo json_encode($result);
+  http_response_code(200);
+  exit;
+}
+
+/**
+ * get-notebook-labels-assigned
+ * 
+ * gets all the assigned labels for a notebook
+ * 
+ * get - notebookID
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels-assigned') {
+  $notebookID = $_GET['notebookID'];
+  $assignedLabels = DB::getNotebookLabelsAssigned($notebookID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($assignedLabels);
+  http_response_code(200);
+  exit;
+}
+
+/**
+ * insert-notebook-labels-assigned
+ * 
+ * assign a label to a notebook
+ * 
+ * post - labelID
+ * post - notebookID
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-labels-assigned') {
+  $labelID = $_POST['labelID'];
+  $notebookID = $_POST['notebookID'];
+  $result = DB::insertNotebookLabelsAssigned($labelID, $notebookID);
+  
+  if ($result->rowCount() == 1) {
+    http_response_code(201);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+/**
+ * delete-notebook-label-assigned
+ * 
+ * deletes a row from  assigned notebook labels table
+ * 
+ * post - labelID
+ * post - notebookID
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-label-assigned') {
+  $labelID = $_POST['labelID'];
+  $notebookID = $_POST['notebookID'];
+  $result = DB::deleteNotebookLabelsAssigned($labelID, $notebookID);
+  
+  if ($result->rowCount() == 1) {
+    http_response_code(200);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
 
 
 

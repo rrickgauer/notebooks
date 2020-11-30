@@ -591,6 +591,152 @@ class DB {
     $sql->execute();
     return $sql;
   }
+
+  /**
+   * Inserts a new notebook label into the database
+   */
+  public static function insertNotebookLabel($userID, $name, $color) {
+    $stmt = 'INSERT INTO Notebook_Labels 
+    (user_id, name, color) 
+    VALUES (:userID, :name, :color)';
+
+    $pdo = DB::dbConnect();
+    $sql = $pdo->prepare($stmt);
+
+    // user id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    // color
+    $color = filter_var($color, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':color', $color, PDO::PARAM_STR);
+
+    $sql->execute();
+
+    return $pdo->lastInsertId();
+  }
+
+  /**
+   * Get all the user made labels
+   */
+  public static function getNotebookLabels($userID) {
+    $stmt = 'SELECT 
+    nl.id as id,
+    nl.name as name,
+    nl.color as color
+    FROM Notebook_Labels nl
+    WHERE nl.user_id = :userID
+    ORDER BY name ASC';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // user id
+    $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * Return the data for 1 notebook label
+   */
+  public static function getNotebookLabel($labelID) {
+    $stmt = 'SELECT 
+    nl.id as id,
+    nl.name as name,
+    nl.color as color
+    FROM Notebook_Labels nl
+    WHERE nl.id = :labelID
+    LIMIT 1';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // label id
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+
+
+
+
+  /**
+   * Retrieve all the assigned labels beloning to a notebook
+   */
+  public static function getNotebookLabelsAssigned($notebookID) {
+    $stmt = 'SELECT 
+    label.id as id,
+    label.name as name,
+    label.color as color,
+    assigned.date_assigned as date_assigned
+    from Notebook_Labels_Assigned assigned 
+    left join Notebook_Labels label on assigned.notebook_label_id = label.id
+    where assigned.notebook_id = :notebookID
+    ORDER BY name ASC';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * Assign a label to a notebook
+   */
+  public static function insertNotebookLabelsAssigned($labelID, $notebookID) {
+    $stmt = 'INSERT INTO Notebook_Labels_Assigned 
+    (notebook_label_id, notebook_id, date_assigned) 
+    VALUES (:labelID, :notebookID, NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // label ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    // notebook ID
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * deletes a row from  assigned notebook labels table
+   */
+  public static function deleteNotebookLabelsAssigned($labelID, $notebookID) {
+    $stmt = 'DELETE FROM Notebook_Labels_Assigned
+    WHERE notebook_label_id = :labelID 
+    AND notebook_id = :notebookID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // label ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    // notebook ID
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+
+
+  }
   
 
 }
