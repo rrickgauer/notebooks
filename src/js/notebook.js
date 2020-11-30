@@ -172,7 +172,11 @@ function addListeners() {
 
 }
 
-
+/**
+ * Creates a new notebook label
+ * 
+ * Adds it into the dropdown after it's created
+ */
 function createNewNotebookLabel() {
   const name = $('#form-notebooks-labels-new-name').val();
   const color = $('#form-notebooks-labels-new-color').val();
@@ -183,12 +187,16 @@ function createNewNotebookLabel() {
     color: color,
   }
 
-  $.post(CONSTANTS.API, data).fail(function(response) {
+  $.post(CONSTANTS.API, data, function(response) {
+    const newLabel = getLabelDropdownHtml(JSON.parse(response));
+    $('#form-notebooks-labels-assign-label').append(newLabel);      // add to the select element
+    $('#form-notebooks-labels-new-name').val('');                   // clear the text input
+    $('#form-notebooks-labels-new-btn').prop('disabled', true);     // disable the create button
+
+  }).fail(function(response) {
     console.error('API error: createNewNotebookLabel()');
     return;
   });
-
-  // actions to take after the label has been created
 }
 
 /**
@@ -219,7 +227,6 @@ function displayAvailableLabels(labels) {
 
   $('#form-notebooks-labels-assign-label').html(html);
 }
-
 
 function getLabelDropdownHtml(newLabel) {
   const html = `<option value="${newLabel.id}">${newLabel.name}</option>`;

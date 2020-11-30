@@ -386,11 +386,12 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-lab
 
   $result = DB::insertNotebookLabel($userID, $name, $color);
 
-  if ($result->rowCount() == 1) {
-    http_response_code(201);
-  } else {
-    http_response_code(400);
-  }
+  $response = [];
+  $response['name'] = $name;
+  $response['id'] = $result;
+
+  echo json_encode($response);
+  http_response_code(201);
     
   exit;
 }

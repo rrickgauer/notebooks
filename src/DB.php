@@ -600,7 +600,8 @@ class DB {
     (user_id, name, color) 
     VALUES (:userID, :name, :color)';
 
-    $sql = DB::dbConnect()->prepare($stmt);
+    $pdo = DB::dbConnect();
+    $sql = $pdo->prepare($stmt);
 
     // user id
     $userID = filter_var($userID, FILTER_SANITIZE_NUMBER_INT);
@@ -615,7 +616,8 @@ class DB {
     $sql->bindParam(':color', $color, PDO::PARAM_STR);
 
     $sql->execute();
-    return $sql;
+
+    return $pdo->lastInsertId();
   }
 
   public static function getNotebookLabels($userID) {
