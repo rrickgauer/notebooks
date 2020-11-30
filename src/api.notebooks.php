@@ -427,7 +427,13 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-label') 
   exit;
 }
 
-
+/**
+ * get-notebook-labels-assigned
+ * 
+ * gets all the assigned labels for a notebook
+ * 
+ * get - notebookID
+ */
 else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels-assigned') {
   $notebookID = $_GET['notebookID'];
   $assignedLabels = DB::getNotebookLabelsAssigned($notebookID)->fetchAll(PDO::FETCH_ASSOC);
@@ -458,19 +464,24 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-lab
   exit;
 }
 
-
+/**
+ * delete-notebook-label-assigned
+ * 
+ * deletes a row from  assigned notebook labels table
+ * 
+ * post - labelID
+ * post - notebookID
+ */
 else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-label-assigned') {
   $labelID = $_POST['labelID'];
   $notebookID = $_POST['notebookID'];
   $result = DB::deleteNotebookLabelsAssigned($labelID, $notebookID);
-
-  echo $result->rowCount();
   
-  // if ($result->rowCount() == 1) {
-  //   http_response_code(201);
-  // } else {
-  //   http_response_code(400);
-  // }
+  if ($result->rowCount() == 1) {
+    http_response_code(200);
+  } else {
+    http_response_code(400);
+  }
 
   exit;
 }

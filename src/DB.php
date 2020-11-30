@@ -714,6 +714,9 @@ class DB {
     return $sql;
   }
 
+  /**
+   * deletes a row from  assigned notebook labels table
+   */
   public static function deleteNotebookLabelsAssigned($labelID, $notebookID) {
     $stmt = 'DELETE FROM Notebook_Labels_Assigned
     WHERE notebook_label_id = :labelID 

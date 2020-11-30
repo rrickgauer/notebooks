@@ -964,7 +964,9 @@ function loadLabelsAssigned() {
   });
 }
 
-
+/**
+ * Returns the html for an assigned notebook label badge
+ */
 function getAssignedLabelHtml(label) {
   const style = `style="background-color: ${label.color};"`;
   const labelID = `data-label-id="${label.id}"`;
