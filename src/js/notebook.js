@@ -167,39 +167,16 @@ function addListeners() {
     createNewNotebookLabel();
   });
 
-}
-
-
-function loadLabelsAssigned() {
-  const data = {
-    function: CONSTANTS.API_FUNCTIONS.getNotebookLabelsAssigned,
-    notebookID: globalVariables.notebookID,
-  }
-
-  $.getJSON(CONSTANTS.API, data, function(response) {
-    console.table(response);
-
-    let html = '';
-    for (let count = 0; count < response.length; count++) {
-      html += '<li>';
-      html += getAssignedLabelHtml(response[count]);
-      html += '</li>';
-    }
-
-    $('.assigned-labels-list').html(html);
-
-  }).fail(function(response) {
-    console.error('API error: loadLabelsAssigned()');
-    return;
+  // assign the notebook a new label
+  $('#form-notebooks-labels-assign-btn').on('click', function() {
+    assignNotebookLabel();
   });
-}
 
+  // remove invalid class if the assign label select is changed
+  $('#form-notebooks-labels-assign-label').on('change', function() {
+    $(this).removeClass('is-invalid');
+  });
 
-function getAssignedLabelHtml(label) {
-  const style = `style="background-color: ${label.label_color};"`;
-  const html = `<span class="badge badge-notebook-label" ${style}>${label.label_name}</span>`;
-  
-  return html;
 }
 
 
@@ -891,5 +868,99 @@ function displayAvailableLabels(labels) {
 
 function getLabelDropdownHtml(newLabel) {
   const html = `<option value="${newLabel.id}">${newLabel.name}</option>`;
+  return html;
+}
+
+/**
+ * Assign a label to a notebook
+ */
+function assignNotebookLabel() {
+  const labelID = $('#form-notebooks-labels-assign-label option:checked').val();
+  
+  // verify that the label is not already assigned
+  if (isLabelAlreadyAssigned(labelID)) {
+    $('#form-notebooks-labels-assign-label').addClass('is-invalid');
+    return;
+  }
+
+  let data = {
+    function: CONSTANTS.API_FUNCTIONS.insertNotebookLabelsAssigned,
+    labelID: labelID,
+    notebookID: globalVariables.notebookID,
+  }
+
+  // send the request to the api
+  $.post(CONSTANTS.API, data).fail(function(response) {
+    console.error('API error: assignNotebookLabel');
+    return;
+  });
+
+
+  data = {
+    function: CONSTANTS.API_FUNCTIONS.getNotebookLabel,
+    labelID: labelID,
+  }
+
+  // get the label data from the api
+  // add the label to the assigned labels list
+  $.getJSON(CONSTANTS.API, data, function(response) {
+    console.log(response);
+    const newLabel = '<li>' + getAssignedLabelHtml(response) + '</li>';
+    $('.assigned-labels-list').append(newLabel);
+  });
+
+}
+
+// checks if the label is already assigned
+function isLabelAlreadyAssigned(labelID) {
+  const currentLabelIds = [];
+  const currentLabels = $('.badge-notebook-label');
+
+  // make an array of all the currently assigned label ids
+  for (let count = 0; count < currentLabels.length; count++) {
+    const id = $(currentLabels[count]).attr('data-label-id');
+    currentLabelIds.push(id);
+  }
+
+  // if the id is included, return true
+  // else return false
+  if (currentLabelIds.includes(labelID)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+
+
+function loadLabelsAssigned() {
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.getNotebookLabelsAssigned,
+    notebookID: globalVariables.notebookID,
+  }
+
+  $.getJSON(CONSTANTS.API, data, function(response) {
+    let html = '';
+    for (let count = 0; count < response.length; count++) {
+      html += '<li>';
+      html += getAssignedLabelHtml(response[count]);
+      html += '</li>';
+    }
+
+    $('.assigned-labels-list').html(html);
+
+  }).fail(function(response) {
+    console.error('API error: loadLabelsAssigned()');
+    return;
+  });
+}
+
+
+function getAssignedLabelHtml(label) {
+  const style = `style="background-color: ${label.color};"`;
+  const labelID = `data-label-id="${label.id}"`;
+  const html = `<span ${labelID} class="badge badge-notebook-label" ${style}>${label.name}</span>`;
+  
   return html;
 }

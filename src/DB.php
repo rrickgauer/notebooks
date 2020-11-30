@@ -620,6 +620,9 @@ class DB {
     return $pdo->lastInsertId();
   }
 
+  /**
+   * Get all the user made labels
+   */
   public static function getNotebookLabels($userID) {
     $stmt = 'SELECT 
     nl.id as id,
@@ -639,19 +642,69 @@ class DB {
     return $sql;
   }
 
+  /**
+   * Return the data for 1 notebook label
+   */
+  public static function getNotebookLabel($labelID) {
+    $stmt = 'SELECT 
+    nl.id as id,
+    nl.name as name,
+    nl.color as color
+    FROM Notebook_Labels nl
+    WHERE nl.id = :labelID
+    LIMIT 1';
 
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // label id
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+
+
+
+
+  /**
+   * Retrieve all the assigned labels beloning to a notebook
+   */
   public static function getNotebookLabelsAssigned($notebookID) {
     $stmt = 'SELECT 
-    label.id as label_id,
-    label.name as label_name,
-    label.color as label_color,
+    label.id as id,
+    label.name as name,
+    label.color as color,
     assigned.date_assigned as date_assigned
     from Notebook_Labels_Assigned assigned 
     left join Notebook_Labels label on assigned.notebook_label_id = label.id
     where assigned.notebook_id = :notebookID
-    ORDER BY label_name ASC';
+    ORDER BY name ASC';
 
     $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  /**
+   * Assign a label to a notebook
+   */
+  public static function insertNotebookLabelsAssigned($labelID, $notebookID) {
+    $stmt = 'INSERT INTO Notebook_Labels_Assigned 
+    (notebook_label_id, notebook_id, date_assigned) 
+    VALUES (:labelID, :notebookID, NOW())';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // label ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
 
     // notebook ID
     $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);

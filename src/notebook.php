@@ -254,12 +254,11 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
           <form id="form-notebooks-labels-assign">
             <div class="form-group">
               <label for="form-notebooks-labels-assign-label"><b>Assign a new label</b></label>
-              <select id="form-notebooks-labels-assign-label" class="form-control form-control-sm">
-                <option value="1">Css</option>
-              </select>
+              <select id="form-notebooks-labels-assign-label" class="form-control form-control-sm"></select>
+              <div class="invalid-feedback">This label is already assigned.</div>
             </div>
 
-            <button type="button" class="btn btn-sm btn-primary">Assign label</button>
+            <button type="button" class="btn btn-sm btn-primary" id="form-notebooks-labels-assign-btn">Assign label</button>
 
           </form>
 

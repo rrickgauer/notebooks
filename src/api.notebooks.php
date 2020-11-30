@@ -411,6 +411,22 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels')
   exit;
 }
 
+/**
+ * get-notebook-label
+ * 
+ * Get data for a notebook label
+ * 
+ * get - labelID
+ * 
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-label') {
+  $labelID = $_GET['labelID'];
+  $result = DB::getNotebookLabel($labelID)->fetch(PDO::FETCH_ASSOC);
+  echo json_encode($result);
+  http_response_code(200);
+  exit;
+}
+
 
 else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels-assigned') {
   $notebookID = $_GET['notebookID'];
@@ -419,6 +435,30 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels-a
   http_response_code(200);
   exit;
 }
+
+/**
+ * insert-notebook-labels-assigned
+ * 
+ * assign a label to a notebook
+ * 
+ * post - labelID
+ * post - notebookID
+ */
+else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-labels-assigned') {
+  $labelID = $_POST['labelID'];
+  $notebookID = $_POST['notebookID'];
+  $result = DB::insertNotebookLabelsAssigned($labelID, $notebookID);
+  
+  if ($result->rowCount() == 1) {
+    http_response_code(201);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+
 
 
 
