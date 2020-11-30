@@ -191,6 +191,9 @@ function createNewNotebookLabel() {
   // actions to take after the label has been created
 }
 
+/**
+ * Retrieve all the labels from the database
+ */
 function loadAvailableLabels() {
   const data = {
     function: CONSTANTS.API_FUNCTIONS.getNotebookLabels,
@@ -198,29 +201,32 @@ function loadAvailableLabels() {
 
   $.getJSON(CONSTANTS.API, data, function(response) {
     displayAvailableLabels(response);
-    console.log(response);
   }).fail(function(response) {
     console.error('API error: loadAvailableLables()');
     return;
   });
 }
 
+/**
+ * Display the available labels into the dropdown #form-notebooks-labels-assign-label
+ */
 function displayAvailableLabels(labels) {
-
   let html = '';
 
-  for (let count = 0; count < labels.count; count++) {
-    html += `<option value="${labels[count].id}">${labels[count].name}</option>`;
+  for (let count = 0; count < labels.length; count++) {
+    html += getLabelDropdownHtml(labels[count]);
   }
 
-  console.log(html);
-
   $('#form-notebooks-labels-assign-label').html(html);
-
-
-
-
 }
+
+
+function getLabelDropdownHtml(newLabel) {
+  const html = `<option value="${newLabel.id}">${newLabel.name}</option>`;
+  return html;
+}
+
+
 
 
 
