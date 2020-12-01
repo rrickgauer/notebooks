@@ -9,6 +9,7 @@ if (!isset($_SESSION['userID'])) {
 
 require_once('DB.php');
 $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+require_once('php/classes/HTML-Generator.php');
 ?>
 
 
@@ -59,7 +60,9 @@ $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
       </div>
 
       <div class="card-body">
-        <ul class="list-group list-group-flush"></ul>
+        <ul class="list-group list-group-flush">
+          <?php echo HTML::getNotebookLabelsListItems($user['count_labels']); ?>
+        </ul>
       </div>
     </div>
 

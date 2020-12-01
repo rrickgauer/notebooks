@@ -301,6 +301,7 @@
 }
 .card-notebook-labels .notebook-label {
   padding: 16px;
+  min-height: 64px;
 }
 .card-notebook-labels .notebook-label .display-normal {
   display: flex;

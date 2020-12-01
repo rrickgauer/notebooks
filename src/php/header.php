@@ -16,13 +16,14 @@
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" /> -->
 
 
-
+<!-- skeleton elements: https://skeleton-elements.dev/ -->
+<link rel="stylesheet" type="text/css" href="css/external/skeleton-elements.css" /> 
 
 <!-- github css -->
 <link rel="stylesheet" type="text/css" href="css/github.css" />
 
 <!-- prism css -->
-<link rel="stylesheet" type="text/css" href="css//external/prism.css" />
+<link rel="stylesheet" type="text/css" href="css/external/prism.css" />
 
 <!-- personal css -->
 <link rel="stylesheet" type="text/css" href="css/style.css" />

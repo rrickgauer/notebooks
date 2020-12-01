@@ -10,6 +10,7 @@ if (!isset($_SESSION['userID'])) {
 }
 
 require_once('DB.php');
+include_once('php/classes/HTML-Generator.php');
 ?>
 
 
