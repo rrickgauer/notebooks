@@ -27,6 +27,7 @@ Constants.prototype.API_FUNCTIONS = {
   getNotebookLabelsAssigned: 'get-notebook-labels-assigned',
   insertNotebookLabelsAssigned: 'insert-notebook-labels-assigned',
   deleteNotebookLabelAssigned: 'delete-notebook-label-assigned',
+  updateNotebookLabel: 'update-notebook-label',
 }
 
 Constants.prototype.PAGES = {

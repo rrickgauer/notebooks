@@ -12,6 +12,50 @@ $(document).ready(function() {
 
 function addListeners() {
   toggleNotebookDisplayMode();
+  updateNotebookLabel();
+  removeInvalidClassOnNameKeyUp();
+}
+
+
+function updateNotebookLabel() {
+  $('.card-notebook-labels').on('click', '.btn-notebook-labels-edit-save', function() {
+    const labelElement = $(this).closest('.notebook-label');
+    const nameInput = $(labelElement).find('.form-notebook-labels-edit-name');
+    
+    // verify the name input has a value
+    if ($(nameInput).val() == '') {
+      $(nameInput).addClass('is-invalid');
+      return;
+    }
+
+    const labelID = $(labelElement).attr('data-notebook-label-id');
+    const name = $(nameInput).val();
+    const color = $(labelElement).find('.form-notebook-labels-edit-color').val();
+
+    const data = {
+      function: CONSTANTS.API_FUNCTIONS.updateNotebookLabel,
+      labelID: labelID,
+      name: name,
+      color: color,
+    }
+
+    $.post(CONSTANTS.API, data, function(response) {
+      window.location.href = window.location.href;
+    }).fail(function(response) {
+      console.error('API error: updateNotebookLabel()');
+      return;
+    });
+  });
+
+}
+
+function removeInvalidClassOnNameKeyUp() {
+  $('.card-notebook-labels').on('keyup', '.form-notebook-labels-edit-name', function() {
+    if ($(this).val() != '') {
+      $(this).removeClass('is-invalid');
+      return;
+    }
+  });
 }
 
 

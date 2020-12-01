@@ -736,7 +736,30 @@ class DB {
 
     $sql->execute();
     return $sql;
+  }
 
+  public static function updateNotebookLabel($labelID, $name, $color) {
+    $stmt = 'UPDATE Notebook_Labels
+    SET name = :name,
+    color = :color 
+    WHERE id = :labelID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    // color
+    $color = filter_var($color, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':color', $color, PDO::PARAM_STR);
+
+    $sql->execute();
+    return $sql;
 
   }
   
