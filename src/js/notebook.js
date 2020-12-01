@@ -32,6 +32,7 @@ function addListeners() {
   
   $('.pages').on('click', '.btn-page-edit', function(e) {
     togglePageDisplayMode(this);
+    refreshTextarea(this);
   });
   
   $('.pages').on('click', '.card-page .btn-page-update-cancel', function(e) {
@@ -402,8 +403,17 @@ function resetTextarea(btn) {
   // set the corresponding codemirror textarea to the old content
   const noteIndex = getNoteIndex(btn) - 1;
   textareasList[noteIndex].setValue(oldContent);
-  
 }
+
+function refreshTextarea(btn) {
+  const noteElement = $(btn).closest('.card-page');
+
+  // set the corresponding codemirror textarea to the old content
+  const noteIndex = getNoteIndex(btn) - 1;
+  textareasList[noteIndex].refresh();
+}
+
+
 
 /**
 * Determines which type of page update to perform
