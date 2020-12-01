@@ -486,6 +486,34 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-lab
   exit;
 }
 
+else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook-label') {
+  $labelID = $_POST['labelID'];
+  $name = $_POST['name'];
+  $color = $_POST['color'];
+
+  $result = DB::updateNotebookLabel($labelID, $name, $color);
+
+  if ($result->rowCount() <= 1) {
+    http_response_code(202);
+  } else {
+    http_response_code(400);
+  }
+
+  exit;
+}
+
+else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-label') {
+  $labelID = $_POST['labelID'];
+  $result = DB::deleteNotebookLabel($labelID);
+
+  if ($result->rowCount() == 1) {
+    http_response_code(200);
+  } else {
+    http_response_code(400);
+  }
+  exit;
+}
+
 
 
 

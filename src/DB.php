@@ -65,7 +65,8 @@ class DB {
     u.email as email,
     u.date_created as date_created,
     DATE_FORMAT(u.date_created, "%c/%d/%Y") as date_created_display,
-    (SELECT count(n.id) FROM Notebooks n WHERE n.user_id= u.id) AS count_notebooks
+    (SELECT COUNT(n.id) FROM Notebooks n WHERE n.user_id = u.id) AS count_notebooks,
+    (SELECT COUNT(nl.id) FROM Notebook_Labels nl WHERE nl.user_id = u.id) AS count_labels
     FROM Users u
     WHERE u.id = :userID
     LIMIT 1';
@@ -736,8 +737,43 @@ class DB {
 
     $sql->execute();
     return $sql;
+  }
 
+  public static function updateNotebookLabel($labelID, $name, $color) {
+    $stmt = 'UPDATE Notebook_Labels
+    SET name = :name,
+    color = :color 
+    WHERE id = :labelID';
 
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    // name
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+
+    // color
+    $color = filter_var($color, FILTER_SANITIZE_STRING);
+    $sql->bindParam(':color', $color, PDO::PARAM_STR);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  public static function deleteNotebookLabel($labelID) {
+    $stmt = 'DELETE FROM Notebook_Labels WHERE id = :labelID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
   }
   
 

@@ -288,5 +288,69 @@
     display: none;
   }
 }
+.card-notebook-labels {
+  margin-top: 40px;
+}
+.card-notebook-labels .card-header .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.card-notebook-labels .card-body {
+  padding: 0;
+}
+.card-notebook-labels .notebook-label {
+  padding: 16px;
+}
+.card-notebook-labels .notebook-label .display-normal {
+  display: flex;
+  justify-content: space-between;
+}
+.card-notebook-labels .notebook-label .display-normal .badge-notebook-label {
+  font-size: 14px;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .inputs {
+  display: flex;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .buttons {
+  width: 100%;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .buttons .btn {
+  float: right;
+  margin-left: 10px;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .item.color {
+  min-width: 100px;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .item.name {
+  min-width: 200px;
+}
+
+.form-notebook-labels-new {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+.form-notebook-labels-new .inputs {
+  display: flex;
+}
+.form-notebook-labels-new .buttons {
+  width: 100%;
+}
+.form-notebook-labels-new .buttons .btn {
+  float: right;
+  margin-left: 10px;
+}
+.form-notebook-labels-new .item.color {
+  min-width: 100px;
+}
+.form-notebook-labels-new .item.name {
+  min-width: 200px;
+}
 
 /*# sourceMappingURL=style.css.map */

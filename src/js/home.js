@@ -4,6 +4,7 @@ const utilities = new Utilities();
 // main
 $(document).ready(function() {
   loadNotebooks();
+  loadLabels();
 
   $('#notebooks-search-input').on('keyup', function() {
     searchNotebooks();
@@ -12,7 +13,40 @@ $(document).ready(function() {
   $('.notebooks-sort').on('click', function() {
     sortNotebooks(this);
   });
+
+  $('.dropdown-labels-filter').on('click', '.dropdown-item-filter-label', function() {
+    // filterNotebooksByLabel(this);
+  });
+
 });
+
+
+function loadLabels() {
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.getNotebookLabels,
+  }
+
+  $.getJSON(CONSTANTS.API, data, function(response) {
+    let html = '';
+    for (let count = 0; count < response.length; count++) {
+      html += getNotebookLabelFilterHtml(response[count]);
+    }
+
+    $('.dropdown-labels-filter .dropdown-menu').prepend(html);
+  }).fail(function(responose) {
+    console.error('API error: loadLabels()');
+    return;
+  });
+}
+
+function getNotebookLabelFilterHtml(label) {
+  const style = `background-color: ${label.color};`;
+  const badge = `<span class="badge badge-notebook-label" style="${style}">${label.name}</span>`;
+  const dataID = `data-notebook-label-id="${label.id}"`;
+  
+  let html = `<button class="dropdown-item dropdown-item-filter-label" ${dataID} type="button">${badge}</button>`;
+  return html;
+}
 
 
 function sortNotebooks(btn) {
@@ -60,11 +94,6 @@ function sortNotebooksName() {
   $('.list-notebooks').html(notebooks);
 }
 
-
-
-
-
-
 function searchNotebooks() {
   const input = $('#notebooks-search-input').val().toUpperCase();
   if (input == '') {
@@ -74,8 +103,6 @@ function searchNotebooks() {
   $(`.notebook .name-search:not(:contains(${input}))`).closest('.notebook').addClass('d-none');
   $(`.notebook .name-search:contains(${input})`).closest('.notebook').removeClass('d-none');
 }
-
-
 
 function loadNotebooks() {
   const data = {
