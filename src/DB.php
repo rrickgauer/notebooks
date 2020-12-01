@@ -65,7 +65,8 @@ class DB {
     u.email as email,
     u.date_created as date_created,
     DATE_FORMAT(u.date_created, "%c/%d/%Y") as date_created_display,
-    (SELECT count(n.id) FROM Notebooks n WHERE n.user_id= u.id) AS count_notebooks
+    (SELECT COUNT(n.id) FROM Notebooks n WHERE n.user_id = u.id) AS count_notebooks,
+    (SELECT COUNT(nl.id) FROM Notebook_Labels nl WHERE nl.user_id = u.id) AS count_labels
     FROM Users u
     WHERE u.id = :userID
     LIMIT 1';

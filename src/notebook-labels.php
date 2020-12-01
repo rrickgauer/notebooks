@@ -8,8 +8,7 @@ if (!isset($_SESSION['userID'])) {
 }
 
 require_once('DB.php');
-
-// $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+$user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -27,13 +26,10 @@ require_once('DB.php');
   <div class="container-md">
     <h1 class="text-center">Notebook Labels</h1>
 
-
-
-
     <div class="card card-notebook-labels">
       <div class="card-header">
         <div class="top">
-        <h6>8 Labels</h6>
+        <h6><?php echo $user['count_labels']; ?> Labels</h6>
         <button type="button" class="btn btn-sm btn-primary" data-toggle="collapse" data-target=".new-label-section">New label</button>
         </div>
 

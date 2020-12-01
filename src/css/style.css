@@ -288,9 +288,13 @@
     display: none;
   }
 }
+.card-notebook-labels {
+  margin-top: 40px;
+}
 .card-notebook-labels .card-header .top {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
 .card-notebook-labels .card-body {
   padding: 0;

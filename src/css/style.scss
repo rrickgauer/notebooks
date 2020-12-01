@@ -321,9 +321,12 @@
 
 .card-notebook-labels {
 
+  margin-top: 40px;
+
   .card-header .top {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
   }
 
   .card-body {
