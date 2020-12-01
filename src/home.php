@@ -3,9 +3,12 @@ session_start();
 
 // verify that the session user id is set
 if (!isset($_SESSION['userID'])) {
-  http_response_code(400);
+  header('Location: create-account.php');
   exit;
 }
+
+// remeber the users login for a month extending every time they login
+setcookie('userID', $_SESSION['userID'], time() + (86400 * 30), '/');
 
 require_once('DB.php');
 
