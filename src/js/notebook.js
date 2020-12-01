@@ -2,7 +2,7 @@ const globalVariables = new GlobalVariables();
 const CONSTANTS = new Constants();
 const pagesList = [];
 const UTILITIES = new Utilities();
-const textareas = [];
+const textareasList = [];
 
 
 // main
@@ -35,6 +35,7 @@ function addListeners() {
   });
   
   $('.pages').on('click', '.card-page .btn-page-update-cancel', function(e) {
+    resetTextarea(this);
     togglePageDisplayMode(this);
   });
   
@@ -297,18 +298,18 @@ function displayPages() {
   }
   
   $('.pages').html(html);
-  loadTextareas();
+  loadtextareasList();
   // autosize($('.edit-input'));
   
   Prism.highlightAll();
 }
 
 
-function loadTextareas() {
+function loadtextareasList() {
   const textareaElements = document.getElementsByClassName('textarea-plus');
 
   for (let count = 0; count < textareaElements.length; count++) {
-    textareas.push(UTILITIES.enableCodeMirror(textareaElements[count]));
+    textareasList.push(UTILITIES.enableCodeMirror(textareaElements[count]));
   }
 
 
@@ -388,6 +389,21 @@ function togglePageDisplayMode(selector) {
   $(selector).closest('.card-page').toggleClass('display-mode-edit');
 }
 
+/**
+ * Sets the textarea value to the original value saved in the list
+ */
+function resetTextarea(btn) {
+  const noteElement = $(btn).closest('.card-page');
+
+  // get the text saved in the list of notes
+  const pageIndex = getPageIndex(btn);
+  let oldContent = pagesList[pageIndex].content;
+
+  // set the corresponding codemirror textarea to the old content
+  const noteIndex = getNoteIndex(btn) - 1;
+  textareasList[noteIndex].setValue(oldContent);
+  
+}
 
 /**
 * Determines which type of page update to perform
@@ -445,7 +461,7 @@ function updateNote(selector) {
   const noteID = $(noteElement).attr('data-page-id');
 
   const noteIndex = getNoteIndex(selector) - 1;
-  const newContent = textareas[noteIndex].getValue();
+  const newContent = textareasList[noteIndex].getValue();
   
   const newName = $(noteElement).find('.page-edit-name-input').val();
   const hidden = $(noteElement).attr('data-page-hidden');
