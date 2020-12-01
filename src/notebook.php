@@ -24,6 +24,11 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 <html>
 <head>
   <?php include('php/header.php'); ?>
+
+  <!-- codemirror: https://codemirror.net/ -->
+  <link rel="stylesheet" href="css/external/codemirror/codemirror.css" />
+  <link rel="stylesheet" href="css/external/codemirror/fullscreen.css" />
+
   <title><?php echo $notebook['name']; ?></title>
 </head>
 <body>
@@ -306,6 +311,23 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
       </div>
     </div>
 
+    <!-- page pop out -->
+    <div class="modal fade modal-page-popout" id="modal-page-popout" tabindex="-1">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Page name goes here</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="content github-css"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
@@ -319,6 +341,8 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
   <script src="js/external/codemirror/markdown.js"></script>
   <script src="js/external/codemirror/continuelist.js"></script>
   <script src="js/external/codemirror/fullscreen.js"></script>
+  <script src="js/external/codemirror/placeholder.js"></script>
+
 
   <!-- my scripts -->
   <script src="js/classes/Note.js"></script>

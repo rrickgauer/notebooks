@@ -191,7 +191,16 @@
 }
 
 .CodeMirror {
-  height: auto;
+  height: auto !important;
+  border: 1px solid silver;
+}
+
+.CodeMirror-empty {
+  height: 100px !important;
+}
+
+.CodeMirror pre.CodeMirror-placeholder {
+  color: #999;
 }
 
 @media screen and (max-width: 668px) {

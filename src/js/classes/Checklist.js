@@ -25,8 +25,6 @@ Checklist.prototype.getHtml = function() {
     hidden = 'd-none';
   }
 
-
-
   html += `<div class="card card-page card-checklist ${hidden} display-mode-normal" data-page-hidden="${this.hidden}" data-page-id="${this.id}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
