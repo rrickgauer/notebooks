@@ -1,14 +1,16 @@
 <?php 
 session_start();
-session_destroy();
-unset($_SESSION['userID']);
+
+// go to home page if user has already logged on
+if (isset($_COOKIE['userID'])) {
+  $_SESSION['userID'] = $_COOKIE['userID'];
+  header('Location: home.php');
+  exit;
+}
+
+
 require_once('DB.php'); 
 
-if (isset($_SESSION['error'])) {
-  echo $_SESSION['error-message'];
-  unset($_SESSION['error']);
-  unset($_SESSION['error-message']);
-}
 
 ?>
 
