@@ -73,7 +73,7 @@ require_once('php/classes/HTML-Generator.php');
     
 
     <!-- notebooks -->
-    <ul class="list-group list-group-flush list-notebooks">
+    <ul class="list-group list-notebooks">
       <?php echo HTML::getNotebooks($user['count_notebooks']); ?>
     </ul>
     

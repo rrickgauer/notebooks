@@ -49,6 +49,32 @@ class HTML {
     }
 
     return $html;
+  }
+
+  public static function getPageCards($numPages) {
+    $html = '';
+
+    for ($count = 0; $count < $numPages; $count++) {
+      $html .= '
+      <div class="card card-page">
+        <div class="card-header">
+          <h5 class="name"><div class="skeleton-text skeleton-effect-wave">This is the name</div></h5>
+        </div>
+
+        <div class="card-body">
+        <div class="skeleton-text skeleton-effect-wave">This is the name This asdfasdfasdfasdfasdfasdfis the name This is the name</div>
+        <div class="skeleton-text skeleton-effect-wave">This is the name This is the name This is thesdfasdsdaf name</div>
+        <div class="skeleton-text skeleton-effect-wave">This is the name This is theasd name This is the name</div>
+        <div class="skeleton-text skeleton-effect-wave">This is the name This is the name This is the name</div>
+        <div class="skeleton-text skeleton-effect-wave">This is the nname This is the name</div>          
+        <div class="skeleton-text skeleton-effect-wave">Ths the name This is the name</div>
+        </div>
+      
+      </div>';
+    }
+
+    return $html;
+
 
 
   }
