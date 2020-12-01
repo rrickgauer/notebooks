@@ -13,6 +13,8 @@ setcookie('userID', $_SESSION['userID'], time() + (86400 * 30), '/');
 require_once('DB.php');
 
 $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
+
+require_once('php/classes/HTML-Generator.php');
 ?>
 
 
@@ -71,7 +73,9 @@ $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
     
 
     <!-- notebooks -->
-    <ul class="list-group list-group-flush list-notebooks"></ul>
+    <ul class="list-group list-group-flush list-notebooks">
+      <?php echo HTML::getNotebooks($user['count_notebooks']); ?>
+    </ul>
     
  
 

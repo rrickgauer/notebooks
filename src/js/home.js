@@ -1,10 +1,13 @@
 const CONSTANTS = new Constants();
 const utilities = new Utilities();
 
+let notebooksList = [];
+let dataLoaded = false;
+
 // main
 $(document).ready(function() {
-  loadNotebooks();
-  loadLabels();
+  // loadNotebooks();
+  loadAllData();
 
   $('#notebooks-search-input').on('keyup', function() {
     searchNotebooks();
@@ -141,26 +144,64 @@ function searchNotebooks() {
   $(`.notebook .name-search:contains(${input})`).closest('.notebook').removeClass('d-none');
 }
 
-function loadNotebooks() {
+
+// load all data 
+function loadAllData() {
   const data = {
     function: CONSTANTS.API_FUNCTIONS.getNotebooks,
   }
 
-  $.getJSON(CONSTANTS.API, data, function(response) {
-    displayNotebooks(response);
-    displayNotebookLabels(response);
+  // get the notebooks
+  $.getJSON(CONSTANTS.API, data, function(notebooks) {
+
+     notebooksList = notebooks;
+
+    // get each notebook's assigned labels
+    for (let count = 0; count < notebooksList.length; count++) {
+      getNotebookLabelsAssigned(notebooks[count], function(assignedLabels) {
+        notebooksList[count].assigned_labels = assignedLabels;
+      });
+    }
   });
 }
 
+function getNotebookLabelsAssigned(notebook, actionSuccess) {
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.getNotebookLabelsAssigned,
+    notebookID: notebook.id,
+  }
 
-function displayNotebooks(notebooks) {
+  $.getJSON(CONSTANTS.API, data, function(response) {
+    actionSuccess(response);
+  }).fail(function(response) {
+    console.error('API error: getNotebookLabelsAssigned()');
+    return;
+  });
+}
+
+// run this after all the notebook data has been retrieved
+$(document).ajaxStop(function() {
+  if (dataLoaded) {
+    return;
+  }
+
+  displayAllNotebooks(notebooksList);
+  dataLoaded = true;
+  loadLabels();
+  
+});
+
+
+function displayAllNotebooks(notebooks) {
   let html = '';
-
   for (let count = 0; count < notebooks.length; count++) {
     html += getNotebookCardHtml(notebooks[count]);
   }
 
-  $('.list-notebooks').html(html);
+$('.list-notebooks').html(html);
+
+  dataLoaded = true;
+
 }
 
 
@@ -178,25 +219,22 @@ function getNotebookCardHtml(notebook) {
   const dateCreated = `data-notebook-date-created="${notebook.date_created}"`;
 
 
+  let assignedLabelsHtml = ''; 
+  for (let count = 0; count < notebook.assigned_labels.length; count++) {
+    assignedLabelsHtml += getNotebookLabelHtml(notebook.assigned_labels[count]);
+  }
+
   let html = `
   <li class="list-group-item notebook" ${notebookID} ${name} ${dateCreated}>
-    <div class="d-flex">
-      <h5 class="name"><a href="${href}">${notebook.name}</a></h5>
-      
-    </div>
-
+    <h5 class="name"><a href="${href}">${notebook.name}</a></h5>
     <div class="name-search d-none">${nameSearchData}</div>
-    
     <div class="description">${description}</div>
-
-    <div class="labels"></div>
-
+    <div class="labels">${assignedLabelsHtml}</div>
     <div class="page-counts">
       <span class="page-counts-item page-counts-date-created">
         <i class='bx bx-calendar'></i>
         <span class="page-count-data">${notebook.date_created_display}</span>
       </span>
-
       <span class="page-counts-item page-counts-notes">
         <i class='bx bx-note'></i>
         <span class="page-count-data">${notebook.count_notes}</span>
@@ -206,41 +244,9 @@ function getNotebookCardHtml(notebook) {
         <span class="page-count-data">${notebook.count_checklists}</span>
       </span>
     </div>
-    
   </li>`;
 
   return html;
-}
-
-
-function displayNotebookLabels(notebooks) {
-
-  for (let count = 0; count < notebooks.length; count++) {
-    getNotebookLabelsAssigned(notebooks[count].id);
-  }
-}
-
-
-function getNotebookLabelsAssigned(notebookID) {
-  const data = {
-    function: CONSTANTS.API_FUNCTIONS.getNotebookLabelsAssigned,
-    notebookID: notebookID,
-  }
-
-  $.getJSON(CONSTANTS.API, data, function(response) {
-    let html = '';
-
-    for (let count = 0; count < response.length; count++) {
-      html += getNotebookLabelHtml(response[count]);
-    }
-
-    let selector = `.notebook[data-notebook-id="${notebookID}"] .labels`;
-    $(selector).html(html);
-
-  }).fail(function(response) {
-    console.error('API error: getNotebookLabelsAssigned()');
-    return;
-  });
 }
 
 function getNotebookLabelHtml(label) {
