@@ -4,17 +4,17 @@
 
 .card-page {
   margin: 30px 0px;
-
   .card-header-normal {
     display: flex;
     justify-content: space-between;
-
-    .left {display: flex;}
+    .left {
+      display: flex;
+    }
   }
-
-  &.collapsed .card-body {display: none;}
+  &.collapsed .card-body {
+    display: none;
+  }
 }
-
 
 #notebook-header .container-md {
   padding-bottom: 20px;
@@ -24,55 +24,60 @@
 
 // note - normal display
 .card-note.display-mode-normal {
-  .card-header-edit {display: none;}
-  .rendered {display: block;}
-  .edit {display: none;}
+  .card-header-edit {
+    display: none;
+  }
+  .rendered {
+    display: block;
+  }
+  .edit {
+    display: none;
+  }
 }
 
 // note - edit mode
 .card-note.display-mode-edit {
-  .card-header-edit {display: block;}
-  .card-header-normal {display: none;}
-  .rendered {display: none;}
-  .edit {display: block;}
+  .card-header-edit {
+    display: block;
+  }
+  .card-header-normal {
+    display: none;
+  }
+  .rendered {
+    display: none;
+  }
+  .edit {
+    display: block;
+  }
 }
-
 
 // checklists
 .card-checklist {
   .card-header {
     // background-color: lightcyan;
   }
-
   .checklist-item {
     display: flex;
     justify-content: space-between;
-    
   }
-
   .checklist-item:hover {
     background-color: ghostwhite;
   }
-
   .checklist-item.completed .content {
     text-decoration: line-through;
   }
-
   .checklist-item-editor {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin: 5px 0px;
-
     .input {
       width: 100%;
     }
-
     .buttons {
       display: flex;
       align-items: center;
       margin-left: 10px;
-
       button {
         margin: 0px 5px;
       }
@@ -82,29 +87,33 @@
 
 // checklist - normal display
 .card-checklist.display-mode-normal {
-  .card-header-edit {display: none;}
-  .rendered {display: block;}
-  .edit {display: none;}
+  .card-header-edit {
+    display: none;
+  }
+  .rendered {
+    display: block;
+  }
+  .edit {
+    display: none;
+  }
 }
 
 // checklist - edit mode
 .card-checklist.display-mode-edit {
-  .card-header-normal {display: none;}
-
+  .card-header-normal {
+    display: none;
+  }
   .card-header-edit {
     display: flex;
     align-items: center;
   }
-
   .page-edit-name-container {
     width: 100%;
   }
-
   .card-header-edit {
     .buttons {
       display: flex;
       margin-left: 30px;
-      
       button {
         margin-left: 5px;
       }
@@ -116,12 +125,10 @@
   display: none;
 }
 
-
 .notebook-meta {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-
   .notebook-meta-description {
     color: rgb(88, 96, 105);
   }
@@ -131,20 +138,16 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-
   .inputs {
     width: 100%;
-
     textarea,
     input {
       width: 100%;
     }
   }
-
   .buttons {
     display: flex;
     margin-left: 30px;
-    
     button {
       margin-left: 5px;
     }
@@ -157,19 +160,15 @@
       color: rgb(88, 96, 105);
       font-size: 12px;
     }
-
     .page-counts,
     .description {
       margin-top: 10px;
     }
-
     .page-counts {
       color: rgb(88, 96, 105);
     }
-
     .page-counts-item {
       margin-right: 20px;
-      
       .page-count-data {
         margin-left: 5px;
       }
@@ -180,10 +179,11 @@
 @media screen and (max-width: 668px) {
   .list-notebooks {
     margin-top: 20px;
-    .notebook {padding: 10px 12px;}
+    .notebook {
+      padding: 10px 12px;
+    }
   }
 }
-
 
 .badge-count-notes {
   background-color: fuchsia;
@@ -194,31 +194,26 @@
   background-color: lime;
 }
 
-
 .pages-toc {
   summary {
     outline: none;
-
     &:hover {
       background-color: #f2f2f2;
     }
   }
 }
 
-
 .form-sm {
   width: 400px;
   padding: 25px;
   background-color: #f2f2f2;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-
   .form-sm-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 }
-
 
 .mt-center {
   margin-top: 100px;
@@ -227,18 +222,15 @@
 @media screen and (max-width: 668px) {
   .form-sm .form-sm-actions {
     flex-direction: column;
-  
     .btn {
       width: 100%;
       margin-bottom: 10px;
     }
-
-    a {text-align: center;}
-
+    a {
+      text-align: center;
+    }
   }
 }
-
-
 
 .assigned-labels-list {
   li {
@@ -250,15 +242,16 @@
 
 .CodeMirror {
   height: auto !important;
-  border: 1px solid silver; 
+  border: 1px solid silver;
 }
 
 .CodeMirror-empty {
   height: 100px !important;
 }
 
-.CodeMirror pre.CodeMirror-placeholder { color: #999; }
-
+.CodeMirror pre.CodeMirror-placeholder {
+  color: #999;
+}
 
 .home-header {
   display: flex;
@@ -271,7 +264,6 @@
     margin-top: 20px;
     flex-direction: column;
   }
-
   .home-header-inputs {
     margin-top: 20px;
   }
@@ -281,13 +273,11 @@
   .notebook-meta,
   .notebook-meta-edit {
     flex-direction: column;
-
     .notebook-meta-buttons,
     .buttons {
       margin-top: 20px;
     }
   }
-
   .notebook-meta-edit .buttons {
     margin-left: 0px;
   }
@@ -297,23 +287,22 @@
   margin-top: 30px;
 }
 
-
 @media screen and (max-width: 668px) {
   .notebook-action-list {
     margin-bottom: 20px;
   }
 }
 
-
-
-
 .btn-scroll-top {
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
+  position: fixed;
+  /* Fixed/sticky position */
+  bottom: 20px;
+  /* Place the button at the bottom of the page */
+  right: 30px;
+  /* Place the button 30px from the right */
+  z-index: 99;
+  /* Make sure it does not overlap */
 }
-
 
 .btn-notebook-actions-collapse {
   display: none;
@@ -324,12 +313,7 @@
     display: block;
     margin-bottom: 30px;
   }
-
   .notebook-action-list.collapsed {
     display: none;
   }
 }
-
-
-
-

@@ -26,7 +26,7 @@ $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
   <?php include('php/navbar.php'); ?>
 
   <div class="container-md">
-    <h1 class="text-center page-header">Home</h1>
+    <h1 class="text-center">Home</h1>
 
     <!-- <div class="d-flex flex-sm-row justify-content-between align-items-baseline"> -->
     <div class="home-header">

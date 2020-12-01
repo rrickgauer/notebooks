@@ -40,5 +40,3 @@ Constants.prototype.PAGE_SORTING = {
   newest: 'newest',
   name: 'name',
 }
-
-

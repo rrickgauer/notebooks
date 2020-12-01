@@ -1,4 +1,3 @@
-
 const CONSTANTS = new Constants();
 const utilities = new Utilities();
 
@@ -184,6 +183,6 @@ function getNotebookLabelHtml(label) {
   const style = `style="background-color: ${label.color};"`;
   const labelID = `data-label-id="${label.id}"`;
   const html = `<span ${labelID} class="badge badge-notebook-label mr-3 mt-3 mb-2" ${style}>${label.name}</span>`;
-  
+
   return html;
 }

@@ -63,37 +63,6 @@ function checkPassword(password) {
 }
 
 
-
-
-
-
-
 function setInvalidFeedbackText(text) {
   $(invalidFeedbak).text(text);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
