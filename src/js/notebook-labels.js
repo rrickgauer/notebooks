@@ -14,6 +14,31 @@ function addListeners() {
   toggleNotebookDisplayMode();
   updateNotebookLabel();
   removeInvalidClassOnNameKeyUp();
+  deleteNotebookLabel();
+}
+
+
+function deleteNotebookLabel() {
+  $('.card-notebook-labels').on('click', '.btn-notebook-label-normal-delete', function() {
+    if (!confirm('Are you sure you want to delete this label?')) {
+      return;
+    }
+
+    const labelElement = $(this).closest('.notebook-label');
+    const labelID = $(labelElement).attr('data-notebook-label-id');
+
+    const data = {
+      function: CONSTANTS.API_FUNCTIONS.deleteNotebookLabel,
+      labelID: labelID,
+    }
+
+    $.post(CONSTANTS.API, data, function(response) {
+      window.location.href = window.location.href;
+    }).fail(function(response) {
+      console.error('API error: deleteNotebookLabel()');
+      return;
+    });
+  });
 }
 
 

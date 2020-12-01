@@ -760,7 +760,19 @@ class DB {
 
     $sql->execute();
     return $sql;
+  }
 
+  public static function deleteNotebookLabel($labelID) {
+    $stmt = 'DELETE FROM Notebook_Labels WHERE id = :labelID';
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
   }
   
 
