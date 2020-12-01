@@ -1,4 +1,3 @@
-
 const CONSTANTS = new Constants();
 const utilities = new Utilities();
 
@@ -129,9 +128,11 @@ function getNotebookCardHtml(notebook) {
     <div class="labels"></div>
 
     <div class="page-counts">
-      <span class="page-counts-item page-counts-checklists">
-        ${notebook.date_created_display}
+      <span class="page-counts-item page-counts-date-created">
+        <i class='bx bx-calendar'></i>
+        <span class="page-count-data">${notebook.date_created_display}</span>
       </span>
+
       <span class="page-counts-item page-counts-notes">
         <i class='bx bx-note'></i>
         <span class="page-count-data">${notebook.count_notes}</span>
@@ -182,6 +183,6 @@ function getNotebookLabelHtml(label) {
   const style = `style="background-color: ${label.color};"`;
   const labelID = `data-label-id="${label.id}"`;
   const html = `<span ${labelID} class="badge badge-notebook-label mr-3 mt-3 mb-2" ${style}>${label.name}</span>`;
-  
+
   return html;
 }

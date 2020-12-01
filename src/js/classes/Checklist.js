@@ -1,13 +1,11 @@
-
-
 function Checklist(parms) {
-  this.id                  = parms.id;
-  this.notebookID          = parms.notebook_id;
-  this.name                = parms.name;
-  this.hidden              = parms.hidden;
-  this.dateCreated         = parms.date_created;
-  this.dateModified        = parms.date_modified;
-  this.dateCreatedDisplay  = parms.date_created_display;
+  this.id = parms.id;
+  this.notebookID = parms.notebook_id;
+  this.name = parms.name;
+  this.hidden = parms.hidden;
+  this.dateCreated = parms.date_created;
+  this.dateModified = parms.date_modified;
+  this.dateCreatedDisplay = parms.date_created_display;
   this.dateModifiedDisplay = parms.date_modified_display;
 
   this.items = [];
@@ -29,7 +27,7 @@ Checklist.prototype.getHtml = function() {
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
   html += '</div></div>';
-  html += '</div>';   // end card
+  html += '</div>'; // end card
 
   let utils = new Utilities();
   return html;
@@ -88,7 +86,7 @@ Checklist.prototype.getHtmlHeader = function() {
 Checklist.prototype.getHtmlBody = function() {
 
   const itemsHtml = this.getHtmlItems();
-  
+
 
   let html = `
   <div class="items">

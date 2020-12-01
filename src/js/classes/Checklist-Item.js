@@ -1,9 +1,9 @@
 function ChecklistItem(parms) {
-  this.id           = parms.id; 
-  this.checklistID  = parms.checklist_id; 
-  this.content      = parms.content; 
-  this.completed    = parms.completed; 
-  this.dateCreated  = parms.date_created; 
+  this.id = parms.id;
+  this.checklistID = parms.checklist_id;
+  this.content = parms.content;
+  this.completed = parms.completed;
+  this.dateCreated = parms.date_created;
   this.dateModified = parms.date_modified;
 }
 
@@ -64,8 +64,3 @@ ChecklistItem.prototype.getEditContentHtml = function() {
 
   return html;
 }
-
-
-
-
-

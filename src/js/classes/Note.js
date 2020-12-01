@@ -1,14 +1,12 @@
-
-
 function Note(parms) {
-  this.id                  = parms.id;
-  this.notebookID          = parms.notebook_id;
-  this.name                = parms.name;
-  this.content             = parms.content;
-  this.hidden              = parms.hidden;
-  this.dateCreated         = parms.date_created;
-  this.dateModified        = parms.date_modified;
-  this.dateCreatedDisplay  = parms.date_created_display;
+  this.id = parms.id;
+  this.notebookID = parms.notebook_id;
+  this.name = parms.name;
+  this.content = parms.content;
+  this.hidden = parms.hidden;
+  this.dateCreated = parms.date_created;
+  this.dateModified = parms.date_modified;
+  this.dateCreatedDisplay = parms.date_created_display;
   this.dateModifiedDisplay = parms.date_modified_display;
 
   const self = this;
@@ -31,7 +29,7 @@ Note.prototype.getHtml = function() {
   html += `<div class="card card-page card-note display-mode-normal ${hidden}" data-page-id="${this.id}" data-page-hidden="${this.hidden}">`;
   html += this.getHtmlHeader();
   html += this.getHtmlBody();
-  html += '</div>';   // end card
+  html += '</div>'; // end card
 
   let utils = new Utilities();
   return html;

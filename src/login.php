@@ -8,50 +8,50 @@ if (isset($_COOKIE['userID'])) {
   exit;
 }
 
-
-require_once('DB.php'); 
-
-
+require_once('DB.php');
 ?>
 
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <?php include('php/header.php'); ?>
   <title>Notebooks - Log in</title>
 </head>
+
 <body>
   <div class="container">
-    <h1 class="text-center mt-center mb-5">Log in</h1>
+    <h1 class="text-center">Log in</h1>
 
     <div class="d-flex justify-content-center">
       <form method="post" action="api.notebooks.php" class="form-sm">
         <div class="form-group">
           <label for="user-login-email">Email address</label>
-          <input type="email" class="form-control" id="user-login-email" name="user-login-email" required>
+          <input type="email" class="form-control form-control-sm" id="user-login-email" name="user-login-email"
+            required>
           <div class="invalid-feedback"></div>
         </div>
 
         <div class="form-group">
           <label for="user-login-password">Password</label>
-          <input type="password" class="form-control" id="user-login-password" name="user-login-password" required>
+          <input type="password" class="form-control form-control-sm" id="user-login-password"
+            name="user-login-password" required>
           <div class="invalid-feedback"></div>
         </div>
 
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="form-sm-actions">
           <button type="submit" class="btn btn-sm btn-primary">Log in</button>
-          <a href="create-account.php">Don't have an account? Signup</a>
+          <a href="create-account.php">Create account</a>
         </div>
       </form>
 
     </div>
-    
-
 
   </div>
 
   <?php include('php/footer.php'); ?>
 
 </body>
+
 </html>
