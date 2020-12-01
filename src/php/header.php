@@ -13,7 +13,11 @@
 <link rel="stylesheet" href="css/external/jquery.toast.min.css" />
 
 <!-- color picker: https://github.com/Simonwep/pickr -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" /> -->
+
+<!-- codemirror: https://codemirror.net/ -->
+<link rel="stylesheet" href="css/external/codemirror/codemirror.css" />
+<link rel="stylesheet" href="css/external/codemirror/fullscreen.css" />
 
 
 <!-- github css -->

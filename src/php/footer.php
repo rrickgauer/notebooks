@@ -17,16 +17,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.2/markdown-it.min.js"></script>
 
 <!-- taboverride: https://github.com/wjbryant/taboverride -->
-<script src="js/external/autosize.min.js"></script>
+<!-- <script src="js/external/autosize.min.js"></script> -->
 
 <!-- textarea autosize: https://github.com/jackmoore/autosize -->
-<script src="js/external/taboverride.min.js"></script>
+<!-- <script src="js/external/taboverride.min.js"></script> -->
 
 <!-- prism: https://github.com/jackmoore/autosize -->
 <script src="js/external/prism.js"></script>
 
 <!-- color picker: https://github.com/Simonwep/pickr -->
 <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
 
 <script src="js/classes/Constants.js"></script>
 <script src="js/classes/Global-Variables.js"></script>

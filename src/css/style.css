@@ -197,6 +197,10 @@
   align-items: center;
 }
 
+.CodeMirror {
+  height: auto;
+}
+
 @media screen and (max-width: 668px) {
   .notebook-meta,
 .notebook-meta-edit {

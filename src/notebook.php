@@ -294,6 +294,15 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
 
   <?php include('php/footer.php'); ?>
+  
+  <!-- codemirror: https://codemirror.net/ -->
+  <script src="js/external/codemirror/codemirror.js"></script>
+  <script src="js/external/codemirror/gfm.js"></script>
+  <script src="js/external/codemirror/markdown.js"></script>
+  <script src="js/external/codemirror/continuelist.js"></script>
+  <script src="js/external/codemirror/fullscreen.js"></script>
+
+  <!-- my scripts -->
   <script src="js/classes/Note.js"></script>
   <script src="js/classes/Checklist-Item.js"></script>
   <script src="js/classes/Checklist.js"></script>
