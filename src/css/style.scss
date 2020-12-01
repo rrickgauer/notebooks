@@ -318,56 +318,43 @@
   }
 }
 
-
 .card-notebook-labels {
-
   margin-top: 40px;
-
   .card-header .top {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
   }
-
   .card-body {
     padding: 0;
   }
-
   .notebook-label {
     padding: 16px;
-
     .display-normal {
       display: flex;
       justify-content: space-between;
-      
       .badge-notebook-label {
         font-size: 14px;
       }
     }
-
     .display-edit {
       .form-notebook-labels-edit {
         display: flex;
         justify-content: space-evenly;
         align-items: flex-end;
-
         .inputs {
           display: flex;
         }
-
         .buttons {
           width: 100%;
-          
           .btn {
             float: right;
             margin-left: 10px;
           }
         }
-
         .item.color {
           min-width: 100px;
         }
-
         .item.name {
           min-width: 200px;
         }
@@ -376,33 +363,34 @@
   }
 }
 
-
 .form-notebook-labels-new {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-end;
-
   .inputs {
     display: flex;
   }
-
   .buttons {
     width: 100%;
-    
     .btn {
       float: right;
       margin-left: 10px;
     }
   }
-
   .item.color {
     min-width: 100px;
   }
-
   .item.name {
     min-width: 200px;
   }
 }
 
-
-
+.dropdown-labels-filter {
+  .dropdown-menu-filter-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .dropdown-item-filter-label.active {
+    color: black;
+  }
+}

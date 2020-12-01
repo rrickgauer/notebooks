@@ -18,7 +18,20 @@ $(document).ready(function() {
     filterNotebooksByLabel(this);
   });
 
+  $('.dropdown-item-clear-label-filters').on('click', function() {
+    clearLabelFilters();
+  });
+
 });
+
+function clearLabelFilters() {
+  // show all notebooks
+  $('.notebook').show();
+
+  // remove all active classes
+  $('.dropdown-labels-filter .dropdown-item-filter-label').removeClass('active'); 
+
+}
 
 
 function filterNotebooksByLabel(labelFilterBtn) {
@@ -53,7 +66,10 @@ function loadLabels() {
       html += getNotebookLabelFilterHtml(response[count]);
     }
 
-    $('.dropdown-labels-filter .dropdown-menu').prepend(html);
+    $('.dropdown-labels-filter .dropdown-menu-filter-list').html(html);
+
+    // enable the dropdown
+    $('.dropdown-labels-filter .dropdown-toggle').prop('disabled', false);
   }).fail(function(responose) {
     console.error('API error: loadLabels()');
     return;
