@@ -85,7 +85,7 @@ function loadNotebooks() {
 
   $.getJSON(CONSTANTS.API, data, function(response) {
     displayNotebooks(response);
-    console.log(response);
+    displayNotebookLabels(response);
   });
 }
 
@@ -113,24 +113,25 @@ function getNotebookCardHtml(notebook) {
   const name = `data-notebook-name="${nameSearchData}"`;
   const notebookID = `data-notebook-id="${notebook.id}"`;
   const dateCreated = `data-notebook-date-created="${notebook.date_created}"`;
-  
 
 
   let html = `
   <li class="list-group-item notebook" ${notebookID} ${name} ${dateCreated}>
     <div class="d-flex">
       <h5 class="name"><a href="${href}">${notebook.name}</a></h5>
+      
     </div>
 
     <div class="name-search d-none">${nameSearchData}</div>
     
-    <div class="date-created">
-      <span>Added on </span>
-      <span class="date-created-display">${notebook.date_created_display}</span>
-    </div>
     <div class="description">${description}</div>
 
+    <div class="labels"></div>
+
     <div class="page-counts">
+      <span class="page-counts-item page-counts-checklists">
+        ${notebook.date_created_display}
+      </span>
       <span class="page-counts-item page-counts-notes">
         <i class='bx bx-note'></i>
         <span class="page-count-data">${notebook.count_notes}</span>
@@ -140,7 +141,47 @@ function getNotebookCardHtml(notebook) {
         <span class="page-count-data">${notebook.count_checklists}</span>
       </span>
     </div>
+    
   </li>`;
 
+  return html;
+}
+
+
+function displayNotebookLabels(notebooks) {
+
+  for (let count = 0; count < notebooks.length; count++) {
+    getNotebookLabelsAssigned(notebooks[count].id);
+  }
+}
+
+
+function getNotebookLabelsAssigned(notebookID) {
+  const data = {
+    function: CONSTANTS.API_FUNCTIONS.getNotebookLabelsAssigned,
+    notebookID: notebookID,
+  }
+
+  $.getJSON(CONSTANTS.API, data, function(response) {
+    let html = '';
+
+    for (let count = 0; count < response.length; count++) {
+      html += getNotebookLabelHtml(response[count]);
+    }
+
+    let selector = `.notebook[data-notebook-id="${notebookID}"] .labels`;
+    $(selector).html(html);
+
+  }).fail(function(response) {
+    console.error('API error: getNotebookLabelsAssigned()');
+    return;
+  });
+}
+
+function getNotebookLabelHtml(label) {
+  const style = `style="background-color: ${label.color};"`;
+  const labelID = `data-label-id="${label.id}"`;
+  const html = `<span ${labelID} class="badge badge-notebook-label mr-3 mt-3 mb-2" ${style}>${label.name}</span>`;
+  
   return html;
 }

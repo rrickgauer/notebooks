@@ -231,7 +231,8 @@ class DB {
     DATE_FORMAT(n.date_created, "%c/%d/%Y") AS date_created_display,
     (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id) AS count_notes,
     (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id) AS count_checklists,
-    (SELECT count_notes + count_checklists) AS count_pages
+    (SELECT count_notes + count_checklists) AS count_pages,
+    (SELECT COUNT(*) FROM Notebook_Labels_Assigned nbl WHERE nbl.notebook_id = n.id) as count_labels
     FROM Notebooks n 
     WHERE id = :notebookID 
     LIMIT 1';
@@ -258,7 +259,8 @@ class DB {
     DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display,
     (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id) AS count_notes,
     (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id) AS count_checklists,
-    (SELECT count_notes + count_checklists) AS count_pages
+    (SELECT count_notes + count_checklists) AS count_pages,
+    (SELECT COUNT(*) FROM Notebook_Labels_Assigned nbl WHERE nbl.notebook_id = n.id) as count_labels
     FROM Notebooks n 
     where n.user_id = :userID';
 
