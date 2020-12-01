@@ -7,7 +7,39 @@ const globalVariables = new GlobalVariables();
 // main
 $(document).ready(function() {
   getNotebookLabels(displayNotebookLabels);
+  addListeners();
 });
+
+function addListeners() {
+  toggleNotebookDisplayMode();
+}
+
+
+function toggleNotebookDisplayMode() {
+  $('.card-notebook-labels').on('click', '.btn-notebook-label-normal-edit, .btn-notebook-labels-edit-cancel', function() {
+    const labelElement = $(this).closest('.notebook-label');
+    toggleEditMode(labelElement);
+  });
+}
+
+function toggleEditMode(labelElement, display) {
+  if (display == true) {
+    $(labelElement).find('.display-normal').addClass('d-none');
+    $(labelElement).find('.display-edit').removeClass('d-none');
+  } else if (display == false) {
+    $(labelElement).find('.display-edit').addClass('d-none');
+    $(labelElement).find('.display-normal').removeClass('d-none');
+  } else {
+    $(labelElement).find('.display-edit').toggleClass('d-none');
+    $(labelElement).find('.display-normal').toggleClass('d-none');
+  }
+}
+
+
+
+
+
+
 
 
 function getNotebookLabels(actionSuccess) {
@@ -25,14 +57,12 @@ function getNotebookLabels(actionSuccess) {
 
 
 function displayNotebookLabels(labels) {
-
   let html = '';
   for (let count = 0; count < labels.length; count++) {
     html += getNotebookLabelListItemHtml(labels[count]);
   }
 
   $('.card-notebook-labels .list-group').html(html);
-
 }
 
 
