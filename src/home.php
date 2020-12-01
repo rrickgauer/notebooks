@@ -36,7 +36,7 @@ $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
 
       <div class="home-header-inputs">        
         <div class="d-flex">
-          <!-- sort notebooks -->
+          <!-- sort notebodoks -->
           <div class="dropdown mr-3">
             <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">Sort</button>
             <div class="dropdown-menu">
@@ -48,12 +48,11 @@ $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
 
           <!-- filter notebooks by label -->
           <div class="dropdown dropdown-labels-filter mr-3">
-            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown">Labels</button>
+            <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" disabled>Labels</button>
             <div class="dropdown-menu">
-              <!-- <button class="dropdown-item" type="button">Oldest</button>
-              <button class="dropdown-item" type="button">Newest</button>
-              <button class="dropdown-item" type="button">Name</button> -->
+                <div class="dropdown-menu-filter-list"></div>
               <div class="dropdown-divider"></div>
+              <button class="dropdown-item dropdown-item-clear-label-filters" type="button">Clear filters</button>
               <a class="dropdown-item" href="notebook-labels.php">Edit labels</a>
             </div>
           </div>

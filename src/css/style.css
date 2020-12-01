@@ -353,4 +353,12 @@
   min-width: 200px;
 }
 
+.dropdown-labels-filter .dropdown-menu-filter-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.dropdown-labels-filter .dropdown-item-filter-label.active {
+  color: black;
+}
+
 /*# sourceMappingURL=style.css.map */

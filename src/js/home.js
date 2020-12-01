@@ -15,10 +15,44 @@ $(document).ready(function() {
   });
 
   $('.dropdown-labels-filter').on('click', '.dropdown-item-filter-label', function() {
-    // filterNotebooksByLabel(this);
+    filterNotebooksByLabel(this);
+  });
+
+  $('.dropdown-item-clear-label-filters').on('click', function() {
+    clearLabelFilters();
   });
 
 });
+
+function clearLabelFilters() {
+  // show all notebooks
+  $('.notebook').show();
+
+  // remove all active classes
+  $('.dropdown-labels-filter .dropdown-item-filter-label').removeClass('active'); 
+
+}
+
+
+function filterNotebooksByLabel(labelFilterBtn) {
+  const buttonElement = $(labelFilterBtn).closest('.dropdown-item-filter-label');
+  const filterID = $(buttonElement).attr('data-notebook-label-id');
+
+  $(buttonElement).toggleClass('active');
+
+  // initially hide all the filters
+  $('.notebook').hide();
+
+  // for each filter button active, show the notebooks that have that tag
+  const activeFilterLabels = $('.dropdown-item-filter-label.active');
+  for (let count = 0; count < activeFilterLabels.length; count++) {
+    const labelID = $(activeFilterLabels[count]).attr('data-notebook-label-id');
+    const selector = `.notebook .badge-notebook-label[data-label-id="${labelID}"]`;
+
+    // show all the notebooks that have this label
+    $(selector).closest('.notebook').show();
+  }
+}
 
 
 function loadLabels() {
@@ -32,7 +66,10 @@ function loadLabels() {
       html += getNotebookLabelFilterHtml(response[count]);
     }
 
-    $('.dropdown-labels-filter .dropdown-menu').prepend(html);
+    $('.dropdown-labels-filter .dropdown-menu-filter-list').html(html);
+
+    // enable the dropdown
+    $('.dropdown-labels-filter .dropdown-toggle').prop('disabled', false);
   }).fail(function(responose) {
     console.error('API error: loadLabels()');
     return;
