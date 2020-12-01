@@ -57,7 +57,7 @@ $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
     
 
     <!-- notebooks -->
-    <ul class="list-group list-notebooks"></ul>
+    <ul class="list-group list-group-flush list-notebooks"></ul>
     
  
 

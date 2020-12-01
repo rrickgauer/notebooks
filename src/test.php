@@ -15,16 +15,6 @@ require_once('DB.php');
 <html>
 <head>
   <?php include('php/header.php'); ?>
-
-
-  <link rel="stylesheet" href="css/external/codemirror/codemirror.css">
-  <link rel="stylesheet" href="css/external/codemirror/fullscreen.css">
-
-  
-
-
-
-
   <title>Notebooks Test</title>
 </head>
 <body>
@@ -32,11 +22,31 @@ require_once('DB.php');
 
   <div class="container">
 
-  <h1 class="text-center my-5">Test</h1>
+
+  <ul>
+
+    <li class="notebook">
+
+      <div class="date-created-display">11/9/2020</div>
+
+      <div>
+
+      
+      </div>
+
+    </li>
+
+
+  </ul>
 
 
 
-  <textarea class="textarea-plus" rows="10"></textarea>
+
+
+
+
+
+
 
 
 
