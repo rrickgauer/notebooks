@@ -2,7 +2,7 @@ const globalVariables = new GlobalVariables();
 const CONSTANTS = new Constants();
 const pagesList = [];
 const UTILITIES = new Utilities();
-const textareasList = [];
+let textareasList = [];
 
 
 // main
@@ -190,16 +190,56 @@ function addListeners() {
     $('#modal-notebook-toc').modal('hide');
 
     const self = this;
-
     $('#modal-notebook-toc').on('hidden.bs.modal', function() {
       const pageID = $(self).find('a').attr('href');
       window.location.hash = pageID;
     });
-    
+  });
 
+  $('.pages').on('click', '.btn-page-popout', function() {
+    popoutPage(this);
   });
 
 }
+
+
+
+function popoutPage(btn) {
+  const pageElement = $(btn).closest('.card-page');
+  const pageIndex = getPageIndex(btn);
+  const popoutModal = $('#modal-page-popout');
+
+  const name = pagesList[pageIndex].name;
+  const content = $(pageElement).find('.rendered').html();
+
+  $(popoutModal).find('.modal-header').text(name);
+  $(popoutModal).find('.content').html(content);
+
+
+
+  $(popoutModal).modal('show');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
@@ -324,6 +364,10 @@ function displayPages() {
 function loadtextareasList() {
   const textareaElements = document.getElementsByClassName('textarea-plus');
 
+  console.log(textareaElements);
+
+  textareasList = [];
+
   for (let count = 0; count < textareaElements.length; count++) {
     textareasList.push(UTILITIES.enableCodeMirror(textareaElements[count]));
   }
@@ -413,18 +457,23 @@ function resetTextarea(btn) {
 
   // get the text saved in the list of notes
   const pageIndex = getPageIndex(btn);
+
+
   let oldContent = pagesList[pageIndex].content;
 
   // set the corresponding codemirror textarea to the old content
-  const noteIndex = getNoteIndex(btn) - 1;
+  const noteIndex = getNoteIndex(btn);
   textareasList[noteIndex].setValue(oldContent);
 }
 
 function refreshTextarea(btn) {
   const noteElement = $(btn).closest('.card-page');
 
+
   // set the corresponding codemirror textarea to the old content
-  const noteIndex = getNoteIndex(btn) - 1;
+  const noteIndex = getNoteIndex(btn);
+
+
   textareasList[noteIndex].refresh();
 }
 
@@ -485,7 +534,7 @@ function updateNote(selector) {
   const noteElement = $(selector).closest('.card-page');
   const noteID = $(noteElement).attr('data-page-id');
 
-  const noteIndex = getNoteIndex(selector) - 1;
+  const noteIndex = getNoteIndex(selector);
   const newContent = textareasList[noteIndex].getValue();
   
   const newName = $(noteElement).find('.page-edit-name-input').val();
@@ -610,9 +659,8 @@ function getPageIndex(childElement) {
 
 function getNoteIndex(childElement) {
   const note = $(childElement).closest('.card-note');
-  console.log($('.card-note'));
-  const noteIndex = $(note).index();
-  return noteIndex;
+  const index = $('.card-note').index(note);
+  return index;
 }
 
 function getChecklistItemIndex(checklistItem) {

@@ -54,6 +54,7 @@ Note.prototype.getHtmlHeader = function() {
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item btn-page-edit" type="button">Edit</button>
             <button class="dropdown-item btn-page-hide" type="button">Hide</button>
+            <button class="dropdown-item btn-page-popout" type="button">Pop out</button>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
             <button class="dropdown-item btn-page-expand" type="button">Expand</button>

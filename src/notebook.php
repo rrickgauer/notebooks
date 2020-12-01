@@ -306,6 +306,27 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
       </div>
     </div>
 
+    <!-- page pop out -->
+    <div class="modal fade modal-page-popout" id="modal-page-popout" tabindex="-1">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Page name goes here</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="content github-css">
+
+            </div>
+          
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
