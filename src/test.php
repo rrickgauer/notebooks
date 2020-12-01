@@ -15,6 +15,16 @@ require_once('DB.php');
 <html>
 <head>
   <?php include('php/header.php'); ?>
+
+
+  <link rel="stylesheet" href="css/external/codemirror/codemirror.css">
+  <link rel="stylesheet" href="css/external/codemirror/fullscreen.css">
+
+  
+
+
+
+
   <title>Notebooks Test</title>
 </head>
 <body>
@@ -25,9 +35,8 @@ require_once('DB.php');
   <h1 class="text-center my-5">Test</h1>
 
 
-    <span class="badge" style="background-color: #b49218">43</span>
 
-
+  <textarea class="textarea-plus" rows="10"></textarea>
 
 
 
@@ -45,6 +54,8 @@ require_once('DB.php');
 
   <?php include('php/footer.php'); ?>
   <script src="js/test.js"></script>
+
+
 
 
 </body>

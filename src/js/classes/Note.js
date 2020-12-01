@@ -95,20 +95,11 @@ Note.prototype.getHtmlBody = function() {
       </div>
 
       <div class="edit">
-        <nav>
-          <div class="nav nav-tabs" role="tablist">
-            <button class="nav-link active" data-toggle="tab" data-target="${dataTarget}.write">Write</button>
-            <button class="nav-link" data-toggle="tab" data-target="${dataTarget}.preview">Preview</button>
-          </div>
-        </nav>
-        <div class="tab-content">
-          <div class="tab-pane write show active" role="tabpanel">
-            <div class="tab-pane write show active" role="tabpanel">
-              <textarea class="form-control edit-input" rows="5" placeholder="Add text...">${contentDisplayTextArea}</textarea>
-            </div>
-          </div>
-          <div class="tab-pane preview" role="tabpanel"></div>
+
+        <div class="tab-pane write show active" role="tabpanel">
+          <textarea class="form-control edit-input textarea-plus" rows="5" placeholder="Add text...">${contentDisplayTextArea}</textarea>
         </div>
+        
 
         <div class="page-edit-buttons d-flex justify-content-end mt-3">
           <button type="button" class="btn btn-sm btn-outline-danger btn-page-update-cancel mr-2">Cancel</button>

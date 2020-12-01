@@ -1,6 +1,8 @@
 const globalVariables = new GlobalVariables();
 const CONSTANTS = new Constants();
 const pagesList = [];
+const UTILITIES = new Utilities();
+const textareas = [];
 
 
 // main
@@ -11,7 +13,6 @@ $(document).ready(function() {
 
   loadLabelsAvailable();
   loadLabelsAssigned();
-  $('#modal-notebook-labels').modal('show');
 });
 
 function addListeners() {
@@ -149,7 +150,7 @@ function addListeners() {
   
   $('.pages').on('keydown', '.edit-input', function(e) {
     if (e.keyCode == 13) {
-      autosize.update(this);
+      // autosize.update(this);
     }
   });
 
@@ -253,8 +254,9 @@ function loadPages() {
     displayTableOfContent();
     
     // enable textarea library
-    let utils = new Utilities();
-    utils.enableTextarea('.edit-input');
+    // let utils = new Utilities();
+    // utils.enableTextarea('.edit-input');
+    // utils.enableCodeMirror();
   });
 }
 
@@ -295,10 +297,21 @@ function displayPages() {
   }
   
   $('.pages').html(html);
-  autosize($('.edit-input'));
+  loadTextareas();
+  // autosize($('.edit-input'));
   
   Prism.highlightAll();
-  
+}
+
+
+function loadTextareas() {
+  const textareaElements = document.getElementsByClassName('textarea-plus');
+
+  for (let count = 0; count < textareaElements.length; count++) {
+    textareas.push(UTILITIES.enableCodeMirror(textareaElements[count]));
+  }
+
+
 }
 
 
@@ -430,7 +443,10 @@ function updateChecklist(selector) {
 function updateNote(selector) {
   const noteElement = $(selector).closest('.card-page');
   const noteID = $(noteElement).attr('data-page-id');
-  const newContent = $(noteElement).find('.edit-input').val();
+
+  const noteIndex = getNoteIndex(selector) - 1;
+  const newContent = textareas[noteIndex].getValue();
+  
   const newName = $(noteElement).find('.page-edit-name-input').val();
   const hidden = $(noteElement).attr('data-page-hidden');
   
@@ -447,11 +463,9 @@ function updateNote(selector) {
     return;
   });
   
-  // update the display
-  let utils = new Utilities();
   
   // content
-  const newContentMd = utils.renderMarkdown(newContent);
+  const newContentMd = UTILITIES.renderMarkdown(newContent);
   $(noteElement).find('.content .rendered').html(newContentMd);
   
   // name
@@ -474,10 +488,9 @@ function updateNote(selector) {
 // render the note edit update markdown in the preview pane //
 //////////////////////////////////////////////////////////////
 function showNoteEditPreview(target) {
-  const utils     = new Utilities();
   const note      = $(target).closest('.card-page');
   const editInput = $(note).find('.edit-input').val();
-  const md        = utils.renderMarkdown(editInput);
+  const md        = UTILITIES.renderMarkdown(editInput);
   
   $(note).find('.tab-pane.preview').html(md);
   Prism.highlightAll();
@@ -552,6 +565,13 @@ function getPageIndex(childElement) {
   const page = $(childElement).closest('.card-page');
   const pageIndex = $(page).index();
   return pageIndex;
+}
+
+function getNoteIndex(childElement) {
+  const note = $(childElement).closest('.card-note');
+  console.log($('.card-note'));
+  const noteIndex = $(note).index();
+  return noteIndex;
 }
 
 function getChecklistItemIndex(checklistItem) {

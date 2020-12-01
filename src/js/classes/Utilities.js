@@ -23,3 +23,23 @@ Utilities.prototype.displayAlert = function(text) {
   });
 }
 
+Utilities.prototype.enableCodeMirror = function(element) {
+  let editor = CodeMirror.fromTextArea(element, {
+    mode: 'markdown',
+    lineNumbers: false,
+    theme: "default",
+    extraKeys: {
+      "Enter": "newlineAndIndentContinueMarkdownList",
+      "F11": function(cm) {
+        cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+      },
+      "Esc": function(cm) {
+        if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+      }
+    }
+  });
+
+  return editor;
+
+}
+
