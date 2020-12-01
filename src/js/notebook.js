@@ -184,6 +184,21 @@ function addListeners() {
     removeAssignedNotebookLabel(this);
   });
 
+
+  $('.pages-toc-list').on('click', '.pages-toc-list-item', function(e) {
+    e.preventDefault();
+    $('#modal-notebook-toc').modal('hide');
+
+    const self = this;
+
+    $('#modal-notebook-toc').on('hidden.bs.modal', function() {
+      const pageID = $(self).find('a').attr('href');
+      window.location.hash = pageID;
+    });
+    
+
+  });
+
 }
 
 

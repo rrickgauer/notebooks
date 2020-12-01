@@ -77,20 +77,17 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
   <section id="notebook-body" class="mt-5">
     <div class="container-md">
 
-      <!-- table of content -->
-      <div class="pages-toc mb-3">
-        <details open>
-          <summary open class="h4">Table of content</summary>
-          <ol class="pages-toc-list"></ol>
-        </details>
-      </div>
-
-
       <!-- pages -->
       <div class="row">
         <!-- action buttons -->
         <div class="col-sm-12 col-md-3 order-md-2">
           <ul class="list-group list-group-flush notebook-action-list">
+            <!-- table of content modal show button -->
+            <li class="list-group-item notebook-action">
+              <h6 class="notebook-action-header">Table of content</h6>
+              <button type="button" class="btn btn-sm btn-light btn-block" data-toggle="modal" data-target="#modal-notebook-toc">View</button>
+            </li>
+
             <!-- sorting -->
             <li class="list-group-item notebook-action sorting">
               <h6 class="notebook-action-header">Sort</h6>
@@ -283,6 +280,27 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- table of content -->
+    <div class="modal fade modal-notebook-toc" id="modal-notebook-toc" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Table of content</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- table of content -->
+            <div class="pages-toc mb-3">
+              <ol class="pages-toc-list"></ol>
+            </div>
+
           </div>
         </div>
       </div>
