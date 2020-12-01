@@ -14,6 +14,10 @@ $(document).ready(function() {
     sortNotebooks(this);
   });
 
+  $('.dropdown-labels-filter').on('click', '.dropdown-item-filter-label', function() {
+    // filterNotebooksByLabel(this);
+  });
+
 });
 
 
@@ -40,7 +44,7 @@ function getNotebookLabelFilterHtml(label) {
   const badge = `<span class="badge badge-notebook-label" style="${style}">${label.name}</span>`;
   const dataID = `data-notebook-label-id="${label.id}"`;
   
-  let html = `<button class="dropdown-item" ${dataID} type="button">${badge}</button>`;
+  let html = `<button class="dropdown-item dropdown-item-filter-label" ${dataID} type="button">${badge}</button>`;
   return html;
 }
 
