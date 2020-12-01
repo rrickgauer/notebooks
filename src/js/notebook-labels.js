@@ -35,13 +35,6 @@ function toggleEditMode(labelElement, display) {
   }
 }
 
-
-
-
-
-
-
-
 function getNotebookLabels(actionSuccess) {
   const data = {
     function: CONSTANTS.API_FUNCTIONS.getNotebookLabels,
@@ -67,8 +60,11 @@ function displayNotebookLabels(labels) {
 
 
 function getNotebookLabelListItemHtml(label) {
-
   const style = `background-color: ${label.color};`;
+  const inputNameID = `form-notebook-labels-edit-name-${label.id}`;
+  const inputColorID = `form-notebook-labels-edit-color-${label.id}`;
+  const inputNameClass = 'form-notebook-labels-edit-name';
+  const inputColorClass = 'form-notebook-labels-edit-color';
 
   let html = `
   <li class="list-group-item notebook-label" data-notebook-label-id="${label.id}">
@@ -86,13 +82,14 @@ function getNotebookLabelListItemHtml(label) {
         <div class="inputs">
           <!-- name -->
           <div class="item name">
-            <label for="form-notebook-labels-edit-name">Name</label>
-            <input type="text" id="form-notebook-labels-edit-name" class="form-control form-control-sm" value="${label.name}">
+            <label for="${inputNameID}">Name</label>
+            <input type="text" id="${inputNameID}" class="form-control form-control-sm ${inputNameClass}" value="${label.name}">
+            <div class="invalid-feedback">Please provide a name.</div>
           </div>
           <!-- color -->
           <div class="item color ml-3">
-            <label for="form-notebook-labels-edit-color">Color</label>
-            <input type="color" id="form-notebook-labels-edit-color" class="form-control form-control-sm" value="${label.color}">
+            <label for="${inputColorID}">Color</label>
+            <input type="color" id="${inputColorID}" class="form-control form-control-sm ${inputColorClass}" value="${label.color}">
           </div>
         </div>
         <div class="buttons">
