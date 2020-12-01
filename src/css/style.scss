@@ -320,6 +320,12 @@
 
 
 .card-notebook-labels {
+
+  .card-header .top {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .card-body {
     padding: 0;
   }
@@ -364,15 +370,36 @@
         }
       }
     }
-
-
-
   }
-
-
-
 }
 
+
+.form-notebook-labels-new {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+
+  .inputs {
+    display: flex;
+  }
+
+  .buttons {
+    width: 100%;
+    
+    .btn {
+      float: right;
+      margin-left: 10px;
+    }
+  }
+
+  .item.color {
+    min-width: 100px;
+  }
+
+  .item.name {
+    min-width: 200px;
+  }
+}
 
 
 

@@ -288,6 +288,10 @@
     display: none;
   }
 }
+.card-notebook-labels .card-header .top {
+  display: flex;
+  justify-content: space-between;
+}
 .card-notebook-labels .card-body {
   padding: 0;
 }
@@ -320,6 +324,28 @@
   min-width: 100px;
 }
 .card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .item.name {
+  min-width: 200px;
+}
+
+.form-notebook-labels-new {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+.form-notebook-labels-new .inputs {
+  display: flex;
+}
+.form-notebook-labels-new .buttons {
+  width: 100%;
+}
+.form-notebook-labels-new .buttons .btn {
+  float: right;
+  margin-left: 10px;
+}
+.form-notebook-labels-new .item.color {
+  min-width: 100px;
+}
+.form-notebook-labels-new .item.name {
   min-width: 200px;
 }
 

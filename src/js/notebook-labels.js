@@ -15,7 +15,40 @@ function addListeners() {
   updateNotebookLabel();
   removeInvalidClassOnNameKeyUp();
   deleteNotebookLabel();
+  insertNotebookLabel();
+  removeInvalidClassOnNameNewKeyUp();
 }
+
+
+function insertNotebookLabel() {
+
+  $('.btn-notebook-labels-new-save').on('click', function() {
+    const nameInput = $('#form-notebook-labels-new-name');
+    if ($(nameInput).val() == '') {
+      $(nameInput).addClass('is-invalid');
+      return;
+    }
+
+    const name = $(nameInput).val();
+    const color = $('#form-notebook-labels-new-color').val();
+    const data = {
+      function: CONSTANTS.API_FUNCTIONS.insertNotebookLabel,
+      name: name,
+      color: color,
+    }
+
+    $.post(CONSTANTS.API, data, function(response) {
+      window.location.href = window.location.href;
+    }).fail(function(response) {
+      console.error('API error: insertNotebookLabel()');
+      return;
+    });\
+  });
+}
+
+
+
+
 
 
 function deleteNotebookLabel() {
@@ -76,6 +109,15 @@ function updateNotebookLabel() {
 
 function removeInvalidClassOnNameKeyUp() {
   $('.card-notebook-labels').on('keyup', '.form-notebook-labels-edit-name', function() {
+    if ($(this).val() != '') {
+      $(this).removeClass('is-invalid');
+      return;
+    }
+  });
+}
+
+function removeInvalidClassOnNameNewKeyUp() {
+  $('#form-notebook-labels-new-name').on('keyup', function() {
     if ($(this).val() != '') {
       $(this).removeClass('is-invalid');
       return;
