@@ -200,6 +200,16 @@ function addListeners() {
     popoutPage(this);
   });
 
+  scrollToTop();
+
+  collapseNotebookActionMenu();
+}
+
+
+function collapseNotebookActionMenu() {
+  $('.btn-notebook-actions-collapse').on('click', function() {
+    $('.notebook-action-list').toggleClass('collapsed');
+  });
 }
 
 
@@ -1082,4 +1092,22 @@ function popoutPage(btn) {
 
   // show the modal
   $(popoutModal).modal('show');
+}
+
+
+function scrollToTop() {
+  $('.btn-scroll-top').on('click', function() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  });
+
+  const scrollBtn = $('.btn-scroll-top');
+
+  $(window).on('scroll', function() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      $(scrollBtn).removeClass('d-none');
+    } else {
+      $(scrollBtn).addClass('d-none');
+    }
+  });
 }

@@ -37,8 +37,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
   <!-- header -->
   <section id="notebook-header">
-    <div class="container">
-
+    <div class="container-md">
       <div class="notebook-meta">
         <div class="notebook-meta-info">
           <h1 class="notebook-meta-name"><?php echo $notebook['name']; ?></h1>
@@ -71,22 +70,26 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
           <button type="button" class="btn btn-sm btn-success btn-notebook-meta-update-save">Save</button>
           <button type="button" class="btn btn-sm btn-light btn-notebook-meta-update-cancel">Cancel</button>
         </div>
-
       </div>
 
+
+      <button type="button" class="btn btn-sm btn-light btn-scroll-top d-none">Back to top</button>
 
     </div>
   </section>
 
   <!-- body -->
-  <section id="notebook-body" class="mt-5">
+  <section id="notebook-body">
     <div class="container-md">
 
       <!-- pages -->
       <div class="row">
         <!-- action buttons -->
         <div class="col-sm-12 col-md-3 order-md-2">
-          <ul class="list-group list-group-flush notebook-action-list">
+          
+        <button type="button" class="btn btn-sm btn-secondary btn-block btn-notebook-actions-collapse">Actions</button>
+
+          <ul class="list-group list-group-flush notebook-action-list collapsed">
             <!-- table of content modal show button -->
             <li class="list-group-item notebook-action">
               <h6 class="notebook-action-header">Table of content</h6>
@@ -313,7 +316,7 @@ $notebook = DB::getNotebook($_GET['notebookID'])->fetch(PDO::FETCH_ASSOC);
 
     <!-- page pop out -->
     <div class="modal fade modal-page-popout" id="modal-page-popout" tabindex="-1">
-      <div class="modal-dialog modal-xl">
+      <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Page name goes here</h5>

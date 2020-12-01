@@ -26,15 +26,15 @@ $user = DB::getUser($_SESSION['userID'])->fetch(PDO::FETCH_ASSOC);
   <?php include('php/navbar.php'); ?>
 
   <div class="container-md">
-    <h1 class="text-center mt-5">Home</h1>
+    <h1 class="text-center page-header">Home</h1>
 
-    <div class="d-flex justify-content-between align-items-baseline">
+    <!-- <div class="d-flex flex-sm-row justify-content-between align-items-baseline"> -->
+    <div class="home-header">
       <div>
         <h4 class="mb-3">Your notebooks <span class="badge badge-secondary"><?php echo $user['count_notebooks']; ?></span></h4>
       </div>
 
-      
-      <div>        
+      <div class="home-header-inputs">        
         <div class="d-flex">
           <!-- sort notebooks -->
           <div class="dropdown mr-3">
