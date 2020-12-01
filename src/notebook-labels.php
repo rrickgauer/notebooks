@@ -48,7 +48,7 @@ require_once('DB.php');
               </div>
               <!-- color -->
               <div class="item color ml-3">
-                <label for="form-notebook-labels-new-name">Color</label>
+                <label for="form-notebook-labels-new-color">Color</label>
                 <input type="color" id="form-notebook-labels-new-color" class="form-control form-control-sm">
               </div>
             </div>

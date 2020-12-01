@@ -17,11 +17,20 @@ function addListeners() {
   deleteNotebookLabel();
   insertNotebookLabel();
   removeInvalidClassOnNameNewKeyUp();
+  cancelNewLabel();
+}
+
+
+function cancelNewLabel() {
+  $('.btn-notebook-labels-new-cancel').on('click', function() {
+    const nameInput = $('#form-notebook-labels-new-name');
+    $(nameInput).val('');
+    $('.new-label-section').removeClass('show');
+  });
 }
 
 
 function insertNotebookLabel() {
-
   $('.btn-notebook-labels-new-save').on('click', function() {
     const nameInput = $('#form-notebook-labels-new-name');
     if ($(nameInput).val() == '') {
@@ -42,13 +51,9 @@ function insertNotebookLabel() {
     }).fail(function(response) {
       console.error('API error: insertNotebookLabel()');
       return;
-    });\
+    });
   });
 }
-
-
-
-
 
 
 function deleteNotebookLabel() {
