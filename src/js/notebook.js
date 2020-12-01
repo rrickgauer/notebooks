@@ -4,16 +4,44 @@ const pagesList = [];
 const UTILITIES = new Utilities();
 let textareasList = [];
 
+let isInitialDataDisplayed = false;
+
+
 
 // main
 $(document).ready(function() {
   loadPages();
   setNotebookActionStates();
   addListeners();
-
   loadLabelsAvailable();
   loadLabelsAssigned();
+
+
+  
+  // for (let count = 0; count < pagesList.length; count++) {
+  //   console.
+  // }
 });
+
+
+// display the data once it has all been retrieved
+$(document).ajaxStop(function() {
+  if (isInitialDataDisplayed) {
+    return;
+  }
+
+  isInitialDataDisplayed = true;
+  
+  let html = '';
+  for (let count = 0; count < pagesList.length; count++) {
+    html += pagesList[count].getHtml();
+  }
+
+  $('.pages').html(html);
+  loadtextareasList();
+  Prism.highlightAll();
+});
+
 
 function addListeners() {
   $('#page-new-name').on('keyup', enableNewPageBtn);
@@ -277,14 +305,9 @@ function loadPages() {
     }
 
     sortPagesList();
-    displayPages();
+    // displayPages();
     loadChecklistsItems();
     displayTableOfContent();
-
-    // enable textarea library
-    // let utils = new Utilities();
-    // utils.enableTextarea('.edit-input');
-    // utils.enableCodeMirror();
   });
 }
 
@@ -307,43 +330,21 @@ function generatePageElementIds() {
 //////////////////////////////////////////////
 function addPage(page) {
   // const newPage = new Note(page);
-
   if (page.page_type == 'checklist')
     pagesList.push(new Checklist(page));
   else
     pagesList.push(new Note(page));
 }
 
-/////////////////////////////////////////////////////////
-// Runs down the list of pages and displays their html //
-/////////////////////////////////////////////////////////
-function displayPages() {
-  let html = '';
-
-  for (let count = 0; count < pagesList.length; count++) {
-    html += pagesList[count].getHtml();
-  }
-
-  $('.pages').html(html);
-  loadtextareasList();
-  // autosize($('.edit-input'));
-
-  Prism.highlightAll();
-}
 
 
 function loadtextareasList() {
   const textareaElements = document.getElementsByClassName('textarea-plus');
-
-  console.log(textareaElements);
-
   textareasList = [];
 
   for (let count = 0; count < textareaElements.length; count++) {
     textareasList.push(UTILITIES.enableCodeMirror(textareaElements[count]));
   }
-
-
 }
 
 
@@ -406,11 +407,8 @@ function getChecklistItems(checklistID, pagesListIndex) {
 
     // set the items
     pagesList[pagesListIndex].items = items;
-    let checklistItemHtml = pagesList[pagesListIndex].getHtmlBody();
-
-    let cards = $('.card-page');
-    $(cards[pagesListIndex]).find('.items').replaceWith(checklistItemHtml);
   });
+
 
 }
 
