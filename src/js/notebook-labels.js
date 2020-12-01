@@ -18,6 +18,28 @@ function addListeners() {
   insertNotebookLabel();
   removeInvalidClassOnNameNewKeyUp();
   cancelNewLabel();
+  cancelUpdateLabel();
+}
+
+
+function cancelUpdateLabel() {
+  $('.card-notebook-labels').on('click', '.btn-notebook-labels-edit-cancel', function() {
+    const labelElement = $(this).closest('.notebook-label');
+    const labelID = $(labelElement).attr('data-notebook-label-id');
+
+    const data = {
+      function: CONSTANTS.API_FUNCTIONS.getNotebookLabel,
+      labelID: labelID,
+    }
+
+    $.getJSON(CONSTANTS.API, data, function(response) {
+      let html = getNotebookLabelListItemHtml(response);
+      $(labelElement).replaceWith(html);
+    }).fail(function(response) {
+      console.error('API error: insertNotebookLabel()');
+      return;
+    });
+  });
 }
 
 
@@ -132,7 +154,7 @@ function removeInvalidClassOnNameNewKeyUp() {
 
 
 function toggleNotebookDisplayMode() {
-  $('.card-notebook-labels').on('click', '.btn-notebook-label-normal-edit, .btn-notebook-labels-edit-cancel', function() {
+  $('.card-notebook-labels').on('click', '.btn-notebook-label-normal-edit', function() {
     const labelElement = $(this).closest('.notebook-label');
     toggleEditMode(labelElement);
   });
