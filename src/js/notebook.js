@@ -203,45 +203,6 @@ function addListeners() {
 }
 
 
-
-function popoutPage(btn) {
-  const pageElement = $(btn).closest('.card-page');
-  const pageIndex = getPageIndex(btn);
-  const popoutModal = $('#modal-page-popout');
-
-  const name = pagesList[pageIndex].name;
-  const content = $(pageElement).find('.rendered').html();
-
-  $(popoutModal).find('.modal-header').text(name);
-  $(popoutModal).find('.content').html(content);
-
-
-
-  $(popoutModal).modal('show');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 * Sets the notebook action states
 * 
@@ -457,9 +418,10 @@ function resetTextarea(btn) {
 
   // get the text saved in the list of notes
   const pageIndex = getPageIndex(btn);
-
-
   let oldContent = pagesList[pageIndex].content;
+  if (oldContent == null) {
+    oldContent = '';
+  }
 
   // set the corresponding codemirror textarea to the old content
   const noteIndex = getNoteIndex(btn);
@@ -467,14 +429,10 @@ function resetTextarea(btn) {
 }
 
 function refreshTextarea(btn) {
-  const noteElement = $(btn).closest('.card-page');
-
-
   // set the corresponding codemirror textarea to the old content
   const noteIndex = getNoteIndex(btn);
-
-
   textareasList[noteIndex].refresh();
+  textareasList[noteIndex].focus();
 }
 
 
@@ -1103,4 +1061,25 @@ function removeAssignedNotebookLabel(btn) {
   });
 
   $(labelElement).remove();
+}
+
+
+/**
+ * Pop out a note into a  full screen modal
+ */
+function popoutPage(btn) {
+  const pageElement = $(btn).closest('.card-page');
+  const pageIndex = getPageIndex(btn);
+  const popoutModal = $('#modal-page-popout');
+
+  // name
+  const name = pagesList[pageIndex].name;
+  $(popoutModal).find('.modal-title').text(name);
+  
+  // content
+  const content = $(pageElement).find('.rendered').html();
+  $(popoutModal).find('.content').html(content);
+
+  // show the modal
+  $(popoutModal).modal('show');
 }

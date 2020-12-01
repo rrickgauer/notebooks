@@ -27,7 +27,7 @@ Utilities.prototype.enableCodeMirror = function(element) {
   let editor = CodeMirror.fromTextArea(element, {
     mode: 'markdown',
     lineNumbers: false,
-    theme: "default",
+    theme: "default",    
     extraKeys: {
       "Enter": "newlineAndIndentContinueMarkdownList",
       "F11": function(cm) {

@@ -98,7 +98,7 @@ Note.prototype.getHtmlBody = function() {
       <div class="edit">
 
         <div class="tab-pane write show active" role="tabpanel">
-          <textarea class="form-control edit-input textarea-plus" rows="5" placeholder="Add text...">${contentDisplayTextArea}</textarea>
+          <textarea class="form-control edit-input textarea-plus" rows="5" placeholder="Add some content...">${contentDisplayTextArea}</textarea>
         </div>
         
 
