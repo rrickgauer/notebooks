@@ -15,10 +15,31 @@ $(document).ready(function() {
   });
 
   $('.dropdown-labels-filter').on('click', '.dropdown-item-filter-label', function() {
-    // filterNotebooksByLabel(this);
+    filterNotebooksByLabel(this);
   });
 
 });
+
+
+function filterNotebooksByLabel(labelFilterBtn) {
+  const buttonElement = $(labelFilterBtn).closest('.dropdown-item-filter-label');
+  const filterID = $(buttonElement).attr('data-notebook-label-id');
+
+  $(buttonElement).toggleClass('active');
+
+  // initially hide all the filters
+  $('.notebook').hide();
+
+  // for each filter button active, show the notebooks that have that tag
+  const activeFilterLabels = $('.dropdown-item-filter-label.active');
+  for (let count = 0; count < activeFilterLabels.length; count++) {
+    const labelID = $(activeFilterLabels[count]).attr('data-notebook-label-id');
+    const selector = `.notebook .badge-notebook-label[data-label-id="${labelID}"]`;
+
+    // show all the notebooks that have this label
+    $(selector).closest('.notebook').show();
+  }
+}
 
 
 function loadLabels() {
