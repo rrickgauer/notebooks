@@ -61,7 +61,7 @@ class HTML {
           <h5 class="name"><div class="skeleton-text skeleton-effect-wave">This is the name</div></h5>
         </div>
 
-        <div class="card-body">
+        <div class="card-body mb-4">
         <div class="skeleton-text skeleton-effect-wave">This is the name This asdfasdfasdfasdfasdfasdfis the name This is the name</div>
         <div class="skeleton-text skeleton-effect-wave">This is the name This is the name This is thesdfasdsdaf name</div>
         <div class="skeleton-text skeleton-effect-wave">This is the name This is theasd name This is the name</div>
@@ -74,9 +74,6 @@ class HTML {
     }
 
     return $html;
-
-
-
   }
 
 }

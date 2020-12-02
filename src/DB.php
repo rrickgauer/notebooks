@@ -321,8 +321,7 @@ class DB {
   // Return the pages belonging to a notebook //
   //////////////////////////////////////////////
   public static function getPages($notebookID) {
-    $stmt = '
-    SELECT n.id as id, 
+    $stmt = 'SELECT n.id as id, 
     n.notebook_id as notebook_id, 
     n.name as name, 
     n.content as content, 
@@ -331,7 +330,8 @@ class DB {
     n.date_modified as date_modified,
     DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display,
     DATE_FORMAT(n.date_modified, "%c/%d/%Y") as date_modified_display,
-    "note" as page_type
+    "note" as page_type,
+    (SELECT COUNT(c.id) FROM Comments_Notes c WHERE c.note_id = n.id) AS count_comments
     FROM Notes n
     WHERE n.notebook_id = :notebookIDNotes
 
@@ -347,7 +347,8 @@ class DB {
     null,
     DATE_FORMAT(c.date_created, "%c/%d/%Y"),
     null,
-    "checklist"
+    "checklist",
+    (SELECT COUNT(cc.id) FROM Comments_Checklists cc WHERE cc.checklist_id = c.id) AS count_comments
     from Checklists c 
     WHERE c.notebook_id = :notebookIDChecklist
 
@@ -667,10 +668,6 @@ class DB {
     return $sql;
   }
 
-
-
-
-
   /**
    * Retrieve all the assigned labels beloning to a notebook
    */
@@ -739,6 +736,9 @@ class DB {
     return $sql;
   }
 
+  /**
+   * Update data for a notebook label
+   */
   public static function updateNotebookLabel($labelID, $name, $color) {
     $stmt = 'UPDATE Notebook_Labels
     SET name = :name,
@@ -763,6 +763,9 @@ class DB {
     return $sql;
   }
 
+  /**
+   * delete a notebook label
+   */
   public static function deleteNotebookLabel($labelID) {
     $stmt = 'DELETE FROM Notebook_Labels WHERE id = :labelID';
 
@@ -771,6 +774,34 @@ class DB {
     // notebook ID
     $labelID = filter_var($labelID, FILTER_SANITIZE_NUMBER_INT);
     $sql->bindParam(':labelID', $labelID, PDO::PARAM_INT);
+
+    $sql->execute();
+    return $sql;
+  }
+
+  public static function getNoteComments($noteID) {
+
+    $stmt = 'SELECT
+    cn.id as id,
+    cn.note_id as note_id,
+    cn.content as content,
+    cn.date_created as date_created,
+    DATE_FORMAT(cn.date_created, "%l:%i %p") as date_created_display_time,
+    DATE_FORMAT(cn.date_created, "%c/%d/%Y") as date_created_display_date,
+    ABS(TIMESTAMPDIFF(minute, NOW(), cn.date_created)) as date_diff_minutes,
+    ABS(TIMESTAMPDIFF(hour, NOW(), cn.date_created)) as date_diff_hours,
+    ABS(TIMESTAMPDIFF(day, NOW(), cn.date_created)) as date_diff_days,
+    ABS(TIMESTAMPDIFF(month, NOW(), cn.date_created)) as date_diff_months,
+    ABS(TIMESTAMPDIFF(year, NOW(), cn.date_created)) as date_diff_years
+    FROM Comments_Notes cn
+    WHERE cn.note_id = :noteID
+    ORDER BY date_created DESC'; 
+
+    $sql = DB::dbConnect()->prepare($stmt);
+
+    // notebook ID
+    $noteID = filter_var($noteID, FILTER_SANITIZE_NUMBER_INT);
+    $sql->bindParam(':noteID', $noteID, PDO::PARAM_INT);
 
     $sql->execute();
     return $sql;

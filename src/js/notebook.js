@@ -229,17 +229,9 @@ function addListeners() {
   });
 
   scrollToTop();
-
   collapseNotebookActionMenu();
+  getNoteComments();
 }
-
-
-function collapseNotebookActionMenu() {
-  $('.btn-notebook-actions-collapse').on('click', function() {
-    $('.notebook-action-list').toggleClass('collapsed');
-  });
-}
-
 
 /**
  * Sets the notebook action states
@@ -299,7 +291,11 @@ function loadPages() {
     notebookID: globalVariables.notebookID,
   }
 
+
+
   $.getJSON(CONSTANTS.API, data, function(response) {
+    
+
     for (let count = 0; count < response.length; count++) {
       addPage(response[count]);
     }
@@ -1111,4 +1107,69 @@ function scrollToTop() {
       $(scrollBtn).addClass('d-none');
     }
   });
+}
+
+function getNoteComments() {
+    $('.pages').on('click', '.btn-comment-list-toggle', function() {
+        const noteElement = $(this).closest('.card-note');
+
+        // comments are loaded and in display
+        // so we want to just hide the comments and exit
+        if (!$(noteElement).find('.card-footer').hasClass('d-none')) {
+            $(noteElement).find('.card-footer').addClass('d-none');
+            return;
+        }
+
+        // comments have already been loaded
+        // but want to re show them
+        if ($(noteElement).hasClass('comments-loaded')) {
+            $(noteElement).find('.card-footer').removeClass('d-none');
+            return;
+        }
+
+        // if we make it to here then this is the first time loading the elements
+        displaySkeletonComments(this);
+        $(noteElement).find('.card-footer').removeClass('d-none');
+        
+        const noteID = $(noteElement).attr('data-page-id');
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.getNoteComments,
+            noteID: noteID
+        }
+        
+        $.getJSON(CONSTANTS.API, data, function(response) {
+            let html = '';
+            for (let count = 0; count < response.length; count++) {
+                let comment = new PageComment(response[count]);
+                html += comment.getHtml();
+            }
+
+            $(noteElement).find('.comment-list').html(html);
+            $(noteElement).find('.card-footer').removeClass('d-none');
+        });
+
+        $(noteElement).addClass('comments-loaded');
+    });
+}
+
+
+function displaySkeletonComments(btn) {
+    // console.log('hi');
+    const pagesListIndex = getPageIndex(btn);
+    
+    let html = '';
+    for (let count = 0; count < pagesList[pagesListIndex].countComments; count++) {
+        let blankComment = new PageComment(null);
+        html += blankComment.getHtmlSkeleton();
+    }
+
+    $(btn).closest('.card-page').find('.card-footer .comment-list').html(html);
+}
+
+
+
+function collapseNotebookActionMenu() {
+    $('.btn-notebook-actions-collapse').on('click', function() {
+        $('.notebook-action-list').toggleClass('collapsed');
+    });
 }

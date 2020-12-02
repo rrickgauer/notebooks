@@ -486,6 +486,15 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-lab
   exit;
 }
 
+/**
+ * update-notebook-label
+ * 
+ * Updates the metadata for a notebook label
+ * 
+ * post - labelID
+ * post - name
+ * post - color
+ */
 else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook-label') {
   $labelID = $_POST['labelID'];
   $name = $_POST['name'];
@@ -502,6 +511,14 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook-lab
   exit;
 }
 
+
+/**
+ * delete-notebook-label
+ * 
+ * remove a notebook label
+ * 
+ * post - labelID
+ */
 else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-label') {
   $labelID = $_POST['labelID'];
   $result = DB::deleteNotebookLabel($labelID);
@@ -511,6 +528,16 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-lab
   } else {
     http_response_code(400);
   }
+  exit;
+}
+
+
+else if (isset($_GET['function']) && $_GET['function'] == 'get-note-comments') {
+  $noteID = $_GET['noteID'];
+
+  $comments = DB::getNoteComments($noteID)->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode($comments);
+
   exit;
 }
 
