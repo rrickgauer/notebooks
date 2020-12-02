@@ -9,7 +9,7 @@ CREATE TABLE `Checklist_Items` (
   UNIQUE KEY `id` (`id`),
   KEY `checklist_id` (`checklist_id`),
   CONSTRAINT `Checklist_Items_ibfk_1` FOREIGN KEY (`checklist_id`) REFERENCES `Checklists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `Checklists` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -21,7 +21,7 @@ CREATE TABLE `Checklists` (
   UNIQUE KEY `id` (`id`),
   KEY `notebook_id` (`notebook_id`),
   CONSTRAINT `Checklists_ibfk_1` FOREIGN KEY (`notebook_id`) REFERENCES `Notebooks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `Notebook_Labels` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -32,7 +32,7 @@ CREATE TABLE `Notebook_Labels` (
   UNIQUE KEY `id` (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `Notebook_Labels_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `Notebook_Labels_Assigned` (
   `notebook_label_id` int(10) unsigned NOT NULL,
@@ -68,7 +68,17 @@ CREATE TABLE `Notes` (
   UNIQUE KEY `id` (`id`),
   KEY `notebook_id` (`notebook_id`),
   CONSTRAINT `Notes_ibfk_1` FOREIGN KEY (`notebook_id`) REFERENCES `Notebooks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `Page_Comments` (
+  `id` char(36) COLLATE utf8_unicode_ci NOT NULL,
+  `page_id` int(10) unsigned NOT NULL,
+  `page_type` enum('note','checklist') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'note',
+  `content` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date_created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `Users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
