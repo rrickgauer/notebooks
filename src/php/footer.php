@@ -28,6 +28,9 @@
 <!-- color picker: https://github.com/Simonwep/pickr -->
 <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
 
+<!-- uuid: https://github.com/uuidjs/uuid -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+
 
 <script src="js/classes/Constants.js"></script>
 <script src="js/classes/Global-Variables.js"></script>
