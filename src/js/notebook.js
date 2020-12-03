@@ -235,8 +235,19 @@ function addListeners() {
   removeInvalidFeedbackClass('.new-comment-content');  
   toggleCommentView();
   saveUpdateComment();
+  cancelUpdateComment();
+}
 
 
+function cancelUpdateComment() {
+    $('.pages').on('click', '.edit-comment-btn-cancel', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        $(commentElement).find('.section-edit').addClass('d-none');
+        $(commentElement).find('.section-view').removeClass('d-none');
+
+        const content = $(commentElement).find('.section-view .content').text();
+        $(commentElement).find('.section-edit .edit-comment-input').val(content);
+    });
 }
 
 
