@@ -239,158 +239,6 @@ function addListeners() {
   deleteCommentNote();
 }
 
-function deleteCommentNote() {
-    $('.pages').on('click','.btn-comment-list-item-view-delete', function() {
-        const commentElement = $(this).closest('.comment-list-item');
-        const commentID = $(commentElement).attr('data-comment-id');
-
-        const data = {
-            function: CONSTANTS.API_FUNCTIONS.deleteCommentNote,
-            id: commentID,
-        }
-
-        $.post(CONSTANTS.API, data).fail(function() {
-            console.error('API error: updateComment()');
-            return;
-        });
-
-        $(commentElement).remove();
-    });
-}
-
-
-function cancelUpdateCommentNote() {
-    $('.pages').on('click', '.edit-comment-btn-cancel', function() {
-        const commentElement = $(this).closest('.comment-list-item');
-        $(commentElement).find('.section-edit').addClass('d-none');
-        $(commentElement).find('.section-view').removeClass('d-none');
-
-        const content = $(commentElement).find('.section-view .content').text();
-        $(commentElement).find('.section-edit .edit-comment-input').val(content);
-    });
-}
-
-
-function saveUpdateCommentNote() {
-    $('.pages').on('click', '.edit-comment-btn-save', function() {
-        updateCommentNote(this);
-    });
-
-    $('.pages').on('keydown', '.edit-comment-input', function(e) {
-        if (e.keyCode == 13) {
-            e.preventDefault();
-            updateCommentNote(this);
-          }
-    });
-
-    removeInvalidFeedbackClass('.edit-comment-input');  
-}
-
-
-function updateCommentNote(selector) {
-    const commentElement = $(selector).closest('.comment-list-item');
-    const contentInput = $(commentElement).find('.edit-comment-input');
-    const content = $(contentInput).val();
-    const commentID = $(commentElement).attr('data-comment-id');
-
-    if (content == '') {
-        $(contentInput).addClass('is-invalid');
-        return;
-    }
-
-    const data = {
-        function: CONSTANTS.API_FUNCTIONS.updateCommentNote,
-        id: commentID,
-        content: content,
-    }
-
-    $.post(CONSTANTS.API, data).fail(function(response) {
-        console.error('API error: updateComment()');
-        return;
-    });
-
-
-    $(commentElement).find('.section-view .content').text(content);
-    $(commentElement).find('.section-edit').addClass('d-none');
-    $(commentElement).find('.section-view').removeClass('d-none');
-
-}
-
-
-
-function toggleCommentView() {
-    // show edit section
-    $('.pages').on('click', '.btn-comment-list-item-view-edit', function() {
-        const commentElement = $(this).closest('.comment-list-item');
-        $(commentElement).find('.section-view').addClass('d-none');
-        $(commentElement).find('.section-edit').removeClass('d-none');
-    });
-}
-
-
-function removeInvalidFeedbackClass(input) {
-    $('body').on('keydown', input,  function() {
-        if ($(this).val() != '') {
-            $(this).removeClass('is-invalid');
-        }
-    });
-}
-
-
-
-function newCommentNote() {
-    $('.pages').on('click', '.new-comment-btn', function() {
-        addNewCommentNote(this);
-    });
-
-    $('.pages').on('keydown', '.new-comment-content', function(e) {
-        if (e.keyCode == 13) {
-            e.preventDefault();
-            addNewCommentNote(this);
-          }
-    });
-}
-
-function addNewCommentNote(selector) {
-    const noteElement = $(selector).closest('.card-page');
-    const contentInput = $(noteElement).find('.new-comment-content');
-    const content = $(contentInput).val();
-
-    if (content == '') {
-        $(contentInput).addClass('is-invalid');
-        return;
-    }
-
-    const commentID = UTILITIES.getUUID();
-    const noteID = $(noteElement).attr('data-page-id');
-
-    const data = {
-        function: CONSTANTS.API_FUNCTIONS.insertCommentNote,
-        id: commentID,
-        note_id: noteID,
-        content: content,
-    }
-
-    $.post(CONSTANTS.API, data).fail(function(response) {
-        console.error('API error: newCommentNote()');
-        $(contentInput).val(contentInput);
-        return;
-    });
-
-    const newComment = new PageComment(data);
-    $(noteElement).find('.comment-list').prepend(newComment.getHtml());
-    $(contentInput).val('');
-}
-
-
-
-
-
-
-
-
-
-
 /**
  * Sets the notebook action states
  * 
@@ -1323,4 +1171,150 @@ function collapseNotebookActionMenu() {
     $('.btn-notebook-actions-collapse').on('click', function() {
         $('.notebook-action-list').toggleClass('collapsed');
     });
+}
+
+
+function removeInvalidFeedbackClass(input) {
+    $('body').on('keydown', input,  function() {
+        if ($(this).val() != '') {
+            $(this).removeClass('is-invalid');
+        }
+    });
+}
+
+
+
+
+function deleteCommentNote() {
+    $('.pages').on('click','.btn-comment-list-item-view-delete', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        const commentID = $(commentElement).attr('data-comment-id');
+
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.deleteCommentNote,
+            id: commentID,
+        }
+
+        $.post(CONSTANTS.API, data).fail(function() {
+            console.error('API error: updateComment()');
+            return;
+        });
+
+        $(commentElement).remove();
+    });
+}
+
+
+function cancelUpdateCommentNote() {
+    $('.pages').on('click', '.edit-comment-btn-cancel', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        $(commentElement).find('.section-edit').addClass('d-none');
+        $(commentElement).find('.section-view').removeClass('d-none');
+
+        const content = $(commentElement).find('.section-view .content').text();
+        $(commentElement).find('.section-edit .edit-comment-input').val(content);
+    });
+}
+
+
+function saveUpdateCommentNote() {
+    $('.pages').on('click', '.edit-comment-btn-save', function() {
+        updateCommentNote(this);
+    });
+
+    $('.pages').on('keydown', '.edit-comment-input', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            updateCommentNote(this);
+          }
+    });
+
+    removeInvalidFeedbackClass('.edit-comment-input');  
+}
+
+
+function updateCommentNote(selector) {
+    const commentElement = $(selector).closest('.comment-list-item');
+    const contentInput = $(commentElement).find('.edit-comment-input');
+    const content = $(contentInput).val();
+    const commentID = $(commentElement).attr('data-comment-id');
+
+    if (content == '') {
+        $(contentInput).addClass('is-invalid');
+        return;
+    }
+
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.updateCommentNote,
+        id: commentID,
+        content: content,
+    }
+
+    $.post(CONSTANTS.API, data).fail(function(response) {
+        console.error('API error: updateComment()');
+        return;
+    });
+
+
+    $(commentElement).find('.section-view .content').text(content);
+    $(commentElement).find('.section-edit').addClass('d-none');
+    $(commentElement).find('.section-view').removeClass('d-none');
+
+}
+
+
+
+function toggleCommentView() {
+    // show edit section
+    $('.pages').on('click', '.btn-comment-list-item-view-edit', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        $(commentElement).find('.section-view').addClass('d-none');
+        $(commentElement).find('.section-edit').removeClass('d-none');
+    });
+}
+
+
+
+function newCommentNote() {
+    $('.pages').on('click', '.new-comment-btn', function() {
+        addNewCommentNote(this);
+    });
+
+    $('.pages').on('keydown', '.new-comment-content', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            addNewCommentNote(this);
+          }
+    });
+}
+
+function addNewCommentNote(selector) {
+    const noteElement = $(selector).closest('.card-page');
+    const contentInput = $(noteElement).find('.new-comment-content');
+    const content = $(contentInput).val();
+
+    if (content == '') {
+        $(contentInput).addClass('is-invalid');
+        return;
+    }
+
+    const commentID = UTILITIES.getUUID();
+    const noteID = $(noteElement).attr('data-page-id');
+
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.insertCommentNote,
+        id: commentID,
+        note_id: noteID,
+        content: content,
+    }
+
+    $.post(CONSTANTS.API, data).fail(function(response) {
+        console.error('API error: newCommentNote()');
+        $(contentInput).val(contentInput);
+        return;
+    });
+
+    const newComment = new PageComment(data);
+    $(noteElement).find('.comment-list').prepend(newComment.getHtml());
+    $(contentInput).val('');
 }

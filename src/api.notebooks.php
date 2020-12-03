@@ -546,6 +546,15 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-comments-note') {
     exit;
 }
 
+/**
+ * insert-comment-note
+ * 
+ * Insert a new note comment 
+ * 
+ * post - id
+ * post - note_id
+ * post - content
+ */
 else if (isset($_POST['function']) && $_POST['function'] == 'insert-comment-note') {
     $commentID = $_POST['id'];
     $noteID = $_POST['note_id'];
@@ -562,7 +571,14 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-comment-note
     exit;
 }
 
-
+/**
+ * update-comment-note
+ * 
+ * Update a note comment 
+ * 
+ * post - id
+ * post - content
+ */
 else if (isset($_POST['function']) && $_POST['function'] == 'update-comment-note') {
     $commentID = $_POST['id'];
     $content = $_POST['content'];
@@ -577,6 +593,13 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-comment-note
     exit;
 }
 
+/**
+ * delete-comment-note
+ * 
+ * Delete a new note comment 
+ * 
+ * post - id
+ */
 else if (isset($_POST['function']) && $_POST['function'] == 'delete-comment-note') {
     $commentID = $_POST['id'];
     $result = DB::deleteCommentNote($commentID, $content);

@@ -421,6 +421,18 @@
   margin-left: 5px;
 }
 
+.new-comment {
+  padding: 0px 15px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.new-comment .form-group {
+  margin-bottom: 0;
+}
+.new-comment .new-comment-btn {
+  margin-left: 10px;
+}
+
 .btn-link {
   box-sizing: border-box;
   margin: 0;

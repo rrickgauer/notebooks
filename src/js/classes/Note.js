@@ -25,21 +25,20 @@ Note.prototype.getHtml = function() {
     let hidden = '';
     if (this.hidden == 'y') {
         hidden = 'd-none';
-    }
-    
+    }    
+
     html += `<div class="card card-page card-note display-mode-normal ${hidden}" data-page-id="${this.id}" data-page-hidden="${this.hidden}">`;
     html += this.getHtmlHeader();
     html += this.getHtmlBody();
     
     html += `
     <div class="card-footer d-none">
-        <form class="new-comment d-flex align-items-center p-3">
-            <div class="form-group w-100">
-                <input type="text" class="form-control new-comment-content" placeholder="New comment..."> 
+        <form class="new-comment">
+            <div class="form-group">
+                <input type="text" class="form-control new-comment-content" placeholder="Write a comment..."> 
                 <div class="invalid-feedback">Comments cannot be empty.</div> 
             </div>
                                
-            <button type="button" class="btn btn-light new-comment-btn">Add</button>
         </form>
         <ul class="comment-list list-unstyled"></ul>
     </div>`;

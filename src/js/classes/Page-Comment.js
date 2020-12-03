@@ -1,16 +1,14 @@
-
-
 function PageComment(inputParm) {
-    this.id = null;
-    this.note_id = null;
-    this.content = null;
-    this.date_created = null;
-    this.type = null;
-    this.date_diff_minutes = null;
-    this.date_diff_hours = null;
-    this.date_diff_days = null;
-    this.date_diff_months = null;
-    this.date_diff_years = null;
+    this.id                   = null;
+    this.note_id              = null;
+    this.content              = null;
+    this.date_created         = null;
+    this.type                 = null;
+    this.date_diff_minutes    = null;
+    this.date_diff_hours      = null;
+    this.date_diff_days       = null;
+    this.date_diff_months     = null;
+    this.date_diff_years      = null;
 
     const keys = Object.keys(this);
 
