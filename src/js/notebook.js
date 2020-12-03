@@ -234,12 +234,13 @@ function addListeners() {
   newCommentNote();
   removeInvalidFeedbackClass('.new-comment-content');  
   toggleCommentView();
-  saveUpdateComment();
-  cancelUpdateComment();
+  saveUpdateCommentNote();
+  cancelUpdateCommentNote();
+//   delete
 }
 
 
-function cancelUpdateComment() {
+function cancelUpdateCommentNote() {
     $('.pages').on('click', '.edit-comment-btn-cancel', function() {
         const commentElement = $(this).closest('.comment-list-item');
         $(commentElement).find('.section-edit').addClass('d-none');
@@ -251,15 +252,15 @@ function cancelUpdateComment() {
 }
 
 
-function saveUpdateComment() {
+function saveUpdateCommentNote() {
     $('.pages').on('click', '.edit-comment-btn-save', function() {
-        updateComment(this);
+        updateCommentNote(this);
     });
 
     $('.pages').on('keydown', '.edit-comment-input', function(e) {
         if (e.keyCode == 13) {
             e.preventDefault();
-            updateComment(this);
+            updateCommentNote(this);
           }
     });
 
@@ -267,7 +268,7 @@ function saveUpdateComment() {
 }
 
 
-function updateComment(selector) {
+function updateCommentNote(selector) {
     const commentElement = $(selector).closest('.comment-list-item');
     const contentInput = $(commentElement).find('.edit-comment-input');
     const content = $(contentInput).val();

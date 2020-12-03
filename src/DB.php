@@ -828,10 +828,7 @@ class DB {
     }
 
     public static function updateCommentNote($id, $content) {
-        $stmt = 'UPDATE Comments_Notes
-        SET content = :content 
-        WHERE id = :id';
-
+        $stmt = 'CALL updateCommentNote(:id, :content)';
         $sql = DB::dbConnect()->prepare($stmt);
         
         // comment ID
@@ -845,6 +842,20 @@ class DB {
         $sql->execute();
         return $sql;
     }
+
+    public static function deleteCommentNote($id) {
+        $stmt = 'CALL deleteCommentNote(:id)';
+        $sql = DB::dbConnect()->prepare($stmt);
+        
+        // comment ID
+        $id = filter_var($id, FILTER_SANITIZE_STRING);
+        $sql->bindParam(':id', $id, PDO::PARAM_STR);
+        
+        $sql->execute();
+        return $sql;
+    }
+
+
     
     
 }
