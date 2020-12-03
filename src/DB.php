@@ -826,6 +826,25 @@ class DB {
         $sql->execute();
         return $sql;
     }
+
+    public static function updateCommentNote($id, $content) {
+        $stmt = 'UPDATE Comments_Notes
+        SET content = :content 
+        WHERE id = :id';
+
+        $sql = DB::dbConnect()->prepare($stmt);
+        
+        // comment ID
+        $id = filter_var($id, FILTER_SANITIZE_STRING);
+        $sql->bindParam(':id', $id, PDO::PARAM_STR);
+        
+        // content
+        $content = filter_var($content, FILTER_SANITIZE_STRING);
+        $sql->bindParam(':content', $content, PDO::PARAM_STR);
+        
+        $sql->execute();
+        return $sql;
+    }
     
     
 }

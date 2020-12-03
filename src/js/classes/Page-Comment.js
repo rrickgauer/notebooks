@@ -54,10 +54,13 @@ PageComment.prototype.getHtml = function() {
 
         <div class="section-edit d-none">
             <form class="edit-comment">
-                <input type="text" class="form-control form-control-sm edit-comment-input" value="${this.content}">
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-sm edit-comment-input" value="${this.content}">
+                    <div class="invalid-feedback">Comments cannot be empty.</div>
+                </div>
                 <div class="action-buttons">
                     <button type="button" class="btn btn-sm btn-success edit-comment-btn-save">Save</button>
-                    <button type="button" class="btn btn-sm btn-light edit-comment-btn-save">Cancel</button> 
+                    <button type="button" class="btn btn-sm btn-light edit-comment-btn-cancel">Cancel</button> 
                 </div>
             </form>
         </div>

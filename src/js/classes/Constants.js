@@ -31,6 +31,7 @@ Constants.prototype.API_FUNCTIONS = {
   deleteNotebookLabel: 'delete-notebook-label',
   getCommentsNote: 'get-comments-note',
   insertCommentNote: 'insert-comment-note',
+  updateCommentNote: 'update-comment-note',
 }
 
 Constants.prototype.PAGES = {

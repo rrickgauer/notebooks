@@ -552,10 +552,30 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-comment-note
     $content = $_POST['content'];
     
     $result = DB::insertCommentNote($commentID, $noteID, $content);
-    
-    echo $result->rowCount();
+
+    if ($result->rowCount() == 1) {
+        http_response_code(201);
+    } else {
+        http_response_code(400);
+    }
+
     exit;
+}
+
+
+else if (isset($_POST['function']) && $_POST['function'] == 'update-comment-note') {
+    $commentID = $_POST['id'];
+    $content = $_POST['content'];
     
+    $result = DB::updateCommentNote($commentID, $content);
+
+    if ($result->rowCount() <= 1) {
+        http_response_code(202);
+    } else {
+        http_response_code(400);
+    }
+
+    exit;
 }
 
 

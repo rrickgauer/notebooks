@@ -234,44 +234,67 @@ function addListeners() {
   newCommentNote();
   removeInvalidFeedbackClass('.new-comment-content');  
   toggleCommentView();
+  saveUpdateComment();
+
+
+}
+
+
+function saveUpdateComment() {
+    $('.pages').on('click', '.edit-comment-btn-save', function() {
+        updateComment(this);
+    });
+
+    $('.pages').on('keydown', '.edit-comment-input', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            updateComment(this);
+          }
+    });
+
+    removeInvalidFeedbackClass('.edit-comment-input');  
+}
+
+
+function updateComment(selector) {
+    const commentElement = $(selector).closest('.comment-list-item');
+    const contentInput = $(commentElement).find('.edit-comment-input');
+    const content = $(contentInput).val();
+    const commentID = $(commentElement).attr('data-comment-id');
+
+    if (content == '') {
+        $(contentInput).addClass('is-invalid');
+        return;
+    }
+
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.updateCommentNote,
+        id: commentID,
+        content: content,
+    }
+
+    $.post(CONSTANTS.API, data).fail(function(response) {
+        console.error('API error: updateComment()');
+        return;
+    });
+
+
+    $(commentElement).find('.section-view .content').text(content);
+    $(commentElement).find('.section-edit').addClass('d-none');
+    $(commentElement).find('.section-view').removeClass('d-none');
 
 }
 
 
 
 function toggleCommentView() {
-
+    // show edit section
     $('.pages').on('click', '.btn-comment-list-item-view-edit', function() {
-        showEditCommentSection(this);
+        const commentElement = $(this).closest('.comment-list-item');
+        $(commentElement).find('.section-view').addClass('d-none');
+        $(commentElement).find('.section-edit').removeClass('d-none');
     });
-
 }
-
-function showEditCommentSection(selector) {
-
-    const commentElement = $(selector).closest('.comment-list-item');
-    $(commentElement).find('.section-view').addClass('d-none');
-    $(commentElement).find('.section-edit').removeClass('d-none');
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function removeInvalidFeedbackClass(input) {
