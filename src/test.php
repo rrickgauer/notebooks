@@ -126,30 +126,19 @@ require_once('DB.php');
             </div>
 
 
-            <div class="card-footer d-none">
-                <ul class="comment-list list-unstyled mt-5">
-            
-
-
-                </ul>
+            <div class="card-footer">
+                <div class="d-flex justify-content-around align-items-center">
+                    <form class="form-new-comment ">
+                        <div class="w-100">
+                            <input type="text" class="form-control" placeholder="New comment...">
+                        </div>
+                        <button type="button" class="btn btn-light">Add comment</button>
+                    </form>
+                </div>
+                <ul class="comment-list list-unstyled mt-5"></ul>
             </div>
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </div>
 
