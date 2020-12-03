@@ -1,20 +1,38 @@
 
 
 function PageComment(inputParm) {
+    this.id = null;
+    this.note_id = null;
+    this.content = null;
+    this.date_created = null;
+    this.type = null;
+    this.date_diff_minutes = null;
+    this.date_diff_hours = null;
+    this.date_diff_days = null;
+    this.date_diff_months = null;
+    this.date_diff_years = null;
 
-    if (inputParm != null) {
-        this.id = inputParm.id;
-        this.checklist_id = inputParm.checklist_id;
-        this.content = inputParm.content;
-        this.date_created = inputParm.date_created;
-        this.type = inputParm.type;
+    const keys = Object.keys(this);
+
+    if (inputParm == null || inputParm == undefined) {
+        return;
     }
 
-
+    // assign every key to each other if they are defined
+    for (let count = 0; count < keys.length; count++) {
+        const key = keys[count];
+        if (inputParm[key] == undefined) {
+            this[key] = null;
+        } else {
+            this[key] = inputParm[key];
+        }
+    }
 }
 
 
 PageComment.prototype.getHtml = function() {
+
+    const dateDiff = this.getDateDiffHtml();
 
     let html = `
     <li class="comment-list-item" data-comment-id="${this.id}">
@@ -24,9 +42,7 @@ PageComment.prototype.getHtml = function() {
         <div class="body">
             <div class="content">${this.content}</div>
             <div class="footer">
-                <small class="footer-date">
-                    <span class="footer-date-time">46</span>&nbsp;<span class="footer-date-unit">minutes</span>&nbsp;ago
-                </small>
+                <small class="footer-date">${dateDiff}</small>
                 <div class="footer-buttons">
                     <button class="btn-link">Edit</button>
                     <button class="btn-link">Update</button>
@@ -69,6 +85,75 @@ PageComment.prototype.getHtmlSkeleton = function() {
     </li>`;
 
     return html;
+}
+
+
+PageComment.prototype.getDateDiffHtml = function() {
+    let result = 'just now';
+
+    if (this.date_diff_minutes == null) {
+        return result;
+    } else if (this.date_diff_hours == null) {
+        return result;
+    } else if (this.date_diff_days == null) {
+        return result;
+    } else if (this.date_diff_months == null) {
+        return result;
+    } else if (this.date_diff_years == null) {
+        return result;
+    } else {
+        result = this.getDateDiffTimeBlock();
+        return result;
+    }
+
+}
+
+PageComment.prototype.getDateDiffTimeBlock = function() {
+    let result = '';
+
+    if (this.date_diff_minutes < 1) {
+        result = 'less than a minute ago';
+        return result;
+    }
+
+    else if (this.date_diff_minutes < 60) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_minutes, 'minute');
+        result = `${this.date_diff_minutes} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else if (this.date_diff_hours < 24) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_hours, 'hour');
+        result = `${this.date_diff_hours} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else if (this.date_diff_days < 31) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_days, 'day');
+        result = `${this.date_diff_days} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else if (this.date_diff_months < 12) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_months, 'month');
+        result = `${this.date_diff_months} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_years, 'year');
+        result = `${this.date_diff_years} ${unitDisplay} ago`;
+        return result;
+    } 
+
+}
+
+PageComment.prototype.getDateDiffUnitsDisplay = function(value, label) {
+    if (value > 1) {
+        return label + 's';
+    } else {
+        return label;
+    }
 }
 
 

@@ -178,11 +178,11 @@ function addListeners() {
     toggleHiddenPages();
   });
 
-  $('.pages').on('keydown', '.edit-input', function(e) {
-    if (e.keyCode == 13) {
-      // autosize.update(this);
-    }
-  });
+//   $('.pages').on('keydown', '.edit-input', function(e) {
+//     if (e.keyCode == 13) {
+//       // autosize.update(this);
+//     }
+//   });
 
   // enable/disable create new label button
   $('#form-notebooks-labels-new-name').on('keyup', function() {
@@ -230,8 +230,74 @@ function addListeners() {
 
   scrollToTop();
   collapseNotebookActionMenu();
-  getNoteComments();
+  getCommentsNote();
+  newCommentNote();
+  removeInvalidFeedbackClass('.new-comment-content');  
+
 }
+
+function removeInvalidFeedbackClass(input) {
+    $('body').on('keydown', input,  function() {
+        if ($(this).val() != '') {
+            $(this).removeClass('is-invalid');
+        }
+    });
+}
+
+
+
+function newCommentNote() {
+    $('.pages').on('click', '.new-comment-btn', function() {
+        addNewCommentNote(this);
+    });
+
+    $('.pages').on('keydown', '.new-comment-content', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            addNewCommentNote(this);
+          }
+    });
+}
+
+function addNewCommentNote(selector) {
+    const noteElement = $(selector).closest('.card-page');
+    const contentInput = $(noteElement).find('.new-comment-content');
+    const content = $(contentInput).val();
+
+    if (content == '') {
+        $(contentInput).addClass('is-invalid');
+        return;
+    }
+
+    const commentID = UTILITIES.getUUID();
+    const noteID = $(noteElement).attr('data-page-id');
+
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.insertCommentNote,
+        id: commentID,
+        note_id: noteID,
+        content: content,
+    }
+
+    $.post(CONSTANTS.API, data).fail(function(response) {
+        console.error('API error: newCommentNote()');
+        $(contentInput).val(contentInput);
+        return;
+    });
+
+    const newComment = new PageComment(data);
+    $(noteElement).find('.comment-list').prepend(newComment.getHtml());
+    $(contentInput).val('');
+}
+
+
+
+
+
+
+
+
+
 
 /**
  * Sets the notebook action states
@@ -981,7 +1047,6 @@ function assignNotebookLabel() {
   // get the label data from the api
   // add the label to the assigned labels list
   $.getJSON(CONSTANTS.API, data, function(response) {
-    console.log(response);
     let newLabel = '<li>' + getAssignedLabelHtml(response);
     newLabel += `<button class="btn btn-sm btn-notebook-label-remove"><i class='bx bx-x'></i></button>`;
     newLabel += '</li>';
@@ -1109,7 +1174,7 @@ function scrollToTop() {
   });
 }
 
-function getNoteComments() {
+function getCommentsNote() {
     $('.pages').on('click', '.btn-comment-list-toggle', function() {
         const noteElement = $(this).closest('.card-note');
 
@@ -1120,20 +1185,13 @@ function getNoteComments() {
             return;
         }
 
-        // comments have already been loaded
-        // but want to re show them
-        if ($(noteElement).hasClass('comments-loaded')) {
-            $(noteElement).find('.card-footer').removeClass('d-none');
-            return;
-        }
-
         // if we make it to here then this is the first time loading the elements
         displaySkeletonComments(this);
         $(noteElement).find('.card-footer').removeClass('d-none');
         
         const noteID = $(noteElement).attr('data-page-id');
         const data = {
-            function: CONSTANTS.API_FUNCTIONS.getNoteComments,
+            function: CONSTANTS.API_FUNCTIONS.getCommentsNote,
             noteID: noteID
         }
         
@@ -1142,6 +1200,8 @@ function getNoteComments() {
             for (let count = 0; count < response.length; count++) {
                 let comment = new PageComment(response[count]);
                 html += comment.getHtml();
+
+                // console.table(comment);
             }
 
             $(noteElement).find('.comment-list').html(html);
@@ -1154,7 +1214,6 @@ function getNoteComments() {
 
 
 function displaySkeletonComments(btn) {
-    // console.log('hi');
     const pagesListIndex = getPageIndex(btn);
     
     let html = '';

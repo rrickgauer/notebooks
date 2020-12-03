@@ -127,15 +127,47 @@ require_once('DB.php');
 
 
             <div class="card-footer">
-                <div class="d-flex justify-content-around align-items-center">
-                    <form class="form-new-comment ">
-                        <div class="w-100">
-                            <input type="text" class="form-control" placeholder="New comment...">
+                <form class="new-comment d-flex align-items-center p-3">
+                    <input type="text" class="form-control new-comment-content" placeholder="New comment...">                        
+                    <button type="button" class="btn btn-light new-comment-btn">Add</button>
+                </form>
+              
+                <ul class="comment-list list-unstyled mt-5">
+                    <li class="comment-list-item" data-comment-id="ff3f6624-343e-11eb-8c34-002590d0b8f0">
+                        <div class="icon">
+                            <i class="bx bx-comment"></i>
                         </div>
-                        <button type="button" class="btn btn-light">Add comment</button>
-                    </form>
-                </div>
-                <ul class="comment-list list-unstyled mt-5"></ul>
+                        <div class="body">
+                            <div class="content">integer ac neque duis bibendum morbi non quam</div>
+                            <div class="footer">
+                                <small class="footer-date">
+                                    <span class="footer-date-time">46</span>&nbsp;<span class="footer-date-unit">minutes</span>&nbsp;ago
+                                </small>
+                                <div class="footer-buttons">
+                                    <button class="btn-link">Edit</button>
+                                    <button class="btn-link">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="comment-list-item" data-comment-id="ff3f6624-343e-11eb-8c34-002590d0b8f0">
+                        <div class="icon">
+                            <i class="bx bx-comment"></i>
+                        </div>
+                        <div class="body">
+                            <div class="content">integer ac neque duis bibendum morbi non quam</div>
+                            <div class="footer">
+                                <small class="footer-date">
+                                    <span class="footer-date-time">46</span>&nbsp;<span class="footer-date-unit">minutes</span>&nbsp;ago
+                                </small>
+                                <div class="footer-buttons">
+                                    <button class="btn-link">Edit</button>
+                                    <button class="btn-link">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
         </div>

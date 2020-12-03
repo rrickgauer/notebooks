@@ -33,6 +33,14 @@ Note.prototype.getHtml = function() {
     
     html += `
     <div class="card-footer d-none">
+        <form class="new-comment d-flex align-items-center p-3">
+            <div class="form-group w-100">
+                <input type="text" class="form-control new-comment-content" placeholder="New comment..."> 
+                <div class="invalid-feedback">Comments cannot be empty.</div> 
+            </div>
+                               
+            <button type="button" class="btn btn-light new-comment-btn">Add</button>
+        </form>
         <ul class="comment-list list-unstyled"></ul>
     </div>`;
     
