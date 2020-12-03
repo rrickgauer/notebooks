@@ -40,5 +40,8 @@ Utilities.prototype.enableCodeMirror = function(element) {
   });
 
   return editor;
+}
 
+Utilities.prototype.getUUID = function() {
+  return uuidv4();
 }

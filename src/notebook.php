@@ -358,6 +358,7 @@ require_once('php/classes/HTML-Generator.php');
   <script src="js/classes/Note.js"></script>
   <script src="js/classes/Checklist-Item.js"></script>
   <script src="js/classes/Checklist.js"></script>
+  <script src="js/classes/Page-Comment.js"></script>
   <script src="js/notebook.js"></script>
 
 </body>

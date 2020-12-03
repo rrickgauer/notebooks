@@ -15,6 +15,31 @@
 .card-page.collapsed .card-body {
   display: none;
 }
+.card-page .card-body {
+  padding-bottom: 0;
+}
+.card-page .card-footer {
+  overflow: visible;
+  background-color: initial;
+  padding: 0;
+}
+.card-page .comments-toggle-container {
+  position: relative;
+  height: 41px;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-page .comments-toggle-container button {
+  display: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+  font-size: 18px;
+}
+.card-page .comments-toggle-container:hover button {
+  display: block;
+}
 
 #notebook-header .container-md {
   padding-bottom: 20px;
@@ -265,13 +290,9 @@
 }
 .btn-scroll-top {
   position: fixed;
-  /* Fixed/sticky position */
   bottom: 20px;
-  /* Place the button at the bottom of the page */
   right: 30px;
-  /* Place the button 30px from the right */
   z-index: 99;
-  /* Make sure it does not overlap */
 }
 
 .btn-notebook-actions-collapse {
@@ -360,6 +381,73 @@
 }
 .dropdown-labels-filter .dropdown-item-filter-label.active {
   color: black;
+}
+
+.comment-list .comment-list-item {
+  padding: 20px 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.comment-list .comment-list-item .section-view {
+  display: flex;
+  align-items: flex-start;
+}
+.comment-list .comment-list-item .section-view .icon {
+  margin-top: 5px;
+}
+.comment-list .comment-list-item .section-view .icon i {
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #e6e6e6;
+}
+.comment-list .comment-list-item .section-view .body {
+  margin-left: 15px;
+  width: 100%;
+}
+.comment-list .comment-list-item .section-view .footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.comment-list .comment-list-item .section-view .footer .footer-buttons button {
+  margin-right: 5px;
+  font-size: 12.8px;
+}
+.comment-list .comment-list-item .section-edit .edit-comment .action-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.comment-list .comment-list-item .section-edit .edit-comment .action-buttons button {
+  margin-left: 5px;
+}
+
+.new-comment {
+  padding: 0px 15px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.new-comment .form-group {
+  margin-bottom: 0;
+}
+.new-comment .new-comment-btn {
+  margin-left: 10px;
+}
+
+.btn-link {
+  box-sizing: border-box;
+  margin: 0;
+  text-transform: none;
+  border-radius: 0;
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  text-decoration: none;
+  color: initial;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  background-color: initial;
+  border: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

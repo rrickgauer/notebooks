@@ -178,11 +178,11 @@ function addListeners() {
     toggleHiddenPages();
   });
 
-  $('.pages').on('keydown', '.edit-input', function(e) {
-    if (e.keyCode == 13) {
-      // autosize.update(this);
-    }
-  });
+//   $('.pages').on('keydown', '.edit-input', function(e) {
+//     if (e.keyCode == 13) {
+//       // autosize.update(this);
+//     }
+//   });
 
   // enable/disable create new label button
   $('#form-notebooks-labels-new-name').on('keyup', function() {
@@ -229,17 +229,15 @@ function addListeners() {
   });
 
   scrollToTop();
-
   collapseNotebookActionMenu();
+  getCommentsNote();
+  newCommentNote();
+  removeInvalidFeedbackClass('.new-comment-content');  
+  toggleCommentView();
+  saveUpdateCommentNote();
+  cancelUpdateCommentNote();
+  deleteCommentNote();
 }
-
-
-function collapseNotebookActionMenu() {
-  $('.btn-notebook-actions-collapse').on('click', function() {
-    $('.notebook-action-list').toggleClass('collapsed');
-  });
-}
-
 
 /**
  * Sets the notebook action states
@@ -299,7 +297,11 @@ function loadPages() {
     notebookID: globalVariables.notebookID,
   }
 
+
+
   $.getJSON(CONSTANTS.API, data, function(response) {
+    
+
     for (let count = 0; count < response.length; count++) {
       addPage(response[count]);
     }
@@ -985,7 +987,6 @@ function assignNotebookLabel() {
   // get the label data from the api
   // add the label to the assigned labels list
   $.getJSON(CONSTANTS.API, data, function(response) {
-    console.log(response);
     let newLabel = '<li>' + getAssignedLabelHtml(response);
     newLabel += `<button class="btn btn-sm btn-notebook-label-remove"><i class='bx bx-x'></i></button>`;
     newLabel += '</li>';
@@ -1111,4 +1112,209 @@ function scrollToTop() {
       $(scrollBtn).addClass('d-none');
     }
   });
+}
+
+function getCommentsNote() {
+    $('.pages').on('click', '.btn-comment-list-toggle', function() {
+        const noteElement = $(this).closest('.card-note');
+
+        // comments are loaded and in display
+        // so we want to just hide the comments and exit
+        if (!$(noteElement).find('.card-footer').hasClass('d-none')) {
+            $(noteElement).find('.card-footer').addClass('d-none');
+            return;
+        }
+
+        // if we make it to here then this is the first time loading the elements
+        displaySkeletonComments(this);
+        $(noteElement).find('.card-footer').removeClass('d-none');
+        
+        const noteID = $(noteElement).attr('data-page-id');
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.getCommentsNote,
+            noteID: noteID
+        }
+        
+        $.getJSON(CONSTANTS.API, data, function(response) {
+            let html = '';
+            for (let count = 0; count < response.length; count++) {
+                let comment = new PageComment(response[count]);
+                html += comment.getHtml();
+
+                // console.table(comment);
+            }
+
+            $(noteElement).find('.comment-list').html(html);
+            $(noteElement).find('.card-footer').removeClass('d-none');
+        });
+
+        $(noteElement).addClass('comments-loaded');
+    });
+}
+
+
+function displaySkeletonComments(btn) {
+    const pagesListIndex = getPageIndex(btn);
+    
+    let html = '';
+    for (let count = 0; count < pagesList[pagesListIndex].countComments; count++) {
+        let blankComment = new PageComment(null);
+        html += blankComment.getHtmlSkeleton();
+    }
+
+    $(btn).closest('.card-page').find('.card-footer .comment-list').html(html);
+}
+
+
+
+function collapseNotebookActionMenu() {
+    $('.btn-notebook-actions-collapse').on('click', function() {
+        $('.notebook-action-list').toggleClass('collapsed');
+    });
+}
+
+
+function removeInvalidFeedbackClass(input) {
+    $('body').on('keydown', input,  function() {
+        if ($(this).val() != '') {
+            $(this).removeClass('is-invalid');
+        }
+    });
+}
+
+
+
+
+function deleteCommentNote() {
+    $('.pages').on('click','.btn-comment-list-item-view-delete', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        const commentID = $(commentElement).attr('data-comment-id');
+
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.deleteCommentNote,
+            id: commentID,
+        }
+
+        $.post(CONSTANTS.API, data).fail(function() {
+            console.error('API error: updateComment()');
+            return;
+        });
+
+        $(commentElement).remove();
+    });
+}
+
+
+function cancelUpdateCommentNote() {
+    $('.pages').on('click', '.edit-comment-btn-cancel', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        $(commentElement).find('.section-edit').addClass('d-none');
+        $(commentElement).find('.section-view').removeClass('d-none');
+
+        const content = $(commentElement).find('.section-view .content').text();
+        $(commentElement).find('.section-edit .edit-comment-input').val(content);
+    });
+}
+
+
+function saveUpdateCommentNote() {
+    $('.pages').on('click', '.edit-comment-btn-save', function() {
+        updateCommentNote(this);
+    });
+
+    $('.pages').on('keydown', '.edit-comment-input', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            updateCommentNote(this);
+          }
+    });
+
+    removeInvalidFeedbackClass('.edit-comment-input');  
+}
+
+
+function updateCommentNote(selector) {
+    const commentElement = $(selector).closest('.comment-list-item');
+    const contentInput = $(commentElement).find('.edit-comment-input');
+    const content = $(contentInput).val();
+    const commentID = $(commentElement).attr('data-comment-id');
+
+    if (content == '') {
+        $(contentInput).addClass('is-invalid');
+        return;
+    }
+
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.updateCommentNote,
+        id: commentID,
+        content: content,
+    }
+
+    $.post(CONSTANTS.API, data).fail(function(response) {
+        console.error('API error: updateComment()');
+        return;
+    });
+
+
+    $(commentElement).find('.section-view .content').text(content);
+    $(commentElement).find('.section-edit').addClass('d-none');
+    $(commentElement).find('.section-view').removeClass('d-none');
+
+}
+
+
+
+function toggleCommentView() {
+    // show edit section
+    $('.pages').on('click', '.btn-comment-list-item-view-edit', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        $(commentElement).find('.section-view').addClass('d-none');
+        $(commentElement).find('.section-edit').removeClass('d-none');
+    });
+}
+
+
+
+function newCommentNote() {
+    $('.pages').on('click', '.new-comment-btn', function() {
+        addNewCommentNote(this);
+    });
+
+    $('.pages').on('keydown', '.new-comment-content', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            addNewCommentNote(this);
+          }
+    });
+}
+
+function addNewCommentNote(selector) {
+    const noteElement = $(selector).closest('.card-page');
+    const contentInput = $(noteElement).find('.new-comment-content');
+    const content = $(contentInput).val();
+
+    if (content == '') {
+        $(contentInput).addClass('is-invalid');
+        return;
+    }
+
+    const commentID = UTILITIES.getUUID();
+    const noteID = $(noteElement).attr('data-page-id');
+
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.insertCommentNote,
+        id: commentID,
+        note_id: noteID,
+        content: content,
+    }
+
+    $.post(CONSTANTS.API, data).fail(function(response) {
+        console.error('API error: newCommentNote()');
+        $(contentInput).val(contentInput);
+        return;
+    });
+
+    const newComment = new PageComment(data);
+    $(noteElement).find('.comment-list').prepend(newComment.getHtml());
+    $(contentInput).val('');
 }
