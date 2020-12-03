@@ -236,7 +236,26 @@ function addListeners() {
   toggleCommentView();
   saveUpdateCommentNote();
   cancelUpdateCommentNote();
-//   delete
+  deleteCommentNote();
+}
+
+function deleteCommentNote() {
+    $('.pages').on('click','.btn-comment-list-item-view-delete', function() {
+        const commentElement = $(this).closest('.comment-list-item');
+        const commentID = $(commentElement).attr('data-comment-id');
+
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.deleteCommentNote,
+            id: commentID,
+        }
+
+        $.post(CONSTANTS.API, data).fail(function() {
+            console.error('API error: updateComment()');
+            return;
+        });
+
+        $(commentElement).remove();
+    });
 }
 
 
