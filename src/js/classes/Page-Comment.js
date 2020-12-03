@@ -36,19 +36,32 @@ PageComment.prototype.getHtml = function() {
 
     let html = `
     <li class="comment-list-item" data-comment-id="${this.id}">
-        <div class="icon">
-            <i class='bx bx-comment'></i>
-        </div>
-        <div class="body">
-            <div class="content">${this.content}</div>
-            <div class="footer">
-                <small class="footer-date">${dateDiff}</small>
-                <div class="footer-buttons">
-                    <button class="btn-link">Edit</button>
-                    <button class="btn-link">Update</button>
+        <div class="section-view">
+            <div class="icon">
+                <i class='bx bx-comment'></i>
+            </div>
+            <div class="body">
+                <div class="content">${this.content}</div>
+                <div class="footer">
+                    <small class="footer-date">${dateDiff}</small>
+                    <div class="footer-buttons">
+                        <button class="btn-link btn-comment-list-item-view-edit">Edit</button>
+                        <button class="btn-link btn-comment-list-item-view-delete">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="section-edit d-none">
+            <form class="edit-comment">
+                <input type="text" class="form-control form-control-sm edit-comment-input" value="${this.content}">
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-sm btn-success edit-comment-btn-save">Save</button>
+                    <button type="button" class="btn btn-sm btn-light edit-comment-btn-save">Cancel</button> 
+                </div>
+            </form>
+        </div>
+
     </li>`;
 
     return html;
@@ -63,25 +76,28 @@ PageComment.prototype.getHtmlSkeleton = function() {
     
     let html = `
     <li class="comment-list-item">
-        <div class="icon">
-            <i class='bx bx-comment'></i>
-        </div>
-        <div class="body">
-            <div class="content">
-                ${skeletonPrefix}${skeleton1}</div>
-                ${skeletonPrefix}${skeleton2}</div>
-                ${skeletonPrefix}${skeleton3}</div>
+        <div class="section-view">
+            <div class="icon">
+                <i class='bx bx-comment'></i>
             </div>
-            <div class="footer">
-                <small class="footer-date">
-                    ${skeletonPrefix}45 minutes ago</div>
-                </small>
-                <div class="footer-buttons">
-                    <div class="btn-link">${skeletonPrefix}</div></div>
-                    <div class="btn-link">${skeletonPrefix}</div></div>
+            <div class="body">
+                <div class="content">
+                    ${skeletonPrefix}${skeleton1}</div>
+                    ${skeletonPrefix}${skeleton2}</div>
+                    ${skeletonPrefix}${skeleton3}</div>
+                </div>
+                <div class="footer">
+                    <small class="footer-date">
+                        ${skeletonPrefix}45 minutes ago</div>
+                    </small>
+                    <div class="footer-buttons">
+                        <div class="btn-link">${skeletonPrefix}</div></div>
+                        <div class="btn-link">${skeletonPrefix}</div></div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </li>`;
 
     return html;

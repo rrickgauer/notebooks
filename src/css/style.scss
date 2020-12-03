@@ -419,11 +419,13 @@
 
 .comment-list {
     .comment-list-item {
+        padding: 20px 15px;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+    }
+
+    .comment-list-item .section-view {
         display: flex;
         align-items: flex-start;
-        border-bottom: 1px solid rgba(0,0,0,.125);
-        padding: 20px 15px;
-
         .icon {
             margin-top: 5px;
             
@@ -450,6 +452,18 @@
             }
         }
     }
+
+    .comment-list-item .section-edit {
+        .edit-comment .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+
+            button {margin-left: 5px;}
+        }
+    }
+
+
 }
 
 .btn-link {

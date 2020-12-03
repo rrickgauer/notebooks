@@ -384,31 +384,41 @@
 }
 
 .comment-list .comment-list-item {
+  padding: 20px 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.comment-list .comment-list-item .section-view {
   display: flex;
   align-items: flex-start;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  padding: 20px 15px;
 }
-.comment-list .comment-list-item .icon {
+.comment-list .comment-list-item .section-view .icon {
   margin-top: 5px;
 }
-.comment-list .comment-list-item .icon i {
+.comment-list .comment-list-item .section-view .icon i {
   padding: 10px;
   border-radius: 50%;
   background-color: #e6e6e6;
 }
-.comment-list .comment-list-item .body {
+.comment-list .comment-list-item .section-view .body {
   margin-left: 15px;
   width: 100%;
 }
-.comment-list .comment-list-item .footer {
+.comment-list .comment-list-item .section-view .footer {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 }
-.comment-list .comment-list-item .footer .footer-buttons button {
+.comment-list .comment-list-item .section-view .footer .footer-buttons button {
   margin-right: 5px;
   font-size: 12.8px;
+}
+.comment-list .comment-list-item .section-edit .edit-comment .action-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.comment-list .comment-list-item .section-edit .edit-comment .action-buttons button {
+  margin-left: 5px;
 }
 
 .btn-link {

@@ -233,8 +233,46 @@ function addListeners() {
   getCommentsNote();
   newCommentNote();
   removeInvalidFeedbackClass('.new-comment-content');  
+  toggleCommentView();
 
 }
+
+
+
+function toggleCommentView() {
+
+    $('.pages').on('click', '.btn-comment-list-item-view-edit', function() {
+        showEditCommentSection(this);
+    });
+
+}
+
+function showEditCommentSection(selector) {
+
+    const commentElement = $(selector).closest('.comment-list-item');
+    $(commentElement).find('.section-view').addClass('d-none');
+    $(commentElement).find('.section-edit').removeClass('d-none');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function removeInvalidFeedbackClass(input) {
     $('body').on('keydown', input,  function() {
