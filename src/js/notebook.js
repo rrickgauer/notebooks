@@ -571,25 +571,30 @@ function addChecklistItem(selector) {
 
   const checklistElement = $(selector).closest('.card-checklist');
   const checklistID = $(checklistElement).attr('data-page-id');
-  const content = $(checklistElement).find('.checklist-item-input').val();
+  const inputElement = $(checklistElement).find('.checklist-item-input');
+  const content = $(inputElement).val();
 
   const pageIndex = getPageIndex(checklistElement);
+  const checklistItemID = UTILITIES.getUUID();
 
   const data = {
     function: CONSTANTS.API_FUNCTIONS.insertChecklistItem,
     checklistID: checklistID,
     content: content,
+    id: checklistItemID,
   }
 
-  // todo: make the response faster when loading the new html
-  $.post(CONSTANTS.API, data, function(response) {
-      getChecklistItems(checklistID, pageIndex);
-      $(checklistElement).find('.checklist-item-input').val('');
-    })
-    .fail(function(response) {
-      console.error('error: addChecklistItem()');
-      return;
-    });
+  $.post(CONSTANTS.API, data).fail(function(response) {
+    console.error('error: addChecklistItem()');
+    return;
+  });
+
+
+  data.completed = 'n';
+
+  const newChecklistItem = new ChecklistItem(data);
+  $(checklistElement).find('.items').append(newChecklistItem.getHtml());
+  $(inputElement).val('');
 }
 
 

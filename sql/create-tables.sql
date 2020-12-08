@@ -2,6 +2,7 @@ CREATE TABLE `Checklist_Items` (
   `id` char(36) COLLATE utf8_unicode_ci NOT NULL,
   `checklist_id` int(10) unsigned NOT NULL,
   `completed` enum('n','y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'n',
+  `content` varchar(250),
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`id`),

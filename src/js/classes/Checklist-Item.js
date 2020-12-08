@@ -1,10 +1,22 @@
 function ChecklistItem(parms) {
-  this.id = parms.id;
-  this.checklistID = parms.checklist_id;
-  this.content = parms.content;
-  this.completed = parms.completed;
-  this.dateCreated = parms.date_created;
-  this.dateModified = parms.date_modified;
+  this.id             = null;
+  this.checklistID    = null;
+  this.content        = null;
+  this.completed      = null;
+  this.dateCreated    = null;
+  this.dateModified   = null;
+
+
+  const thisKeys = Object.keys(this);
+  for (let count = 0; count < thisKeys.length; count++) {
+      const key = thisKeys[count];
+
+      if (parms[key] != undefined) {
+          this[key] = parms[key];
+      }
+  }
+
+
 }
 
 

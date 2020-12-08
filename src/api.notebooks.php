@@ -294,8 +294,9 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-checklist-items')
 else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist-item') {
     $checklistID = $_POST['checklistID'];
     $content = $_POST['content'];
+    $checklistItemID = $_POST['id'];
     
-    $result = DB::insertChecklistItem($checklistID, $content);
+    $result = DB::insertChecklistItem($checklistItemID, $checklistID, $content);
     
     if ($result->rowCount() == 1) {
         http_response_code(201);
