@@ -167,10 +167,7 @@ require_once('php/classes/HTML-Generator.php');
           <div class="col-sm-12 col-md-9 order-md-1">
           <h4>Your pages <span class="notebook-meta-count-pages badge badge-secondary"><?php echo $notebook['count_pages']; ?></span></h4>
           <div class="pages">
-
-          <?php echo HTML::getPageCards($notebook['count_pages']); ?>
-
-
+            <?php echo HTML::getPageCards($notebook['count_pages_hidden_false']); ?>
           </div>
         </div>
       </div>
