@@ -230,6 +230,12 @@ class DB {
         n.description AS description,
         n.date_created AS date_created,
         DATE_FORMAT(n.date_created, "%c/%d/%Y") AS date_created_display,
+        DATE_FORMAT(n.date_created, "%l:%i %p") as date_created_display_time,
+        ABS(TIMESTAMPDIFF(minute, NOW(), n.date_created)) as date_diff_minutes,
+        ABS(TIMESTAMPDIFF(hour, NOW(), n.date_created)) as date_diff_hours,
+        ABS(TIMESTAMPDIFF(day, NOW(), n.date_created)) as date_diff_days,
+        ABS(TIMESTAMPDIFF(month, NOW(), n.date_created)) as date_diff_months,
+        ABS(TIMESTAMPDIFF(year, NOW(), n.date_created)) as date_diff_years,
         (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id) AS count_notes,
         (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id) AS count_checklists,
         (SELECT count_notes + count_checklists) AS count_pages,
@@ -323,9 +329,27 @@ class DB {
     }
     
     
-    //////////////////////////////////////////////
-    // Return the pages belonging to a notebook //
-    //////////////////////////////////////////////
+    /**
+     * Return the pages of a notebook
+     * 
+     * id
+     * notebook_id
+     * name
+     * content
+     * hidden
+     * date_created
+     * date_modified
+     * date_created_display
+     * date_modified_display
+     * date_diff_minutes
+     * date_diff_hours
+     * date_diff_days
+     * date_diff_months
+     * date_diff_years
+     * page_type
+     * count_comments
+     * 
+     */
     public static function getPages($notebookID) {
         $stmt = 'SELECT n.id as id, 
         n.notebook_id as notebook_id, 
@@ -336,6 +360,11 @@ class DB {
         n.date_modified as date_modified,
         DATE_FORMAT(n.date_created, "%c/%d/%Y") as date_created_display,
         DATE_FORMAT(n.date_modified, "%c/%d/%Y") as date_modified_display,
+        ABS(TIMESTAMPDIFF(minute, NOW(), n.date_created)) as date_diff_minutes,
+        ABS(TIMESTAMPDIFF(hour, NOW(), n.date_created)) as date_diff_hours,
+        ABS(TIMESTAMPDIFF(day, NOW(), n.date_created)) as date_diff_days,
+        ABS(TIMESTAMPDIFF(month, NOW(), n.date_created)) as date_diff_months,
+        ABS(TIMESTAMPDIFF(year, NOW(), n.date_created)) as date_diff_years,
         "note" as page_type,
         (SELECT COUNT(c.id) FROM Comments_Notes c WHERE c.note_id = n.id) AS count_comments
         FROM Notes n
@@ -353,6 +382,11 @@ class DB {
         null,
         DATE_FORMAT(c.date_created, "%c/%d/%Y"),
         null,
+        ABS(TIMESTAMPDIFF(minute, NOW(), c.date_created)),
+        ABS(TIMESTAMPDIFF(hour, NOW(), c.date_created)),
+        ABS(TIMESTAMPDIFF(day, NOW(), c.date_created)),
+        ABS(TIMESTAMPDIFF(month, NOW(), c.date_created)),
+        ABS(TIMESTAMPDIFF(year, NOW(), c.date_created)),
         "checklist",
         (SELECT COUNT(cc.id) FROM Comments_Checklists cc WHERE cc.checklist_id = c.id) AS count_comments
         from Checklists c 
