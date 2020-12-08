@@ -375,6 +375,15 @@
   min-width: 200px;
 }
 
+@media screen and (max-width: 668px) {
+  .display-edit .form-notebook-labels-edit {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .display-edit .form-notebook-labels-edit .buttons {
+    margin-top: 10px;
+  }
+}
 .dropdown-labels-filter .dropdown-menu-filter-list {
   max-height: 200px;
   overflow-y: auto;
