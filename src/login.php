@@ -22,10 +22,10 @@ require_once('DB.php');
 
 <body>
   <div class="container">
-    <h1 class="text-center">Log in</h1>
+    <h1 class="text-center mt-center">Log in</h1>
 
     <div class="d-flex justify-content-center">
-      <form method="post" action="api.notebooks.php" class="form-sm">
+      <form method="post" class="form-sm">
         <div class="form-group">
           <label for="user-login-email">Email address</label>
           <input type="email" class="form-control form-control-sm" id="user-login-email" name="user-login-email"
@@ -41,7 +41,7 @@ require_once('DB.php');
         </div>
 
         <div class="form-sm-actions">
-          <button type="submit" class="btn btn-sm btn-primary">Log in</button>
+          <button type="button" class="btn btn-sm btn-primary btn-login"><span class="spinner-border spinner-border-sm mr-2 d-none" role="status" aria-hidden="true"></span>Log in</button>
           <a href="create-account.php">Create account</a>
         </div>
       </form>
@@ -51,6 +51,7 @@ require_once('DB.php');
   </div>
 
   <?php include('php/footer.php'); ?>
+  <script src="js/login.js"></script>
 
 </body>
 
