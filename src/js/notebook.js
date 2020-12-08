@@ -15,30 +15,8 @@ $(document).ready(function() {
     addListeners();
     loadLabelsAvailable();
     loadLabelsAssigned();
-
-    getNotebookAllTest();
-
+    setInterval(updatePagesDateCreated, 60000); // update date created time every minute
 });
-
-
-function getNotebookAllTest() {
-
-    const data = {
-        function: CONSTANTS.API_FUNCTIONS.getNotebookAll,
-        notebookID: globalVariables.notebookID,
-    }
-
-    $.getJSON(CONSTANTS.API, data, function(response) {
-        console.log(response);
-    });
-
-
-
-
-}
-
-
-
 
 
 // display the data once it has all been retrieved
@@ -314,10 +292,9 @@ function loadPages() {
     notebookID: globalVariables.notebookID,
   }
 
+  $.getJSON(CONSTANTS.API, data, function(response) {    
 
-
-  $.getJSON(CONSTANTS.API, data, function(response) {
-    
+    console.log(response);
 
     for (let count = 0; count < response.length; count++) {
       addPage(response[count]);
@@ -1339,4 +1316,30 @@ function addNewCommentNote(selector) {
     const newComment = new PageComment(data);
     $(noteElement).find('.comment-list').prepend(newComment.getHtml());
     $(contentInput).val('');
+}
+
+function updatePagesDateCreated() {
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.getPages,
+        notebookID: globalVariables.notebookID,
+      }
+
+    $.getJSON(CONSTANTS.API, data, function(response) {
+        for (let count = 0; count < response.length; count++) {
+            const page = response[count];
+            
+            // let pageObject = null;
+            if (page.page_type == 'note') {
+                const noteObject = new Note(page);
+                const html = noteObject.getDateDiffHtml();
+                const pageID = page.id;
+                $(`.card-note[data-page-id="${pageID}"]`).find('.card-page-date-created').text(html);
+            } else {
+                const checklistObject = new Checklist(page);
+                const html = checklistObject.getDateDiffHtml();
+                const pageID = page.id;
+                $(`.card-checklist[data-page-id="${pageID}"]`).find('.card-page-date-created').text(html);
+            }
+        }
+    });
 }

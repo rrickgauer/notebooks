@@ -1,21 +1,32 @@
 function Note(parms) {
-    this.id = parms.id;
-    this.notebookID = parms.notebook_id;
-    this.name = parms.name;
-    this.content = parms.content;
-    this.hidden = parms.hidden;
-    this.dateCreated = parms.date_created;
-    this.dateModified = parms.date_modified;
-    this.dateCreatedDisplay = parms.date_created_display;
-    this.dateModifiedDisplay = parms.date_modified_display;
-    this.countComments = parms.count_comments;
-    
-    const self = this;
-    
-    $('.btn-page-edit').on('click', function(e) {
-        alert('edit');
-    });
-    
+
+    this.id                     = null;
+    this.notebook_id            = null;
+    this.name                   = null;
+    this.content                = null;
+    this.hidden                 = null;
+    this.date_created           = null;
+    this.date_modified          = null;
+    this.date_created_display   = null;
+    this.date_modified_display  = null;
+    this.date_diff_minutes      = null;
+    this.date_diff_hours        = null;
+    this.date_diff_days         = null;
+    this.date_diff_months       = null;
+    this.date_diff_years        = null;
+    this.page_type              = null;
+    this.count_comments         = null;
+
+    // create the keys
+    const keys = Object.keys(this);
+    for (let count = 0; count < keys.length; count++) {
+        const key = keys[count];
+
+        if (parms[key] != undefined) {
+            this[key] = parms[key];
+        }
+    }
+
 }
 
 
@@ -50,36 +61,39 @@ Note.prototype.getHtml = function() {
 }
 
 Note.prototype.getHtmlHeader = function() {
+
+    const dateDiffDisplay = this.getDateDiffHtml();
+
     let html = `
     <div class="card-header">
-    <div class="card-header-normal">
-    <div class="left">
-    <h5 class="card-page-name">${this.name}</h5>
-    <p>&nbsp;&bull;&nbsp;<span class="card-page-date-created">${this.dateCreatedDisplay}</span></p>
-    </div>
+        <div class="card-header-normal">
+            <div class="left">
+                <h5 class="card-page-name">${this.name}</h5>
+                <small class="card-page-date-created">${dateDiffDisplay}</small>
+            </div>
     
-    <div class="right">
-    <div class="dropdown">
-    <button class="btn btn-sm" type="button" data-toggle="dropdown">
-    <i class='bx bx-dots-horizontal'></i>
-    </button>
-    <div class="dropdown-menu dropdown-menu-right">
-    <button class="dropdown-item btn-page-edit" type="button">Edit</button>
-    <button class="dropdown-item btn-page-hide" type="button">Hide</button>
-    <button class="dropdown-item btn-page-popout" type="button">Pop out</button>
-    <div class="dropdown-divider"></div>
-    <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
-    <button class="dropdown-item btn-page-expand" type="button">Expand</button>
-    <div class="dropdown-divider"></div>
-    <button class="dropdown-item btn-page-delete" type="button">Delete</button>
-    </div>
-    </div>
-    </div> 
-    </div>
+            <div class="right">
+                <div class="dropdown">
+                    <button class="btn btn-sm" type="button" data-toggle="dropdown">
+                        <i class='bx bx-dots-horizontal'></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item btn-page-edit" type="button">Edit</button>
+                        <button class="dropdown-item btn-page-hide" type="button">Hide</button>
+                        <button class="dropdown-item btn-page-popout" type="button">Pop out</button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
+                        <button class="dropdown-item btn-page-expand" type="button">Expand</button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item btn-page-delete" type="button">Delete</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
     
-    <div class="card-header-edit">
-    <input type="text" class="form-control page-edit-name-input" placeholder="Update the name" value="${this.name}">
-    </div>
+        <div class="card-header-edit">
+            <input type="text" class="form-control page-edit-name-input" placeholder="Update the name" value="${this.name}">
+        </div>
     
     </div>`;
     
@@ -120,4 +134,73 @@ Note.prototype.getHtmlBody = function() {
     </div>`;
     
     return html;
+}
+
+
+Note.prototype.getDateDiffHtml = function() {
+    let result = 'just now';
+
+    if (this.date_diff_minutes == null) {
+        return result;
+    } else if (this.date_diff_hours == null) {
+        return result;
+    } else if (this.date_diff_days == null) {
+        return result;
+    } else if (this.date_diff_months == null) {
+        return result;
+    } else if (this.date_diff_years == null) {
+        return result;
+    } else {
+        result = this.getDateDiffTimeBlock();
+        return result;
+    }
+
+}
+
+Note.prototype.getDateDiffTimeBlock = function() {
+    let result = '';
+
+    if (this.date_diff_minutes < 1) {
+        result = 'less than a minute ago';
+        return result;
+    }
+
+    else if (this.date_diff_minutes < 60) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_minutes, 'minute');
+        result = `${this.date_diff_minutes} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else if (this.date_diff_hours < 24) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_hours, 'hour');
+        result = `${this.date_diff_hours} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else if (this.date_diff_days < 31) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_days, 'day');
+        result = `${this.date_diff_days} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else if (this.date_diff_months < 12) {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_months, 'month');
+        result = `${this.date_diff_months} ${unitDisplay} ago`;
+        return result;
+    } 
+    
+    else {
+        const unitDisplay = this.getDateDiffUnitsDisplay(this.date_diff_years, 'year');
+        result = `${this.date_diff_years} ${unitDisplay} ago`;
+        return result;
+    } 
+
+}
+
+Note.prototype.getDateDiffUnitsDisplay = function(value, label) {
+    if (value > 1) {
+        return label + 's';
+    } else {
+        return label;
+    }
 }

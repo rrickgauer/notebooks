@@ -9,9 +9,6 @@
   display: flex;
   justify-content: space-between;
 }
-.card-page .card-header-normal .left {
-  display: flex;
-}
 .card-page.collapsed .card-body {
   display: none;
 }
