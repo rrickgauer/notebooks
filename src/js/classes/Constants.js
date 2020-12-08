@@ -33,6 +33,7 @@ Constants.prototype.API_FUNCTIONS = {
   insertCommentNote: 'insert-comment-note',
   updateCommentNote: 'update-comment-note',
   deleteCommentNote: 'delete-comment-note',
+  getNotebookAll: 'get-notebook-all',
 }
 
 Constants.prototype.PAGES = {

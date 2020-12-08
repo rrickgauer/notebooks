@@ -10,18 +10,35 @@ let isInitialDataDisplayed = false;
 
 // main
 $(document).ready(function() {
-  loadPages();
-  setNotebookActionStates();
-  addListeners();
-  loadLabelsAvailable();
-  loadLabelsAssigned();
+    loadPages();
+    setNotebookActionStates();
+    addListeners();
+    loadLabelsAvailable();
+    loadLabelsAssigned();
 
+    getNotebookAllTest();
 
-  
-  // for (let count = 0; count < pagesList.length; count++) {
-  //   console.
-  // }
 });
+
+
+function getNotebookAllTest() {
+
+    const data = {
+        function: CONSTANTS.API_FUNCTIONS.getNotebookAll,
+        notebookID: globalVariables.notebookID,
+    }
+
+    $.getJSON(CONSTANTS.API, data, function(response) {
+        console.log(response);
+    });
+
+
+
+
+}
+
+
+
 
 
 // display the data once it has all been retrieved

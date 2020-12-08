@@ -129,7 +129,7 @@ class DB {
     // Create a new notebook //
     ///////////////////////////
     public static function insertNotebook($userID, $name, $description = null) {
-        $stmt = 'INSERT INTO Notebooks (user_id, name, description, date_created) VALUES (:userID, :name, :description, NOW())';
+        $stmt = 'CALL insertNotebook(:userID, :name, :description)';
         
         $sql = DB::dbConnect()->prepare($stmt);
         

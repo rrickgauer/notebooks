@@ -614,6 +614,54 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-comment-note
     exit;
 }
 
+/**
+ * get-notebook-all
+ * 
+ * Returns all of the notebooks data, notes, checklists, and checklist items
+ */
+else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-all') {
+    $result = [];
+    $notebookID = $_GET['notebookID'];
+
+    $notebookMeta = DB::getNotebook($notebookID)->fetch(PDO::FETCH_ASSOC);
+    $result['notebook'] = $notebookMeta;
+
+    $pages = DB::getPages($notebookID)->fetchAll(PDO::FETCH_ASSOC);
+
+    $notes = [];
+    $checklists = [];
+    
+    // split the pages into their own types
+    for ($count = 0; $count < count($pages); $count++) {
+        if ($pages[$count]['page_type'] == 'checklist') {
+            array_push($checklists, $pages[$count]);
+        } else {
+            array_push($notes, $pages[$count]);
+        }
+    }
+
+    // get each note's comments
+    for ($count = 0; $count < count($notes); $count++) {
+        $comments = DB::getNoteComments($notes[$count]['id'])->fetchAll(PDO::FETCH_ASSOC);
+        $notes[$count]['comments'] = $comments;
+    }
+
+
+    $result['notes'] = $notes;
+
+    // get each checklist's items
+    for ($count = 0; $count < count($checklists); $count++) {
+        $items = DB::getChecklistItems($checklists[$count]['id'])->fetchAll(PDO::FETCH_ASSOC);
+        $checklists[$count]['items'] = $items;
+    }
+
+    $result['checklists'] = $checklists;
+
+    echo json_encode($result);
+}
+
+
+
 
 
 
