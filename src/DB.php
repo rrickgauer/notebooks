@@ -387,7 +387,7 @@ class DB {
         ABS(TIMESTAMPDIFF(day, NOW(), c.date_created)),
         ABS(TIMESTAMPDIFF(month, NOW(), c.date_created)),
         ABS(TIMESTAMPDIFF(year, NOW(), c.date_created)),
-        "checklist",
+        "checklist" as page_type,
         (SELECT COUNT(cc.id) FROM Comments_Checklists cc WHERE cc.checklist_id = c.id) AS count_comments
         from Checklists c 
         WHERE c.notebook_id = :notebookIDChecklist
