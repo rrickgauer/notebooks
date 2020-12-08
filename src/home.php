@@ -3,7 +3,7 @@ session_start();
 
 // verify that the session user id is set
 if (!isset($_SESSION['userID'])) {
-  header('Location: create-account.php');
+  header('Location: login.php');
   exit;
 }
 
