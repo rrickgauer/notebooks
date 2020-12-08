@@ -233,7 +233,13 @@ class DB {
         (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id) AS count_notes,
         (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id) AS count_checklists,
         (SELECT count_notes + count_checklists) AS count_pages,
-        (SELECT COUNT(*) FROM Notebook_Labels_Assigned nbl WHERE nbl.notebook_id = n.id) as count_labels
+        (SELECT COUNT(*) FROM Notebook_Labels_Assigned nbl WHERE nbl.notebook_id = n.id) as count_labels,
+        (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id and n2.hidden = "y") AS count_notes_hidden_true,
+        (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id and c.hidden = "y") AS count_checklists_hidden_true,
+        (SELECT count_notes_hidden_true + count_checklists_hidden_true) AS count_pages_hidden_true,
+        (SELECT COUNT(n2.id) FROM Notes n2 WHERE n2.notebook_id = n.id and n2.hidden = "n") AS count_notes_hidden_false,
+        (SELECT COUNT(c.id) FROM Checklists c WHERE c.notebook_id = n.id and c.hidden = "n") AS count_checklists_hidden_false,
+        (SELECT count_notes_hidden_false + count_checklists_hidden_false) AS count_pages_hidden_false
         FROM Notebooks n 
         WHERE id = :notebookID 
         LIMIT 1';
