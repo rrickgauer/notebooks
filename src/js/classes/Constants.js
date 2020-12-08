@@ -34,6 +34,7 @@ Constants.prototype.API_FUNCTIONS = {
   updateCommentNote: 'update-comment-note',
   deleteCommentNote: 'delete-comment-note',
   getNotebookAll: 'get-notebook-all',
+  loginAttempt: 'login-attempt',
 }
 
 Constants.prototype.PAGES = {
