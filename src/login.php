@@ -25,8 +25,9 @@ require_once('DB.php');
 
     <div class="d-flex justify-content-center">
         <div class="login-title">
-            <img src="images/bx-book-content-purple.svg">
             <h1 class="custom-font">Notebooks</h1>
+            <img src="images/bx-book-content-purple.svg">
+            
         </div>
     </div>
 
