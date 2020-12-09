@@ -10,6 +10,7 @@ if (!isset($_SESSION['userID'])) {
 }
 
 require_once('DB.php');
+include_once('php/classes/HTML-Generator.php');
 ?>
 
 
@@ -25,13 +26,23 @@ require_once('DB.php');
 
   <div class="container">
     <h1 class="text-center my-5">New notebook</h1>
+
     
+
     <form>
       <form method="post" action="api.notebooks.php">
+
+        <!-- name -->
         <div class="form-group">
           <label for="notebook-new-name">Name</label>
           <input type="text" class="form-control" id="notebook-new-name">
           <div class="invalid-feedback"></div>
+        </div>
+
+        <!-- description -->
+        <div class="form-group">
+          <label for="notebook-new-name">Description</label>
+          <textarea id="notebook-new-description" rows="7" class="form-control"></textarea>
         </div>
 
         <button type="button" class="btn btn-primary btn-create-new-notebook">Create new notebook</button>

@@ -1,3 +1,545 @@
+.login-title {
+  display: flex;
+  align-items: center;
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+.login-title h1 {
+  margin: 0;
+  margin-right: 10px;
+}
+.login-title img {
+  width: 48px;
+  height: auto;
+}
 
+.color-purple {
+  color: #8086ff;
+}
+
+.color-bg-purple {
+  background-color: #8086ff;
+  color: white;
+}
+
+.custom-font {
+  font-family: "Jost", sans-serif;
+}
+
+.custom-font-bold {
+  font-family: "Jost", sans-serif;
+  font-weight: bold;
+}
+
+h1.custom-font {
+  font-family: "Jost", sans-serif;
+  font-size: 3em;
+}
+
+.card .card-header,
+.modal .modal-header {
+  background-color: #cccfff;
+}
+
+#navbar {
+  background-color: #8086ff;
+  margin-bottom: 50px;
+}
+#navbar .nav-link {
+  color: white;
+}
+
+@media screen and (max-width: 668px) {
+  #navbar {
+    margin-top: 25px;
+  }
+}
+.btn-light {
+  background-color: #ebebeb;
+}
+
+.btn-primary {
+  background-color: #8086ff;
+  border-color: #8086ff;
+}
+.btn-primary:active, .btn-primary:hover, .btn-primary:focus, .btn-primary:visited, .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active {
+  background-color: #666eff;
+  border-color: #666eff;
+  box-shadow: 0 0 0 0 !important;
+}
+
+.btn-outline-primary {
+  color: #8086ff;
+  border-color: #8086ff;
+}
+.btn-outline-primary:active, .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:visited, .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active {
+  color: white;
+  background-color: #8086ff;
+  border-color: #4d55ff;
+  box-shadow: 0 0 0 0 !important;
+}
+
+body,
+.notebook-action-list li {
+  background-color: #f7f7f7;
+}
+
+.card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.card-page {
+  margin: 30px 0px;
+}
+.card-page .card-header-normal {
+  display: flex;
+  justify-content: space-between;
+}
+.card-page.collapsed .card-body {
+  display: none;
+}
+.card-page .card-body {
+  padding-bottom: 0;
+}
+.card-page .card-footer {
+  overflow: visible;
+  background-color: initial;
+  padding: 0;
+}
+.card-page .comments-toggle-container {
+  position: relative;
+  height: 41px;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-page .comments-toggle-container button {
+  display: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+  font-size: 18px;
+}
+.card-page .comments-toggle-container:hover button {
+  display: block;
+}
+
+#notebook-header .container-md {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.card-note.display-mode-normal .card-header-edit {
+  display: none;
+}
+.card-note.display-mode-normal .rendered {
+  display: block;
+}
+.card-note.display-mode-normal .edit {
+  display: none;
+}
+
+.card-note.display-mode-edit .card-header-edit {
+  display: block;
+}
+.card-note.display-mode-edit .card-header-normal {
+  display: none;
+}
+.card-note.display-mode-edit .rendered {
+  display: none;
+}
+.card-note.display-mode-edit .edit {
+  display: block;
+}
+
+.card-checklist .checklist-item {
+  display: flex;
+  justify-content: space-between;
+}
+.card-checklist .checklist-item:hover {
+  background-color: ghostwhite;
+}
+.card-checklist .checklist-item.completed .content {
+  text-decoration: line-through;
+}
+.card-checklist .checklist-item-editor {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0px;
+}
+.card-checklist .checklist-item-editor .input {
+  width: 100%;
+}
+.card-checklist .checklist-item-editor .buttons {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.card-checklist .checklist-item-editor .buttons button {
+  margin: 0px 5px;
+}
+
+.card-checklist.display-mode-normal .card-header-edit {
+  display: none;
+}
+.card-checklist.display-mode-normal .rendered {
+  display: block;
+}
+.card-checklist.display-mode-normal .edit {
+  display: none;
+}
+
+.card-checklist.display-mode-edit .card-header-normal {
+  display: none;
+}
+.card-checklist.display-mode-edit .card-header-edit {
+  display: flex;
+  align-items: center;
+}
+.card-checklist.display-mode-edit .page-edit-name-container {
+  width: 100%;
+}
+.card-checklist.display-mode-edit .card-header-edit .buttons {
+  display: flex;
+  margin-left: 30px;
+}
+.card-checklist.display-mode-edit .card-header-edit .buttons button {
+  margin-left: 5px;
+}
+
+.card-page.hidden {
+  display: none;
+}
+
+.notebook-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.notebook-meta .notebook-meta-description {
+  color: #586069;
+}
+
+.notebook-meta-edit {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.notebook-meta-edit .inputs {
+  width: 100%;
+}
+.notebook-meta-edit .inputs textarea,
+.notebook-meta-edit .inputs input {
+  width: 100%;
+}
+.notebook-meta-edit .buttons {
+  display: flex;
+  margin-left: 30px;
+}
+.notebook-meta-edit .buttons button {
+  margin-left: 5px;
+}
+
+.list-notebooks .notebook .description {
+  color: #586069;
+  font-size: 12px;
+}
+.list-notebooks .notebook .page-counts,
+.list-notebooks .notebook .description {
+  margin-top: 10px;
+}
+.list-notebooks .notebook .page-counts {
+  color: #586069;
+}
+.list-notebooks .notebook .page-counts-item {
+  margin-right: 20px;
+}
+.list-notebooks .notebook .page-counts-item .page-count-data {
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 668px) {
+  .list-notebooks {
+    margin-top: 20px;
+  }
+  .list-notebooks .notebook {
+    padding: 10px 12px;
+  }
+}
+.badge-count-notes {
+  background-color: fuchsia;
+  color: white;
+}
+
+.badge-count-checklists {
+  background-color: lime;
+}
+
+.pages-toc summary {
+  outline: none;
+}
+.pages-toc summary:hover {
+  background-color: #f2f2f2;
+}
+
+.form-sm {
+  width: 400px;
+  padding: 25px;
+  background-color: #f2f2f2;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+.form-sm .form-sm-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mt-center {
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 668px) {
+  .form-sm .form-sm-actions {
+    flex-direction: column;
+  }
+  .form-sm .form-sm-actions .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .form-sm .form-sm-actions a {
+    text-align: center;
+  }
+}
+.assigned-labels-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CodeMirror {
+  height: auto !important;
+  border: 1px solid silver;
+}
+
+.CodeMirror-empty {
+  height: 100px !important;
+}
+
+.CodeMirror pre.CodeMirror-placeholder {
+  color: #999;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+@media screen and (max-width: 668px) {
+  .home-header {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+
+  .home-header-inputs {
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 668px) {
+  .notebook-meta,
+.notebook-meta-edit {
+    flex-direction: column;
+  }
+  .notebook-meta .notebook-meta-buttons,
+.notebook-meta .buttons,
+.notebook-meta-edit .notebook-meta-buttons,
+.notebook-meta-edit .buttons {
+    margin-top: 20px;
+  }
+
+  .notebook-meta-edit .buttons {
+    margin-left: 0px;
+  }
+}
+#notebook-body {
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 668px) {
+  .notebook-action-list {
+    margin-bottom: 20px;
+  }
+}
+.btn-scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+}
+
+.btn-notebook-actions-collapse {
+  display: none;
+}
+
+@media screen and (max-width: 668px) {
+  .btn-notebook-actions-collapse {
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .notebook-action-list.collapsed {
+    display: none;
+  }
+}
+.card-notebook-labels {
+  margin-top: 40px;
+}
+.card-notebook-labels .card-header .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.card-notebook-labels .card-body {
+  padding: 0;
+}
+.card-notebook-labels .notebook-label {
+  padding: 16px;
+  min-height: 64px;
+}
+.card-notebook-labels .notebook-label .display-normal {
+  display: flex;
+  justify-content: space-between;
+}
+.card-notebook-labels .notebook-label .display-normal .badge-notebook-label {
+  font-size: 14px;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .inputs {
+  display: flex;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .buttons {
+  width: 100%;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .buttons .btn {
+  float: right;
+  margin-left: 10px;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .item.color {
+  min-width: 100px;
+}
+.card-notebook-labels .notebook-label .display-edit .form-notebook-labels-edit .item.name {
+  min-width: 200px;
+}
+
+.form-notebook-labels-new {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+.form-notebook-labels-new .inputs {
+  display: flex;
+}
+.form-notebook-labels-new .buttons {
+  width: 100%;
+}
+.form-notebook-labels-new .buttons .btn {
+  float: right;
+  margin-left: 10px;
+}
+.form-notebook-labels-new .item.color {
+  min-width: 100px;
+}
+.form-notebook-labels-new .item.name {
+  min-width: 200px;
+}
+
+@media screen and (max-width: 668px) {
+  .display-edit .form-notebook-labels-edit {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .display-edit .form-notebook-labels-edit .buttons {
+    margin-top: 10px;
+  }
+}
+.dropdown-labels-filter .dropdown-menu-filter-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.dropdown-labels-filter .dropdown-item-filter-label.active {
+  color: black;
+}
+
+.comment-list .comment-list-item {
+  padding: 20px 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.comment-list .comment-list-item .section-view {
+  display: flex;
+  align-items: flex-start;
+}
+.comment-list .comment-list-item .section-view .icon {
+  margin-top: 5px;
+}
+.comment-list .comment-list-item .section-view .icon i {
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #e6e6e6;
+}
+.comment-list .comment-list-item .section-view .body {
+  margin-left: 15px;
+  width: 100%;
+}
+.comment-list .comment-list-item .section-view .footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.comment-list .comment-list-item .section-view .footer .footer-buttons button {
+  margin-right: 5px;
+  font-size: 12.8px;
+}
+.comment-list .comment-list-item .section-edit .edit-comment .action-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.comment-list .comment-list-item .section-edit .edit-comment .action-buttons button {
+  margin-left: 5px;
+}
+
+.new-comment {
+  padding: 0px 15px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.new-comment .form-group {
+  margin-bottom: 0;
+}
+.new-comment .new-comment-btn {
+  margin-left: 10px;
+}
+
+.btn-link {
+  box-sizing: border-box;
+  margin: 0;
+  text-transform: none;
+  border-radius: 0;
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  text-decoration: none;
+  color: initial;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  background-color: initial;
+  border: 0;
+}
 
 /*# sourceMappingURL=style.css.map */

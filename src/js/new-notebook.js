@@ -1,5 +1,7 @@
 const notebookNameInput = $('#notebook-new-name');
 const createBtn = $('.btn-create-new-notebook');
+const CONSTANTS = new Constants();
+const notebookDescriptionInput = $('#notebook-new-description');
 
 $(document).ready(function() {
   $(createBtn).on('click', createNewNotebook);
@@ -13,6 +15,7 @@ $(document).ready(function() {
 
 function createNewNotebook() {
   const name = $(notebookNameInput).val();
+  const description = $(notebookDescriptionInput).val();
 
   // verify that the name field has been filled out
   if (name == '') {
@@ -24,14 +27,15 @@ function createNewNotebook() {
   }
 
   const data = {
-    function: API_FUNCTIONS.insertNotebook,
+    function: CONSTANTS.API_FUNCTIONS.insertNotebook,
     name: name,
+    description: description,
   }
 
 
-  $.post(API, data, function(response) {
+  $.post(CONSTANTS.API, data, function(response) {
     response = JSON.parse(response);
-    const url = PAGES.notebook + '?notebookID=' + response.id;
+    const url = CONSTANTS.PAGES.notebook + '?notebookID=' + response.id;
     window.location.href = url;
   });
 }

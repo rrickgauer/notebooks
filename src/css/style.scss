@@ -1,0 +1,611 @@
+$color-purple: hsl(237, 100%, 75%);
+$color-purple-dark: hsl(237, 100%, 70%);
+$color-purple-darker: hsl(237, 100%, 65%);
+$color-purple-darkest: hsl(237, 100%, 60%);
+$color-purple-light: hsl(237, 100%, 80%);
+$color-purple-lighter: hsl(237, 100%, 85%);
+$color-purple-lightest: hsl(237, 100%, 90%);
+$color-white: hsl(0, 0%, 97%);
+$color-white-darker: hsl(0, 0%, 92%);
+$color-white-darkest: hsl(0, 0%, 87%);
+
+
+.login-title {
+    display: flex;
+    align-items: center;
+
+    margin-top: 200px;
+    margin-bottom: 50px;
+
+    h1 {
+        margin: 0;
+        margin-right: 10px;
+    }
+
+    img {
+        width: 48px;
+        height: auto;
+    }
+}
+
+
+.color-purple {
+    color: $color-purple;
+}
+
+.color-bg-purple {
+    background-color: $color-purple;
+    color: white;
+}
+
+
+.custom-font {
+    font-family: 'Jost', sans-serif;
+}
+
+.custom-font-bold {
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+}
+
+h1.custom-font {
+    font-family: 'Jost', sans-serif;
+    font-size: 3.0em;
+
+}
+
+.card .card-header,
+.modal .modal-header {
+    background-color: $color-purple-lightest;
+}
+
+#navbar {
+    background-color: $color-purple;
+    margin-bottom: 50px;
+    .nav-link {
+        color: white;
+    }
+}
+
+@media screen and (max-width: 668px) {
+    #navbar {
+        margin-top: 25px;
+    }
+}
+
+.btn-light {
+    background-color: $color-white-darker;
+}
+
+.btn-primary {
+    background-color: $color-purple;
+    border-color: $color-purple;
+    &:active,
+    &:hover,
+    &:focus,
+    &:visited,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        background-color: $color-purple-dark;
+        border-color: $color-purple-dark;
+        box-shadow: 0 0 0 0 !important;
+    }
+}
+
+.btn-outline-primary {
+    color: $color-purple;
+    border-color: $color-purple;
+    &:active,
+    &:hover,
+    &:focus,
+    &:visited,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        color: white;
+        background-color: $color-purple;
+        border-color: $color-purple-darker;
+        box-shadow: 0 0 0 0 !important;
+    }
+}
+
+body,
+.notebook-action-list li {
+    background-color: $color-white;
+}
+
+.card {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.card-page {
+    margin: 30px 0px;
+    .card-header-normal {
+        display: flex;
+        justify-content: space-between;
+        // .left {display: flex;}
+    }
+    &.collapsed .card-body {
+        display: none;
+    }
+    .card-body {
+        padding-bottom: 0;
+    }
+    .card-footer {
+        overflow: visible;
+        background-color: initial;
+        padding: 0;
+    }
+    .comments-toggle-container {
+        position: relative;
+        height: 41px;
+        top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .comments-toggle-container button {
+        display: none;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+        font-size: 18px;
+    }
+    .comments-toggle-container:hover button {
+        display: block;
+    }
+}
+
+#notebook-header .container-md {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+// note - normal display
+.card-note.display-mode-normal {
+    .card-header-edit {
+        display: none;
+    }
+    .rendered {
+        display: block;
+    }
+    .edit {
+        display: none;
+    }
+}
+
+// note - edit mode
+.card-note.display-mode-edit {
+    .card-header-edit {
+        display: block;
+    }
+    .card-header-normal {
+        display: none;
+    }
+    .rendered {
+        display: none;
+    }
+    .edit {
+        display: block;
+    }
+}
+
+// checklists
+.card-checklist {
+    .card-header {
+        // background-color: lightcyan;
+    }
+    .checklist-item {
+        display: flex;
+        justify-content: space-between;
+    }
+    .checklist-item:hover {
+        background-color: ghostwhite;
+    }
+    .checklist-item.completed .content {
+        text-decoration: line-through;
+    }
+    .checklist-item-editor {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0px;
+        .input {
+            width: 100%;
+        }
+        .buttons {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            button {
+                margin: 0px 5px;
+            }
+        }
+    }
+}
+
+// checklist - normal display
+.card-checklist.display-mode-normal {
+    .card-header-edit {
+        display: none;
+    }
+    .rendered {
+        display: block;
+    }
+    .edit {
+        display: none;
+    }
+}
+
+// checklist - edit mode
+.card-checklist.display-mode-edit {
+    .card-header-normal {
+        display: none;
+    }
+    .card-header-edit {
+        display: flex;
+        align-items: center;
+    }
+    .page-edit-name-container {
+        width: 100%;
+    }
+    .card-header-edit {
+        .buttons {
+            display: flex;
+            margin-left: 30px;
+            button {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+.card-page.hidden {
+    display: none;
+}
+
+.notebook-meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    .notebook-meta-description {
+        color: rgb(88, 96, 105);
+    }
+}
+
+.notebook-meta-edit {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    .inputs {
+        width: 100%;
+        textarea,
+        input {
+            width: 100%;
+        }
+    }
+    .buttons {
+        display: flex;
+        margin-left: 30px;
+        button {
+            margin-left: 5px;
+        }
+    }
+}
+
+.list-notebooks {
+    .notebook {
+        .description {
+            color: rgb(88, 96, 105);
+            font-size: 12px;
+        }
+        .page-counts,
+        .description {
+            margin-top: 10px;
+        }
+        .page-counts {
+            color: rgb(88, 96, 105);
+        }
+        .page-counts-item {
+            margin-right: 20px;
+            .page-count-data {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 668px) {
+    .list-notebooks {
+        margin-top: 20px;
+        .notebook {
+            padding: 10px 12px;
+        }
+    }
+}
+
+.badge-count-notes {
+    background-color: fuchsia;
+    color: white;
+}
+
+.badge-count-checklists {
+    background-color: lime;
+}
+
+.pages-toc {
+    summary {
+        outline: none;
+        &:hover {
+            background-color: #f2f2f2;
+        }
+    }
+}
+
+.form-sm {
+    width: 400px;
+    padding: 25px;
+    background-color: #f2f2f2;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+    .form-sm-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.mt-center {
+    margin-top: 100px;
+}
+
+@media screen and (max-width: 668px) {
+    .form-sm .form-sm-actions {
+        flex-direction: column;
+        .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        a {
+            text-align: center;
+        }
+    }
+}
+
+.assigned-labels-list {
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.CodeMirror {
+    height: auto !important;
+    border: 1px solid silver;
+}
+
+.CodeMirror-empty {
+    height: 100px !important;
+}
+
+.CodeMirror pre.CodeMirror-placeholder {
+    color: #999;
+}
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+@media screen and (max-width: 668px) {
+    .home-header {
+        margin-top: 20px;
+        flex-direction: column;
+    }
+    .home-header-inputs {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 668px) {
+    .notebook-meta,
+    .notebook-meta-edit {
+        flex-direction: column;
+        .notebook-meta-buttons,
+        .buttons {
+            margin-top: 20px;
+        }
+    }
+    .notebook-meta-edit .buttons {
+        margin-left: 0px;
+    }
+}
+
+#notebook-body {
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 668px) {
+    .notebook-action-list {
+        margin-bottom: 20px;
+    }
+}
+
+.btn-scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+}
+
+.btn-notebook-actions-collapse {
+    display: none;
+}
+
+@media screen and (max-width: 668px) {
+    .btn-notebook-actions-collapse {
+        display: block;
+        margin-bottom: 30px;
+    }
+    .notebook-action-list.collapsed {
+        display: none;
+    }
+}
+
+.card-notebook-labels {
+    margin-top: 40px;
+    .card-header .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .card-body {
+        padding: 0;
+    }
+    .notebook-label {
+        padding: 16px;
+        min-height: 64px;
+        .display-normal {
+            display: flex;
+            justify-content: space-between;
+            .badge-notebook-label {
+                font-size: 14px;
+            }
+        }
+        .display-edit {
+            .form-notebook-labels-edit {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: flex-end;
+                .inputs {
+                    display: flex;
+                }
+                .buttons {
+                    width: 100%;
+                    .btn {
+                        float: right;
+                        margin-left: 10px;
+                    }
+                }
+                .item.color {
+                    min-width: 100px;
+                }
+                .item.name {
+                    min-width: 200px;
+                }
+            }
+        }
+    }
+}
+
+.form-notebook-labels-new {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    .inputs {
+        display: flex;
+    }
+    .buttons {
+        width: 100%;
+        .btn {
+            float: right;
+            margin-left: 10px;
+        }
+    }
+    .item.color {
+        min-width: 100px;
+    }
+    .item.name {
+        min-width: 200px;
+    }
+}
+
+@media screen and (max-width: 668px) {
+    .display-edit .form-notebook-labels-edit {
+        flex-direction: column;
+        align-items: flex-start;
+        .buttons {
+            margin-top: 10px;
+        }
+    }
+}
+
+.dropdown-labels-filter {
+    .dropdown-menu-filter-list {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    .dropdown-item-filter-label.active {
+        color: black;
+    }
+}
+
+.comment-list {
+    .comment-list-item {
+        padding: 20px 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, .125);
+    }
+    .comment-list-item .section-view {
+        display: flex;
+        align-items: flex-start;
+        .icon {
+            margin-top: 5px;
+            i {
+                padding: 10px;
+                border-radius: 50%;
+                background-color: #e6e6e6;
+            }
+        }
+        .body {
+            margin-left: 15px;
+            width: 100%;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            .footer-buttons button {
+                margin-right: 5px;
+                font-size: 12.8px;
+            }
+        }
+    }
+    .comment-list-item .section-edit {
+        .edit-comment .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            button {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+
+.new-comment {
+    padding: 0px 15px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    .form-group {
+        margin-bottom: 0;
+    }
+    .new-comment-btn {
+        margin-left: 10px;
+    }
+}
+
+.btn-link {
+    box-sizing: border-box;
+    margin: 0;
+    text-transform: none;
+    border-radius: 0;
+    display: inline-block;
+    padding: 0;
+    font-size: inherit;
+    text-decoration: none;
+    color: initial;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    background-color: initial;
+    border: 0;
+}
