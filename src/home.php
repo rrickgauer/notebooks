@@ -28,7 +28,7 @@ require_once('php/classes/HTML-Generator.php');
   <?php include('php/navbar.php'); ?>
 
   <div class="container-md">
-    <h1 class="text-center">Home</h1>
+    <h1 class="text-center custom-font">Home</h1>
 
     <!-- <div class="d-flex flex-sm-row justify-content-between align-items-baseline"> -->
     <div class="home-header">

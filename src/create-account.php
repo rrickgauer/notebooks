@@ -18,7 +18,7 @@ require_once('DB.php');
 
 <body>
   <div class="container">
-    <h1 class="text-center mb-5 mt-center">Create Account</h1>
+    <h1 class="text-center mb-5 mt-center mb-3 custom-font color-purple">Create Account</h1>
 
     <div class="d-flex justify-content-center">
       <form method="post" action="api.notebooks.php" class="form-sm">
