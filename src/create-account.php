@@ -4,6 +4,7 @@ session_destroy();
 unset($_SESSION['userID']);
 require_once('DB.php'); 
 
+
 ?>
 
 
