@@ -293,9 +293,6 @@ function loadPages() {
   }
 
   $.getJSON(CONSTANTS.API, data, function(response) {    
-
-    console.log(response);
-
     for (let count = 0; count < response.length; count++) {
       addPage(response[count]);
     }
@@ -388,6 +385,7 @@ function loadChecklistsItems() {
 // Displays the items                     //
 ////////////////////////////////////////////
 function getChecklistItems(checklistID, pagesListIndex) {
+
   const data = {
     function: CONSTANTS.API_FUNCTIONS.getChecklistItems,
     checklistID: checklistID,
@@ -395,7 +393,6 @@ function getChecklistItems(checklistID, pagesListIndex) {
 
   $.getJSON(CONSTANTS.API, data, function(response) {
     let items = [];
-
     // build a list of ChecklistItem objects
     for (let count = 0; count < response.length; count++) {
       items.push(new ChecklistItem(response[count]));
@@ -582,6 +579,10 @@ function addChecklistItem(selector) {
     console.error('error: addChecklistItem()');
     return;
   });
+
+// $.post(CONSTANTS.API, data, function(response) {
+//     // console.log(JSON.parse(response))
+// });
 
 
   data.completed = 'n';

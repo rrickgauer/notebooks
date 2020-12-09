@@ -270,7 +270,8 @@ else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFuncti
 *
 * get - checklistID
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'getChecklistItems') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getChecklistItems']) {
+
     $checklistID = $_GET['checklistID'];
     $checklistItems = DB::getChecklistItems($checklistID)->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($checklistItems);
@@ -290,6 +291,8 @@ else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFuncti
     $checklistID = $_POST['checklistID'];
     $content = $_POST['content'];
     $checklistItemID = $_POST['id'];
+
+    // echo json_encode($_POST);
     
     $result = DB::insertChecklistItem($checklistItemID, $checklistID, $content);
     
