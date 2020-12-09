@@ -1,2 +1,4 @@
 # notebooks
-A repository to store your hopes and dreams
+
+
+A place where you can store your hopes and dreams :blush:
