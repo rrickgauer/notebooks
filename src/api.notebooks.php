@@ -2,6 +2,7 @@
 
 session_start();
 require('DB.php');
+require_once('php/classes/Constants.php');
 
 
 ///////////////////////////////
@@ -25,7 +26,7 @@ if (isset($_POST['user-new-email'], $_POST['user-new-password'], $_POST['user-ne
 ////////////////////////
 // User login attempt //
 ////////////////////////
-else if (isset($_POST['function']) && $_POST['function'] == 'login-attempt') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['loginAttempt']) {
     $email     = $_POST['email'];
     $password  = $_POST['password'];
     
@@ -44,7 +45,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'login-attempt') {
 ///////////////////////////
 // Insert a new notebook //
 ///////////////////////////
-else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertNotebook']) {
     $userID = $_SESSION['userID'];
     $name = $_POST['name'];
     $description = $_POST['description'];
@@ -61,7 +62,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook') {
 /**
 * Delete a notebook
 */
-else if(isset($_POST['function']) && $_POST['function'] == 'delete-notebook') {
+else if(isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteNotebook']) {
     $password = $_POST['password'];
     $notebookID = $_POST['notebookID'];
     
@@ -89,15 +90,14 @@ else if(isset($_POST['function']) && $_POST['function'] == 'delete-notebook') {
 /**
 * Update a notebook name and description
 */
-
-else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateNotebook']) {
     $notebookID = $_POST['notebookID'];
     $name = $_POST['name'];
     $description = $_POST['description'];
-    
+
     $result = DB::updateNotebook($notebookID, $name, $description);
     
-    if ($result->rowCount() == 1)
+    if ($result->rowCount() <= 1)
     http_response_code(204);
     else
     http_response_code(400);
@@ -109,7 +109,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook') {
 /** 
 * Retrieve all notebooks for a user 
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-notebooks') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getNotebooks']) {
     $userID = $_SESSION['userID'];
     $notebooks = DB::getNotebooks($userID)->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($notebooks);
@@ -119,7 +119,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebooks') {
 ///////////////////////
 // Insert a new note //
 ///////////////////////
-else if (isset($_POST['function']) && $_POST['function'] == 'insert-note') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertNote']) {
     $notebookID  = $_POST['notebookID'];
     $name        = $_POST['name'];
     
@@ -140,7 +140,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-note') {
 * 
 * post - noteID
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'delete-note') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteNote']) {
     $noteID = $_POST['noteID'];
     $result = DB::deleteNote($noteID);
     
@@ -161,7 +161,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-note') {
 * 
 * post - checklistID
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteChecklist']) {
     $noteID = $_POST['checklistID'];
     $result = DB::deleteChecklist($noteID);
     
@@ -182,7 +182,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist') 
 * post - checklistID
 * post - name
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateChecklist']) {
     $checklistID = $_POST['checklistID'];
     $name = $_POST['name'];
     $hidden = $_POST['hidden'];
@@ -208,7 +208,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist') 
 *
 * get -> notebookID
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-pages') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getPages']) {
     $notebookID = $_GET['notebookID'];
     $pages = DB::getPages($notebookID)->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($pages);
@@ -224,7 +224,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-pages') {
 * post - noteID
 * post - content
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'update-note') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateNote']) {
     $noteID = $_POST['noteID'];
     $content = $_POST['content'];
     $name = $_POST['name'];
@@ -249,7 +249,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-note') {
 * post - notebookID
 * post - name
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertChecklist']) {
     $notebookID  = $_POST['notebookID'];
     $name        = $_POST['name'];
     
@@ -270,7 +270,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist') 
 *
 * get - checklistID
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-checklist-items') {
+else if (isset($_GET['function']) && $_GET['function'] == 'getChecklistItems') {
     $checklistID = $_GET['checklistID'];
     $checklistItems = DB::getChecklistItems($checklistID)->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($checklistItems);
@@ -286,7 +286,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-checklist-items')
 * post - checklistID
 * post - content
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist-item') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertChecklistItem']) {
     $checklistID = $_POST['checklistID'];
     $content = $_POST['content'];
     $checklistItemID = $_POST['id'];
@@ -310,7 +310,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-checklist-it
 * post - checklistItemID
 * post - completed ('y', 'n')
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-item-completed') {  
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateChecklistItemCompleted']) {  
     $checklistItemID = $_POST['checklistItemID'];
     $completed = $_POST['completed'];
     
@@ -333,7 +333,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-it
 * post - checklistItemID
 * post - content
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-item-content') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateChecklistItemContent']) {
     $checklistItemID = $_POST['checklistItemID'];
     $content = $_POST['content'];
     $result = DB::updateChecklistItemContent($checklistItemID, $content);
@@ -354,7 +354,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-checklist-it
 * 
 * post - checklistItemID
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist-item') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteChecklistItem']) {
     $checklistItemID = $_POST['checklistItemID'];
     $result = DB::deleteChecklistItem($checklistItemID);
     
@@ -375,7 +375,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-checklist-it
 * post - name
 * post - color
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-label') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertNotebookLabel']) {
     $name = $_POST['name'];
     $color = $_POST['color'];
     $userID = $_SESSION['userID'];
@@ -398,7 +398,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-lab
 * Get all notebooks labels belonging to a user
 * 
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getNotebookLabels']) {
     $userID = $_SESSION['userID'];
     
     $result = DB::getNotebookLabels($userID)->fetchAll(PDO::FETCH_ASSOC);
@@ -415,7 +415,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels')
 * get - labelID
 * 
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-label') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getNotebookLabel']) {
     $labelID = $_GET['labelID'];
     $result = DB::getNotebookLabel($labelID)->fetch(PDO::FETCH_ASSOC);
     echo json_encode($result);
@@ -430,7 +430,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-label') 
 * 
 * get - notebookID
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels-assigned') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getNotebookLabelsAssigned']) {
     $notebookID = $_GET['notebookID'];
     $assignedLabels = DB::getNotebookLabelsAssigned($notebookID)->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($assignedLabels);
@@ -446,7 +446,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-labels-a
 * post - labelID
 * post - notebookID
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-labels-assigned') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertNotebookLabelAssigned']) {
     $labelID = $_POST['labelID'];
     $notebookID = $_POST['notebookID'];
     $result = DB::insertNotebookLabelsAssigned($labelID, $notebookID);
@@ -468,7 +468,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-notebook-lab
 * post - labelID
 * post - notebookID
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-label-assigned') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteNotebookLabelAssigned']) {
     $labelID = $_POST['labelID'];
     $notebookID = $_POST['notebookID'];
     $result = DB::deleteNotebookLabelsAssigned($labelID, $notebookID);
@@ -491,7 +491,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-lab
 * post - name
 * post - color
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook-label') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateNotebookLabel']) {
     $labelID = $_POST['labelID'];
     $name = $_POST['name'];
     $color = $_POST['color'];
@@ -515,7 +515,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-notebook-lab
 * 
 * post - labelID
 */
-else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-label') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteNotebookLabel']) {
     $labelID = $_POST['labelID'];
     $result = DB::deleteNotebookLabel($labelID);
     
@@ -534,7 +534,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-notebook-lab
 * 
 * get - noteID
 */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-comments-note') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getCommentsNotes']) {
     $noteID = $_GET['noteID'];
     $comments = DB::getNoteComments($noteID)->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($comments);
@@ -551,7 +551,7 @@ else if (isset($_GET['function']) && $_GET['function'] == 'get-comments-note') {
  * post - note_id
  * post - content
  */
-else if (isset($_POST['function']) && $_POST['function'] == 'insert-comment-note') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertCommentNote']) {
     $commentID = $_POST['id'];
     $noteID = $_POST['note_id'];
     $content = $_POST['content'];
@@ -575,7 +575,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'insert-comment-note
  * post - id
  * post - content
  */
-else if (isset($_POST['function']) && $_POST['function'] == 'update-comment-note') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateCommentNote']) {
     $commentID = $_POST['id'];
     $content = $_POST['content'];
     $result = DB::updateCommentNote($commentID, $content);
@@ -596,7 +596,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'update-comment-note
  * 
  * post - id
  */
-else if (isset($_POST['function']) && $_POST['function'] == 'delete-comment-note') {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteCommentNote']) {
     $commentID = $_POST['id'];
     $result = DB::deleteCommentNote($commentID, $content);
 
@@ -614,7 +614,7 @@ else if (isset($_POST['function']) && $_POST['function'] == 'delete-comment-note
  * 
  * Returns all of the notebooks data, notes, checklists, and checklist items
  */
-else if (isset($_GET['function']) && $_GET['function'] == 'get-notebook-all') {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getNotebookAll']) {
     $result = [];
     $notebookID = $_GET['notebookID'];
 

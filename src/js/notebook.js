@@ -801,7 +801,6 @@ function updateNotebookMetadata() {
 
   $.post(CONSTANTS.API, data, function(response) {
     refreshPage();
-    // console.log(JSON.parse(response));
   }).fail(function(response) {
     console.error('API error: updateNotebookMetadata()');
     return;
