@@ -9,6 +9,51 @@ $color-white: hsl(0, 0%, 97%);
 $color-white-darker: hsl(0, 0%, 92%);
 $color-white-darkest: hsl(0, 0%, 87%);
 
+
+.login-title {
+    display: flex;
+    align-items: center;
+
+    margin-top: 200px;
+    margin-bottom: 50px;
+
+    h1 {
+        margin: 0;
+        margin-left: 10px;
+    }
+
+    img {
+        width: 48px;
+        height: auto;
+    }
+}
+
+
+.color-purple {
+    color: $color-purple;
+}
+
+.color-bg-purple {
+    background-color: $color-purple;
+    color: white;
+}
+
+
+.custom-font {
+    font-family: 'Jost', sans-serif;
+}
+
+.custom-font-bold {
+    font-family: 'Jost', sans-serif;
+    font-weight: bold;
+}
+
+h1.custom-font {
+    font-family: 'Jost', sans-serif;
+    font-size: 3.0em;
+
+}
+
 .card .card-header,
 .modal .modal-header {
     background-color: $color-purple-lightest;

@@ -1,3 +1,41 @@
+.login-title {
+  display: flex;
+  align-items: center;
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+.login-title h1 {
+  margin: 0;
+  margin-left: 10px;
+}
+.login-title img {
+  width: 48px;
+  height: auto;
+}
+
+.color-purple {
+  color: #8086ff;
+}
+
+.color-bg-purple {
+  background-color: #8086ff;
+  color: white;
+}
+
+.custom-font {
+  font-family: "Jost", sans-serif;
+}
+
+.custom-font-bold {
+  font-family: "Jost", sans-serif;
+  font-weight: bold;
+}
+
+h1.custom-font {
+  font-family: "Jost", sans-serif;
+  font-size: 3em;
+}
+
 .card .card-header,
 .modal .modal-header {
   background-color: #cccfff;

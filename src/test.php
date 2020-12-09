@@ -24,9 +24,7 @@ require_once('DB.php');
 
     <div class="container">
 
-
-    <button type="button" class="btn btn-outline-primary mt-5">Outline the button</button>
-    <button type="button" class="btn btn-primary mt-5">Outline the button</button>
+    <h1 class="custom-font">Headong 1</h1>
 
 
 

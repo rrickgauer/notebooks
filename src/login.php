@@ -22,7 +22,15 @@ require_once('DB.php');
 
 <body>
   <div class="container">
-    <h1 class="text-center mt-center">Log in</h1>
+
+    <div class="d-flex justify-content-center">
+        <div class="login-title">
+            <img src="images/bx-book-content-purple.svg">
+            <h1 class="custom-font">Notebooks</h1>
+        </div>
+    </div>
+
+    
 
     <div class="d-flex justify-content-center">
       <form method="post" class="form-sm">
