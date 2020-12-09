@@ -10,10 +10,9 @@ $(document).ready(function() {
 
 
 function loginAttempt() {
-
     $('.btn-login').on('click', function() {
-
         $('.btn-login .spinner-border').removeClass('d-none');
+        $('.btn-login .spinner-border').prop('disabled', true);
 
         const email = $(inputEmail).val();
         const password = $(inputPassword).val();
@@ -22,11 +21,15 @@ function loginAttempt() {
             const text = 'Please enter your email.';
             $(inputEmail).closest('.form-group').find('.invalid-feedback').text(text);
             $(inputEmail).addClass('is-invalid');
+            $('.btn-login .spinner-border').addClass('d-none');
+            $('.btn-login .spinner-border').prop('disabled', false);
             return;
         } else if (password == '') {
             const text = 'Please enter your password.';
             $(inputPassword).closest('.form-group').find('.invalid-feedback').text(text);
             $(inputPassword).addClass('is-invalid');
+            $('.btn-login .spinner-border').addClass('d-none');
+            $('.btn-login .spinner-border').prop('disabled', false);
             return;
         }
 
@@ -44,10 +47,11 @@ function loginAttempt() {
             const text = 'Invalid email and password combination.';
             $(inputPassword).closest('.form-group').find('.invalid-feedback').text(text);
             $(inputEmail).closest('.form-group').find('.invalid-feedback').text('');
-
+            $(inputPassword).val('');
             $(inputEmail).addClass('is-invalid');
             $(inputPassword).addClass('is-invalid');
             $('.btn-login .spinner-border').addClass('d-none');
+            $('.btn-login .spinner-border').prop('disabled', false);
         });
 
     });
