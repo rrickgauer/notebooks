@@ -1,3 +1,73 @@
+$color-purple: hsl(237, 100%, 75%);
+$color-purple-dark: hsl(237, 100%, 70%);
+$color-purple-darker: hsl(237, 100%, 65%);
+$color-purple-darkest: hsl(237, 100%, 60%);
+$color-purple-light: hsl(237, 100%, 80%);
+$color-purple-lighter: hsl(237, 100%, 85%);
+$color-purple-lightest: hsl(237, 100%, 90%);
+$color-white: hsl(0, 0%, 97%);
+$color-white-darker: hsl(0, 0%, 92%);
+$color-white-darkest: hsl(0, 0%, 87%);
+
+.card .card-header,
+.modal .modal-header {
+    background-color: $color-purple-lightest;
+}
+
+#navbar {
+    background-color: $color-purple;
+    margin-bottom: 50px;
+    .nav-link {
+        color: white;
+    }
+}
+
+@media screen and (max-width: 668px) {
+    #navbar {
+        margin-top: 25px;
+    }
+}
+
+.btn-light {
+    background-color: $color-white-darker;
+}
+
+.btn-primary {
+    background-color: $color-purple;
+    border-color: $color-purple;
+    &:active,
+    &:hover,
+    &:focus,
+    &:visited,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        background-color: $color-purple-dark;
+        border-color: $color-purple-dark;
+        box-shadow: 0 0 0 0 !important;
+    }
+}
+
+.btn-outline-primary {
+    color: $color-purple;
+    border-color: $color-purple;
+    &:active,
+    &:hover,
+    &:focus,
+    &:visited,
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        color: white;
+        background-color: $color-purple;
+        border-color: $color-purple-darker;
+        box-shadow: 0 0 0 0 !important;
+    }
+}
+
+body,
+.notebook-action-list li {
+    background-color: $color-white;
+}
+
 .card {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
 }
@@ -12,15 +82,14 @@
     &.collapsed .card-body {
         display: none;
     }
-
-    .card-body {padding-bottom: 0;}
-
+    .card-body {
+        padding-bottom: 0;
+    }
     .card-footer {
         overflow: visible;
         background-color: initial;
         padding: 0;
     }
-
     .comments-toggle-container {
         position: relative;
         height: 41px;
@@ -29,15 +98,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
     }
-    .comments-toggle-container button{
+    .comments-toggle-container button {
         display: none;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
         font-size: 18px;
     }
-
-    .comments-toggle-container:hover button{
+    .comments-toggle-container:hover button {
         display: block;
     }
 }
@@ -352,11 +419,9 @@
     .notebook-label {
         padding: 16px;
         min-height: 64px;
-
         .display-normal {
             display: flex;
             justify-content: space-between;
-
             .badge-notebook-label {
                 font-size: 14px;
             }
@@ -413,14 +478,11 @@
     .display-edit .form-notebook-labels-edit {
         flex-direction: column;
         align-items: flex-start;
-
         .buttons {
             margin-top: 10px;
         }
     }
 }
-
-
 
 .dropdown-labels-filter {
     .dropdown-menu-filter-list {
@@ -435,68 +497,56 @@
 .comment-list {
     .comment-list-item {
         padding: 20px 15px;
-        border-bottom: 1px solid rgba(0,0,0,.125);
+        border-bottom: 1px solid rgba(0, 0, 0, .125);
     }
-
-
     .comment-list-item .section-view {
         display: flex;
         align-items: flex-start;
         .icon {
             margin-top: 5px;
-            
             i {
                 padding: 10px;
                 border-radius: 50%;
                 background-color: #e6e6e6;
             }
         }
-
         .body {
             margin-left: 15px;
             width: 100%;
         }
-        
         .footer {
             display: flex;
             justify-content: space-between;
             margin-top: 10px;
-            
             .footer-buttons button {
                 margin-right: 5px;
                 font-size: 12.8px;
             }
         }
     }
-
     .comment-list-item .section-edit {
         .edit-comment .action-buttons {
             margin-top: 10px;
             display: flex;
             justify-content: flex-end;
-
-            button {margin-left: 5px;}
+            button {
+                margin-left: 5px;
+            }
         }
     }
 }
 
 .new-comment {
-   padding: 0px 15px;
-   margin-top: 40px;
-   margin-bottom: 20px;
-
-   .form-group {
-       margin-bottom: 0;
-   }
-
-   .new-comment-btn {
-       margin-left: 10px;
-   }
+    padding: 0px 15px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    .form-group {
+        margin-bottom: 0;
+    }
+    .new-comment-btn {
+        margin-left: 10px;
+    }
 }
-
-
-
-
 
 .btn-link {
     box-sizing: border-box;

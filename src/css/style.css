@@ -1,3 +1,51 @@
+.card .card-header,
+.modal .modal-header {
+  background-color: #cccfff;
+}
+
+#navbar {
+  background-color: #8086ff;
+  margin-bottom: 50px;
+}
+#navbar .nav-link {
+  color: white;
+}
+
+@media screen and (max-width: 668px) {
+  #navbar {
+    margin-top: 25px;
+  }
+}
+.btn-light {
+  background-color: #ebebeb;
+}
+
+.btn-primary {
+  background-color: #8086ff;
+  border-color: #8086ff;
+}
+.btn-primary:active, .btn-primary:hover, .btn-primary:focus, .btn-primary:visited, .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active {
+  background-color: #666eff;
+  border-color: #666eff;
+  box-shadow: 0 0 0 0 !important;
+}
+
+.btn-outline-primary {
+  color: #8086ff;
+  border-color: #8086ff;
+}
+.btn-outline-primary:active, .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:visited, .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active {
+  color: white;
+  background-color: #8086ff;
+  border-color: #4d55ff;
+  box-shadow: 0 0 0 0 !important;
+}
+
+body,
+.notebook-action-list li {
+  background-color: #f7f7f7;
+}
+
 .card {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
 }
