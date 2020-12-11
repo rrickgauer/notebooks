@@ -36,6 +36,7 @@ Constants.prototype.API_FUNCTIONS = {
   getNotebookAll: 'get-notebook-all',
   loginAttempt: 'login-attempt',
   updateChecklistItemsAllComplete: 'update-checklist-items-all-complete',
+  deleteChecklistItemsComplete: 'delete-checklist-items-complete',
 }
 
 Constants.prototype.PAGES = {

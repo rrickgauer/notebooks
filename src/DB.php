@@ -924,6 +924,22 @@ class DB {
         return $sql;
     }
 
+    public static function deleteChecklistItemsComplete($checklistID) {
+
+        $stmt = 'DELETE FROM Checklist_Items
+        WHERE checklist_id = :checklistID
+        AND completed = "y"';
+
+        $sql = DB::dbConnect()->prepare($stmt);
+
+        // checklist ID
+        $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
+        $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+        $sql->execute();
+        return $sql;
+    }
+
 
     
     

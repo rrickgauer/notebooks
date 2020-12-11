@@ -676,6 +676,20 @@ else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFuncti
 }
 
 
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteChecklistItemsComplete']) {
+    $checklistID = $_POST['checklistID'];
+    $result = DB::deleteChecklistItemsComplete($checklistID);
+
+    if ($result->rowCount() >= 0) {
+        http_response_code(202);
+    } else {
+        http_response_code(404);
+    }
+
+    exit;
+}
+
+
 
 
 

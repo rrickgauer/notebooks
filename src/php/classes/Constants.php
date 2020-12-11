@@ -34,6 +34,7 @@ class Constants {
         'updateNotebook'                  => 'update-notebook',
         'updateNotebookLabel'             => 'update-notebook-label',
         'updateChecklistItemsAllComplete' => 'update-checklist-items-all-complete',
+        'deleteChecklistItemsComplete'    => 'delete-checklist-items-complete',
     ];
 }
 
