@@ -35,7 +35,7 @@ ChecklistItem.prototype.getHtml = function() {
     <div class="left">
       <div class="form-check">
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" ${completedDisplay}>
+          <input class="form-check-input form-check-input-completed" type="checkbox" ${completedDisplay}>
           <span class="content">${this.content}</span>
         </label>
       </div>

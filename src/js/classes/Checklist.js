@@ -131,13 +131,20 @@ Checklist.prototype.getHtmlItems = function() {
 
 
 Checklist.prototype.getHtmlItemInput = function() {
-  let html = `
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <button class="btn btn-outline-secondary btn-checklist-item-add" type="button">+</button>
+    let showCompletedItemsID = `show-completed-items-${this.id}`;
+  
+    let html = `
+    <div class="custom-control custom-switch mb-3">
+        <input class="custom-control-input toggle-completed-items" type="checkbox" id="${showCompletedItemsID}" checked>
+        <label class="custom-control-label" for="${showCompletedItemsID}">Show completed items</label>
     </div>
-    <input type="text" class="form-control checklist-item-input">
-  </div>`;
+    
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary btn-checklist-item-add" type="button">+</button>
+        </div>
+        <input type="text" class="form-control checklist-item-input">
+    </div>`;
 
   return html;
 
