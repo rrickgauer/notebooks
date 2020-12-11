@@ -43,15 +43,18 @@ function filterNotebooksByLabel(labelFilterBtn) {
     
     $(buttonElement).toggleClass('active');
     
-    const activeFilterLabels = $('.dropdown-item-filter-label.active');
+    const activeFilterLabels = $('.dropdown-item-filter-label.active');     // active filter buttons
     
-    
+    // show all notebooks if there are 0 active notebook labels
+    if (activeFilterLabels.length == 0) {
+        $('.notebook').show();
+        return;
+    }    
     
     // initially hide all the filters
     $('.notebook').hide();
     
     // for each filter button active, show the notebooks that have that tag
-    
     for (let count = 0; count < activeFilterLabels.length; count++) {
         const labelID = $(activeFilterLabels[count]).attr('data-notebook-label-id');
         const selector = `.notebook .badge-notebook-label[data-label-id="${labelID}"]`;
