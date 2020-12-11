@@ -86,7 +86,7 @@ function addListeners() {
     }
   });
 
-  $('.pages').on('change', '.form-check-input', function() {
+  $('.pages').on('change', '.form-check-input-completed', function() {
     updateChecklistItemComplete(this);
   });
 
@@ -229,6 +229,20 @@ function addListeners() {
   updateChecklistItemsAllComplete();
   updateChecklistItemsAllIncomplete();
   deleteChecklistItemsComplete();
+  toggleCompletedChecklistItems();
+}
+
+
+function toggleCompletedChecklistItems() {
+    $('.pages').on('change', '.toggle-completed-items', function() {
+        const checklistElement = $(this).closest('.card-page');
+
+        if (!$(this).is(':checked')) {
+            $(checklistElement).find('.checklist-item.completed').hide();
+        } else {
+            $(checklistElement).find('.checklist-item.completed').show();
+        }
+    });
 }
 
 
@@ -617,6 +631,16 @@ function updateChecklistItemComplete(checkbox) {
   });
 
   $(checklistItem).toggleClass('completed');
+
+
+  // if the hide completed items toggle switch is checked,
+  // hide the item
+  const checklistElement = $(checkbox).closest('.card-page');
+  const toggleSwitch = $(checklistElement).find('.toggle-completed-items');
+
+  if (!$(toggleSwitch).is(':checked')) {
+      $(checklistItem).hide();
+  }
 }
 
 
