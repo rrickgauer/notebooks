@@ -542,4 +542,21 @@ body,
   border: 0;
 }
 
+.pages-search {
+  border: 1px solid lightgrey;
+}
+.pages-search .input-group-text {
+  background-color: white;
+  border: none;
+  padding-right: 0px !important;
+}
+.pages-search .pages-search-input {
+  appearance: none;
+  outline: none;
+  border: none;
+}
+.pages-search .pages-search-input:focus {
+  box-shadow: none;
+}
+
 /*# sourceMappingURL=style.css.map */

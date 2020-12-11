@@ -230,20 +230,19 @@ function addListeners() {
     updateChecklistItemsAllIncomplete();
     deleteChecklistItemsComplete();
     toggleCompletedChecklistItems();
+    searchForPages();
 }
 
 
-function toggleCompletedChecklistItems() {
-    $('.pages').on('change', '.toggle-completed-items', function() {
-        const checklistElement = $(this).closest('.card-page');
-        
-        if (!$(this).is(':checked')) {
-            $(checklistElement).find('.checklist-item.completed').hide();
-        } else {
-            $(checklistElement).find('.checklist-item.completed').show();
-        }
+function searchForPages() {
+
+    $('.pages-search-input').on('keyup', function() {
+        const query = $(this).val();
+        $('.card-page').hide();
+        $(`.card-page .card-page-name:contains(${query})`).closest('.card-page').show();
     });
 }
+
 
 
 /**
@@ -1426,6 +1425,18 @@ function deleteChecklistItemsComplete() {
         });
         
         $(checklistElement).find('.checklist-item.completed').remove();
+    });
+}
+
+function toggleCompletedChecklistItems() {
+    $('.pages').on('change', '.toggle-completed-items', function() {
+        const checklistElement = $(this).closest('.card-page');
+        
+        if (!$(this).is(':checked')) {
+            $(checklistElement).find('.checklist-item.completed').hide();
+        } else {
+            $(checklistElement).find('.checklist-item.completed').show();
+        }
     });
 }
 
