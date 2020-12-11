@@ -173,12 +173,6 @@ function addListeners() {
     toggleHiddenPages();
   });
 
-//   $('.pages').on('keydown', '.edit-input', function(e) {
-//     if (e.keyCode == 13) {
-//       // autosize.update(this);
-//     }
-//   });
-
   // enable/disable create new label button
   $('#form-notebooks-labels-new-name').on('keyup', function() {
     if ($(this).val() != '') {
@@ -232,7 +226,11 @@ function addListeners() {
   saveUpdateCommentNote();
   cancelUpdateCommentNote();
   deleteCommentNote();
+  updateChecklistItemsAllComplete();
+  updateChecklistItemsAllIncomplete();
+  deleteChecklistItemsComplete();
 }
+
 
 /**
  * Sets the notebook action states
@@ -1343,3 +1341,68 @@ function updatePagesDateCreated() {
         }
     });
 }
+
+function updateChecklistItemsAllComplete() {
+    $('.pages').on('click', '.btn-page-complete-all', function() {
+        const checklistElement = $(this).closest('.card-page');
+        const checklsitID = $(checklistElement).attr('data-page-id');
+
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.updateChecklistItemsAllComplete,
+            completed: 'y',
+            checklistID: checklsitID,
+        }
+
+
+        $.post(CONSTANTS.API, data).fail(function(response) {
+            console.error('API error: updateChecklistItemsAllComplete()');
+            return;
+        });
+
+
+        $(checklistElement).find('.checklist-item').addClass('completed')   // add completed class
+        .find('.form-check-input').prop('checked', true);                   // check all the checkboxes
+    });
+}
+
+function updateChecklistItemsAllIncomplete() {
+    $('.pages').on('click', '.btn-page-incomplete-all', function() {
+        const checklistElement = $(this).closest('.card-page');
+        const checklsitID = $(checklistElement).attr('data-page-id');
+
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.updateChecklistItemsAllComplete,
+            completed: 'n',
+            checklistID: checklsitID,
+        }
+
+        $.post(CONSTANTS.API, data).fail(function(response) {
+            console.error('API error: updateChecklistItemsAllIncomplete()');
+            return;
+        });
+
+        $(checklistElement).find('.checklist-item').removeClass('completed')   // add completed class
+        .find('.form-check-input').prop('checked', false);                   // check all the checkboxes
+    });
+}
+
+
+function deleteChecklistItemsComplete() {
+    $('.pages').on('click', '.btn-page-delete-completed', function() {
+        const checklistElement = $(this).closest('.card-page');
+        const checklsitID = $(checklistElement).attr('data-page-id');
+
+        const data = {
+            function: CONSTANTS.API_FUNCTIONS.deleteChecklistItemsComplete,
+            checklistID: checklsitID,
+        }
+
+        $.post(CONSTANTS.API, data).fail(function(response) {
+            console.error('API error: deleteChecklistItemsComplete()');
+            return;
+        });
+
+        $(checklistElement).find('.checklist-item.completed').remove();
+    });
+}
+

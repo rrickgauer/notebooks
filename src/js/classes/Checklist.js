@@ -76,6 +76,11 @@ Checklist.prototype.getHtmlHeader = function() {
             <button class="dropdown-item btn-page-collapse" type="button">Collapse</button>
             <button class="dropdown-item btn-page-expand" type="button">Expand</button>
             <div class="dropdown-divider"></div>
+            <button class="dropdown-item btn-page-complete-all" type="button">Mark all complete</button>
+            <button class="dropdown-item btn-page-incomplete-all" type="button">Mark all incomplete</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item btn-page-delete-completed" type="button">Remove completed items</button>
+            <div class="dropdown-divider"></div>
             <button class="dropdown-item btn-page-delete" type="button">Delete</button>
           </div>
         </div>

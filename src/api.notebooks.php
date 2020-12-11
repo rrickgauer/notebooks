@@ -449,7 +449,7 @@ else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunction
 * post - labelID
 * post - notebookID
 */
-else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertNotebookLabelAssigned']) {
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['insertNotebookLabelsAssigned']) {
     $labelID = $_POST['labelID'];
     $notebookID = $_POST['notebookID'];
     $result = DB::insertNotebookLabelsAssigned($labelID, $notebookID);
@@ -656,6 +656,37 @@ else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunction
     $result['checklists'] = $checklists;
 
     echo json_encode($result);
+}
+
+
+
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['updateChecklistItemsAllComplete']) {
+    $checklistID = $_POST['checklistID'];
+    $completed = $_POST['completed'];
+
+    $result = DB::updateChecklistItemsAllCompleted($checklistID, $completed);
+
+    if ($result->rowCount() >= 0) {
+        http_response_code(202);
+    } else {
+        http_response_code(404);
+    }
+
+    exit;
+}
+
+
+else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFunctions['deleteChecklistItemsComplete']) {
+    $checklistID = $_POST['checklistID'];
+    $result = DB::deleteChecklistItemsComplete($checklistID);
+
+    if ($result->rowCount() >= 0) {
+        http_response_code(202);
+    } else {
+        http_response_code(404);
+    }
+
+    exit;
 }
 
 
