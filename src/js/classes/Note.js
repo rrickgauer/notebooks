@@ -38,7 +38,9 @@ Note.prototype.getHtml = function() {
         hidden = 'd-none';
     }    
 
-    html += `<div class="card card-page card-note display-mode-normal ${hidden}" data-page-id="${this.id}" data-page-hidden="${this.hidden}">`;
+    
+
+    html += `<div class="card card-page card-note display-mode-normal ${hidden}" data-page-id="${this.id}" data-page-hidden="${this.hidden}" >`;
     html += this.getHtmlHeader();
     html += this.getHtmlBody();
     
@@ -61,7 +63,6 @@ Note.prototype.getHtml = function() {
 }
 
 Note.prototype.getHtmlHeader = function() {
-
     const dateDiffDisplay = this.getDateDiffHtml();
 
     let html = `

@@ -190,9 +190,6 @@ body,
 
 // checklists
 .card-checklist {
-    .card-header {
-        // background-color: lightcyan;
-    }
     .checklist-item {
         display: flex;
         justify-content: space-between;
@@ -608,4 +605,31 @@ body,
     user-select: none;
     background-color: initial;
     border: 0;
+}
+
+
+
+.pages-search {
+
+    border: 1px solid lightgrey;
+
+    .input-group-text {
+        background-color: white;
+        border: none;
+        padding-right: 0px !important;
+    }
+
+    .pages-search-input {
+        // border: none;
+        appearance: none;
+        outline: none;
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+        }
+        
+    }
+
+
 }

@@ -141,7 +141,25 @@
                     </div>
                     <!-- pages -->
                     <div class="col-sm-12 col-md-9 order-md-1">
-                        <h4>Your pages <span class="notebook-meta-count-pages badge badge-secondary"><?php echo $notebook['count_pages']; ?></span></h4>
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <div>
+                                <h4>Your pages <span class="notebook-meta-count-pages badge badge-secondary"><?php echo $notebook['count_pages']; ?></span></h4>
+                            </div>
+
+                            <div>
+                                <div class="input-group input-group-lg pages-search">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class='bx bx-search'></i></span>
+                                    </div>
+                                    <input type="text" class="form-control  pages-search-input" placeholder="Find notebook...">
+                                </div>
+                            </div>
+
+                        
+                        </div>
+
+
+                        
                         <div class="pages">
                             <?php echo HTML::getPageCards($notebook['count_pages_hidden_false']); ?>
                         </div>
