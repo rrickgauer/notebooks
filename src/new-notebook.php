@@ -35,7 +35,7 @@ include_once('php/classes/HTML-Generator.php');
         <!-- name -->
         <div class="form-group">
           <label for="notebook-new-name">Name</label>
-          <input type="text" class="form-control" id="notebook-new-name">
+          <input type="text" class="form-control" id="notebook-new-name" autofocus>
           <div class="invalid-feedback"></div>
         </div>
 
