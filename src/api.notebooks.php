@@ -4,6 +4,16 @@ session_start();
 require('DB.php');
 require_once('php/classes/Constants.php');
 
+// include_once('../testing-data/myid.php');
+
+
+
+if (!isset($_SESSION['userID'])) {
+    $_SESSION['userID'] = 1;
+}
+
+
+
 
 ///////////////////////////////
 // create a new user account //
@@ -657,6 +667,58 @@ else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunction
 
     echo json_encode($result);
 }
+
+
+
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getNotebookAll2']) {
+
+    $notebookID = $_GET['notebookID'];
+
+    $pages = DB::getPages($notebookID)->fetchAll(PDO::FETCH_ASSOC);
+
+    $checklists = [];
+    $notes = [];
+
+    // split pages up into type
+    for ($count = 0; $count < count($pages); $count++) {
+        if ($pages[$count]['page_type'] == 'checklist') {
+            array_push($checklists, $pages[$count]);
+        } else {
+            array_push($notes, $pages[$count]);
+        }
+    }
+
+
+
+    $checklistItems = DB::getAllChecklistItemsInNotebook($notebookID)->fetchAll(PDO::FETCH_ASSOC);
+
+    // process the checklist items
+    for ($count = 0; $count < count($checklists); $count++) {
+        $checklistID = $checklists[$count]['id'];
+        $checklists[$count]['items'] = [];
+
+        $itemsArray = [];
+
+        for ($i = 0; $i < count($checklistItems); $i++) {
+            if ($checklistItems[$i]['checklist_id'] == $checklistID) {
+                array_push($itemsArray, $checklistItems[$i]);
+            }
+        }
+
+        array_push($checklists[$count]['items'], $itemsArray);
+    }
+
+
+    $result = [];
+    $result['pages'] = $pages;
+    
+
+    echo json_encode($result);
+    exit;
+
+}
+
+
 
 
 

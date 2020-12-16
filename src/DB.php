@@ -5,6 +5,7 @@
 class DB {
     public static function dbConnect() {
         include('php/db-info.php');
+        set_time_limit(300);
         
         try {
             // connect to database
@@ -935,6 +936,27 @@ class DB {
         // checklist ID
         $checklistID = filter_var($checklistID, FILTER_SANITIZE_NUMBER_INT);
         $sql->bindParam(':checklistID', $checklistID, PDO::PARAM_INT);
+
+        $sql->execute();
+        return $sql;
+    }
+
+
+
+
+    public static function getAllChecklistItemsInNotebook($notebookID) {
+        $stmt = 'SELECT * from Checklist_Items ci
+                 where ci.checklist_id in (
+                 select id from Checklists c 
+                 where c.notebook_id = :notebookID)
+                 ORDER BY checklist_id';
+        
+
+        $sql = DB::dbConnect()->prepare($stmt);
+
+        // checklist ID
+        $notebookID = filter_var($notebookID, FILTER_SANITIZE_NUMBER_INT);
+        $sql->bindParam(':notebookID', $notebookID, PDO::PARAM_INT);
 
         $sql->execute();
         return $sql;

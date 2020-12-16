@@ -34,6 +34,7 @@ Constants.prototype.API_FUNCTIONS = {
   updateCommentNote: 'update-comment-note',
   deleteCommentNote: 'delete-comment-note',
   getNotebookAll: 'get-notebook-all',
+  getNotebookAll2: 'get-notebook-all-2',
   loginAttempt: 'login-attempt',
   updateChecklistItemsAllComplete: 'update-checklist-items-all-complete',
   deleteChecklistItemsComplete: 'delete-checklist-items-complete',

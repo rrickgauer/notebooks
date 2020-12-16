@@ -12,6 +12,7 @@ class Constants {
         'getChecklistItems'               => 'get-checklist-items',
         'getCommentsNote'                 => 'get-comments-note',
         'getNotebookAll'                  => 'get-notebook-all',
+        'getNotebookAll2'                 => 'get-notebook-all-2',
         'getNotebookLabel'                => 'get-notebook-label',
         'getNotebookLabels'               => 'get-notebook-labels',
         'getNotebookLabelsAssigned'       => 'get-notebook-labels-assigned',
