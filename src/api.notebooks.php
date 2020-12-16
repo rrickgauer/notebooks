@@ -537,7 +537,7 @@ else if (isset($_POST['function']) && $_POST['function'] == Constants::ApiFuncti
 * 
 * get - noteID
 */
-else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getCommentsNotes']) {
+else if (isset($_GET['function']) && $_GET['function'] == Constants::ApiFunctions['getCommentsNote']) {
     $noteID = $_GET['noteID'];
     $comments = DB::getNoteComments($noteID)->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($comments);
