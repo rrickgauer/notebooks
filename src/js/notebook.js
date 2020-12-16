@@ -1136,7 +1136,7 @@ function scrollToTop() {
 function getCommentsNote() {
     $('.pages').on('click', '.btn-comment-list-toggle', function() {
         const noteElement = $(this).closest('.card-note');
-        
+
         // comments are loaded and in display
         // so we want to just hide the comments and exit
         if (!$(noteElement).find('.card-footer').hasClass('d-none')) {
@@ -1153,20 +1153,22 @@ function getCommentsNote() {
             function: CONSTANTS.API_FUNCTIONS.getCommentsNote,
             noteID: noteID
         }
-        
+
         $.getJSON(CONSTANTS.API, data, function(response) {
             let html = '';
             for (let count = 0; count < response.length; count++) {
                 let comment = new PageComment(response[count]);
-                html += comment.getHtml();
-                
-                // console.table(comment);
+                html += comment.getHtml();                
             }
             
             $(noteElement).find('.comment-list').html(html);
             $(noteElement).find('.card-footer').removeClass('d-none');
+            
+        }).fail(function(response) {
+            console.error('API error: getCommentsNote()');
+            return;
         });
-        
+
         $(noteElement).addClass('comments-loaded');
     });
 }
@@ -1176,7 +1178,7 @@ function displaySkeletonComments(btn) {
     const pagesListIndex = getPageIndex(btn);
     
     let html = '';
-    for (let count = 0; count < pagesList[pagesListIndex].countComments; count++) {
+    for (let count = 0; count < pagesList[pagesListIndex].count_comments; count++) {
         let blankComment = new PageComment(null);
         html += blankComment.getHtmlSkeleton();
     }
